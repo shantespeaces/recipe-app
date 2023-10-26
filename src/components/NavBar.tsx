@@ -2,11 +2,11 @@ import SearchBar from "./SearchBar";
 
 function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+      <div className="container-fluid ">
         <SearchBar />
         <a className="navbar-brand" href="#">
-          Navbar
+          <img src="src\assets\images\logo.png" alt="the menu logo" />
         </a>
         <button
           className="navbar-toggler"
@@ -28,12 +28,12 @@ function NavBar() {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Link
+                Create
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">
-                Disabled
+              <a className="nav-link" href="#">
+                Profile
               </a>
             </li>
           </ul>

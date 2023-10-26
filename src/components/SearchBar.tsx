@@ -1,6 +1,6 @@
 function SearchBar() {
   return (
-    <div className="container-sm-fluid">
+    <div className="container-md-fluid">
       <form className="d-flex me-2" role="search">
         <input
           className="form-control me-2"
