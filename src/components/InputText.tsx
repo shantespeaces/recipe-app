@@ -3,7 +3,7 @@ interface InputTextProps {
   placeholder: string;
 }
 
-const InputText: React.FC<InputTextProps> = ({ name, placeholder }) => {
+function InputText({ name, placeholder }: InputTextProps) {
   return (
     <>
       <label htmlFor="formGroupExampleInput" className="form-label">
@@ -17,6 +17,6 @@ const InputText: React.FC<InputTextProps> = ({ name, placeholder }) => {
       />
     </>
   );
-};
+}
 
 export default InputText;

@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 
-const ImageUpload: React.FC = () => {
+function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +30,6 @@ const ImageUpload: React.FC = () => {
       </div>{" "}
     </>
   );
-};
+}
 
 export default ImageUpload;

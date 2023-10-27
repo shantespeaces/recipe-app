@@ -1,12 +1,12 @@
 interface InputTextareaProps {
-  name: string;
+  heading: string;
 }
 
-const InputTextarea: React.FC<InputTextareaProps> = ({ name }) => {
+function InputTextarea({ heading }: InputTextareaProps) {
   return (
     <>
       <label htmlFor="formGroupExampleInput" className="form-label">
-        <h3>{name}</h3>
+        <h3>{heading}</h3>
       </label>
       <textarea
         className="form-control"
@@ -15,6 +15,6 @@ const InputTextarea: React.FC<InputTextareaProps> = ({ name }) => {
       ></textarea>
     </>
   );
-};
+}
 
 export default InputTextarea;

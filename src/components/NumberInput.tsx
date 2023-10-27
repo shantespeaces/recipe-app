@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 interface NumberInputProps {
-  name: string;
+  heading: string;
 }
 
-const NumberInput: React.FC<NumberInputProps> = ({ name }) => {
+function NumberInput({ heading }: NumberInputProps) {
   const [count, setCount] = useState<number>(0);
 
   const handleIncrement = () => {
@@ -19,7 +19,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ name }) => {
   return (
     <div className="input-group">
       <label htmlFor="formGroupExampleInput" className="form-label">
-        <h3> {name}</h3>
+        <h3> {heading}</h3>
       </label>
       <span className="input-group-btn">
         <button
@@ -47,6 +47,6 @@ const NumberInput: React.FC<NumberInputProps> = ({ name }) => {
       </span>
     </div>
   );
-};
+}
 
 export default NumberInput;

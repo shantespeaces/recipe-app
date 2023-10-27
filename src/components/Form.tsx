@@ -13,13 +13,13 @@ function Form() {
         <div className="mb-3"></div>
         <InputText name="Recipe Title" placeholder=" ex: Annie's Apple Pie" />
 
-        <InputTextarea name="Description" />
-        <NumberInput name="Serves" />
-        <NumberInput name="Time" />
+        <InputTextarea heading="Description" />
+        <NumberInput heading="Serves" />
+        <NumberInput heading="Time" />
         <ImageUpload />
       </section>
       <section className="categories">
-        <Select name="Categories" />
+        <Select heading="Categories" />
         <CheckBoxContainer title="Sub-categorie" />
       </section>
       <section className="Ingredients">

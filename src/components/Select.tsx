@@ -1,11 +1,11 @@
 interface SelectProps {
-  name: string;
+  heading: string;
 }
-const Select: React.FC<SelectProps> = ({ name }) => {
+function Select({ heading }: SelectProps) {
   return (
     <>
       <label htmlFor="formGroupExampleInput" className="form-label">
-        <h3>{name}</h3>
+        <h3>{heading}</h3>
       </label>
       <select className="form-select" aria-label="Default select example">
         <option selected>these will come from the BDD</option>
@@ -15,5 +15,5 @@ const Select: React.FC<SelectProps> = ({ name }) => {
       </select>
     </>
   );
-};
+}
 export default Select;

@@ -3,7 +3,7 @@ import CheckBox from "./CheckBox";
 interface CheckBoxContainerProps {
   title: string;
 }
-const CheckBoxContainer: React.FC<CheckBoxContainerProps> = ({ title }) => {
+function CheckBoxContainer({ title }: CheckBoxContainerProps) {
   return (
     <>
       <h3>{title}</h3>
@@ -13,5 +13,5 @@ const CheckBoxContainer: React.FC<CheckBoxContainerProps> = ({ title }) => {
       <CheckBox name="these checkBox names will come for BDD" />
     </>
   );
-};
+}
 export default CheckBoxContainer;

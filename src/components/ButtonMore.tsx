@@ -2,7 +2,7 @@ interface ButtonMoreProps {
   name: string;
 }
 
-const ButtonMore: React.FC<ButtonMoreProps> = ({ name }) => {
+function ButtonMore({ name }: ButtonMoreProps) {
   return (
     <>
       <button
@@ -15,6 +15,6 @@ const ButtonMore: React.FC<ButtonMoreProps> = ({ name }) => {
       </button>
     </>
   );
-};
+}
 
 export default ButtonMore;

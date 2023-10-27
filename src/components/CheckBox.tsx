@@ -1,7 +1,7 @@
 interface CheckBoxProps {
   name: string;
 }
-const CheckBox: React.FC<CheckBoxProps> = ({ name }) => {
+function CheckBox({ name }: CheckBoxProps) {
   return (
     <>
       <div className="form-check">
@@ -17,5 +17,5 @@ const CheckBox: React.FC<CheckBoxProps> = ({ name }) => {
       </div>
     </>
   );
-};
+}
 export default CheckBox;
