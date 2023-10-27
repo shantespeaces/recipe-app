@@ -23,18 +23,31 @@ function NavBar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">
+            <a
+              className="nav-link active"
+              aria-current="page"
+              href="#"
+              onClick={() => console.log("clicked")}
+            >
               Home <span className="material-symbols-outlined">home</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
-              Create{" "}
+            <a
+              className="nav-link"
+              href="#"
+              onClick={() => console.log("clicked")}
+            >
+              Create
               <span className="material-symbols-outlined">add_circle</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a
+              className="nav-link"
+              href="#"
+              onClick={() => console.log("clicked")}
+            >
               Profile
               <span className="material-symbols-outlined">account_circle</span>
             </a>
