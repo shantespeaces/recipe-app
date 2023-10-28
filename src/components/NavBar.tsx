@@ -1,7 +1,12 @@
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-function NavBar() {
+
+interface NavBarProps {
+  onClick: () => void;
+}
+function NavBar({}: NavBarProps) {
   let items = ["Home", "Create", "Profile"];
+  let icons = ["home", "add_circle", "account_circle"];
 
   //hook
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -41,33 +46,13 @@ function NavBar() {
                 }
               >
                 <a className="nav-link " aria-current="page" href="#">
-                  {item} <span className="material-symbols-outlined">home</span>
+                  {item}{" "}
+                  <span className="material-symbols-outlined">
+                    {icons[index]}
+                  </span>
                 </a>
               </li>
             ))}
-
-            {/* <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#"
-                onClick={() => console.log("clicked")}
-              >
-                Create
-                <span className="material-symbols-outlined">add_circle</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#"
-                onClick={() => console.log("clicked")}
-              >
-                Profile
-                <span className="material-symbols-outlined">
-                  account_circle
-                </span>
-              </a>
-            </li> */}
           </ul>
         </div>
       </nav>{" "}
