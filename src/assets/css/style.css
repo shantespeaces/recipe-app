@@ -1,0 +1,6 @@
+.nav-item.active {
+    background-color: orangered;
+}
+.nav-item{
+    border: solid black 3px;
+}
