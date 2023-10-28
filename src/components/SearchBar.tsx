@@ -8,7 +8,7 @@ function SearchBar() {
           placeholder="Search"
           aria-label="Search"
         ></input>
-        <button className="btn btn-outline-success" type="submit">
+        <button className="btn btn-outline-success custom-search" type="submit">
           <span className="material-symbols-outlined">search</span>
         </button>
       </form>

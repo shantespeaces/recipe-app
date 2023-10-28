@@ -46,6 +46,10 @@ button.custom-more:hover {
   color: #fff;
 }
 
+button.custom-search {
+  border-color: #F36912;
+}
+
 section {
   border: 2px solid #F36912;
   border-radius: 25px;
