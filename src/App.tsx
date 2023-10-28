@@ -6,8 +6,10 @@ function App() {
   return (
     <div>
       <NavBar />
-      <CreateIntroMessage />
-      <Form />
+      <main>
+        <CreateIntroMessage />
+        <Form />
+      </main>
     </div>
   );
 }

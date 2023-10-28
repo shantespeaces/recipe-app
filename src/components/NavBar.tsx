@@ -2,7 +2,7 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 
 interface NavBarProps {
-  onClick: () => void;
+  // onClick: () => void;
 }
 function NavBar({}: NavBarProps) {
   let items = ["Home", "Create", "Profile"];

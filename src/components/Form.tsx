@@ -5,6 +5,7 @@ import ImageUpload from "./ImageUpload";
 import Select from "./Select";
 import CheckBoxContainer from "./CheckBoxContainer";
 import IngredientSection from "./IngredientSection";
+import Button from "./Button";
 
 function Form() {
   return (
@@ -25,6 +26,7 @@ function Form() {
       <section className="Ingredients">
         <IngredientSection />
       </section>
+      <Button name="Add Recipe" />
     </form>
   );
 }

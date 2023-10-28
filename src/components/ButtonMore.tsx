@@ -7,7 +7,7 @@ function ButtonMore({ name }: ButtonMoreProps) {
     <>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-primary custom-more"
         onClick={() => console.log("clicked")}
       >
         {name}
