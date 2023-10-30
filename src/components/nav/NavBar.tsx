@@ -1,6 +1,6 @@
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
   // onClick: () => void;
@@ -19,9 +19,9 @@ function NavBar({}: NavBarProps) {
       <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid d-flex justify-content-between align-items-center">
           <SearchBar />
-          <a className="navbar-brand mx-auto" href="/">
+          <Link className="navbar-brand mx-auto" to="/">
             <img src="src\assets\images\logo.png" alt="the menu logo" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -47,16 +47,16 @@ function NavBar({}: NavBarProps) {
                   selectedIndex === index ? "nav-item active" : "nav-item"
                 }
               >
-                <a
+                <Link
                   className="nav-link "
                   aria-current="page"
-                  href={route[index]}
+                  to={route[index]}
                 >
                   {item}{" "}
                   <span className="material-symbols-outlined">
                     {icons[index]}
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
