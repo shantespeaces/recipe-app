@@ -8,8 +8,8 @@ function Ingredients() {
   return (
     <>
       <InputText name="Ingredients" placeholder=" ex: flour" />
-      <NumberInput name="Qty" />
-      <Select name="Measurement" />
+      <NumberInput heading="Qty" />
+      <Select heading="Measurement" />
     </>
   );
 }

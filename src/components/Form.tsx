@@ -1,10 +1,10 @@
-import InputText from "./InputText";
-import InputTextarea from "./InputTextarea";
-import NumberInput from "./NumberInput";
-import ImageUpload from "./ImageUpload";
-import Select from "./Select";
-import CheckBoxContainer from "./CheckBoxContainer";
-import IngredientSection from "./IngredientSection";
+import InputText from "./forms/InputText";
+import InputTextarea from "./forms/InputTextarea";
+import NumberInput from "./forms/NumberInput";
+import ImageUpload from "./forms/ImageUpload";
+import Select from "./forms/Select";
+import CheckBoxContainer from "./forms/CheckBoxContainer";
+import IngredientSection from "./forms/IngredientSection";
 import Button from "./Button";
 
 function Form() {
