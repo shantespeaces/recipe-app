@@ -1,4 +1,4 @@
-import ButtonMore from "../ButtonMore";
+import ButtonMore from "../buttons/ButtonMore";
 import Ingredients from "./Ingredients";
 import InputText from "./InputText";
 

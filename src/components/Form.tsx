@@ -5,7 +5,7 @@ import ImageUpload from "./forms/ImageUpload";
 import Select from "./forms/Select";
 import CheckBoxContainer from "./forms/CheckBoxContainer";
 import IngredientSection from "./forms/IngredientSection";
-import Button from "./Button";
+import Button from "./buttons/Button";
 
 function Form() {
   return (
