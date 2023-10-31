@@ -6,8 +6,8 @@ use Geomerty\Rect;
 use Image\Image;
 use Image\Output;
 
-$dsn = 'mysql://root@localhost:3306/quidditch/';
-// $dsn = 'sqlite://C:\Users\mboudrea\Downloads\synthese_james_29-08_new_api\database\db.sqlite';
+$dsn = 'mysql://root@localhost:3306/recettes/';
+
 $clients = [];
 
 /**
@@ -21,28 +21,28 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 
- function traiterFILES($array, $table, $name)
- {
-	 Output::$default_folder = "/img/" . $table;
-	 Output::$default_pattern = "%s{name}/%d{width}x%d{height}.%s";
-	 $result = [];
-	 foreach ($array as $value) {
-		 $image = new Image($value['tmp_name']);
-		 $image->name = $name;
-		 $image->addOutput(512, 512, "image/webp");
-		 $image->addOutput(512, 0, "image/webp");
-		 $image->addOutput(0, 512, "image/webp");
-		 $image->addOutput(256, 256, "image/webp");
-		 $image->addOutput(256, 0, "image/webp");
-		 $image->addOutput(0, 256, "image/webp");
-		 $image->addOutput(128, 128, "image/webp");
-		 $image->addOutput(64, 64, "image/webp");
-		 $image->addOutput(32, 32, "image/webp");
-		
-		 $result[] = $image->out();
-	 }
-	 return $result;
- }
+function traiterFILES($array, $table, $name)
+{
+	Output::$default_folder = "/img/" . $table;
+	Output::$default_pattern = "%s{name}/%d{width}x%d{height}.%s";
+	$result = [];
+	foreach ($array as $value) {
+		$image = new Image($value['tmp_name']);
+		$image->name = $name;
+		$image->addOutput(512, 512, "image/webp");
+		$image->addOutput(512, 0, "image/webp");
+		$image->addOutput(0, 512, "image/webp");
+		$image->addOutput(256, 256, "image/webp");
+		$image->addOutput(256, 0, "image/webp");
+		$image->addOutput(0, 256, "image/webp");
+		$image->addOutput(128, 128, "image/webp");
+		$image->addOutput(64, 64, "image/webp");
+		$image->addOutput(32, 32, "image/webp");
+
+		$result[] = $image->out();
+	}
+	return $result;
+}
 
 
 
@@ -186,11 +186,11 @@ ArrestDB::Serve('POST', '/(#any)/(#num)', function ($table, $id) {
 		$result = ArrestDB::$HTTP[204];
 	} else if (is_array($GLOBALS['_POST']) === true) {
 		$data = [];
-		
+
 		foreach ($GLOBALS['_POST'] as $key => $value) {
 			$data[$key] = sprintf('"%s" = ?', $key);
 		}
-		
+
 		$query = array(
 			sprintf('UPDATE "%s" SET %s WHERE "%s" = ?', $table, implode(', ', $data), 'id'),
 		);
