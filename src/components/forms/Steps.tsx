@@ -4,6 +4,9 @@ import InputText from "./InputText";
 import InputTextarea from "./InputTextarea";
 
 function Steps() {
+  function handleClick() {
+    alert("Button clicked need have props to add (more) steps!");
+  }
   return (
     <>
       <h2>Steps</h2>
@@ -13,7 +16,7 @@ function Steps() {
       />
       <InputTextarea heading="Description" />
       <ImageUpload />
-      <ButtonMore name="Step" />
+      <ButtonMore name="Step" onClick={handleClick} />
     </>
   );
 }

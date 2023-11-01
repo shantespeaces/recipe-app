@@ -11,7 +11,7 @@ import Notes from "./forms/Notes";
 
 function Form() {
   function handleClick() {
-    alert("Button clicked need to go to recipe page!");
+    alert("Button clicked need to go to recipe page and add recipe to BDD!");
   }
   return (
     <form action="" className="row g-3 .container-sm max-width-200">

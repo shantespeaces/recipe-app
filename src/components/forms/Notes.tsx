@@ -5,7 +5,10 @@ import CheckBox from "./CheckBox";
 import CheckBoxContainer from "./CheckBoxContainer";
 import Select from "./Select";
 
-function Steps() {
+function Notes() {
+  function handleClick() {
+    alert("Button clicked need have props to add (more) notes!");
+  }
   return (
     <>
       <h2>Notes</h2>
@@ -20,9 +23,9 @@ function Steps() {
       <CheckBox name="{note_colors.color}" />
       <Select heading="Orientation" />
 
-      <ButtonMore name="Note" />
+      <ButtonMore name="Note" onClick={handleClick} />
     </>
   );
 }
 
-export default Steps;
+export default Notes;
