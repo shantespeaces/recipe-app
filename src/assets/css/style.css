@@ -64,4 +64,11 @@ section {
   border: 2px solid #F36912;
   border-radius: 25px;
   background-color: #fff;
+}
+
+.color {
+  height: 20px;
+  width: 100px;
+  border-radius: 25px;
+  background-color: red;
 }/*# sourceMappingURL=style.css.map */
