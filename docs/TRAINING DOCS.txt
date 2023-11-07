@@ -1,0 +1,13 @@
+TRAINING DOCS
+
+VIDÉOS
+
+MOSH - react for begginners
+https://www.youtube.com/watch?v=SqcY0GlETPk
+
+
+COMPLETE REACT COURSE
+https://youtu.be/xNQo6gEl16g?si=B_XEewMNml2koVNU
+
+DOCS
+https://react.dev/learn

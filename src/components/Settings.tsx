@@ -1,4 +1,3 @@
-import CheckBoxContainer from "./forms/CheckBoxContainer";
 import NumberInput from "./forms/NumberInput";
 import Select from "./forms/Select";
 import RadioButton from "./forms/RadioButton";
@@ -28,10 +27,10 @@ function Settings() {
             <section className="fonts">
               <h2>Fonts</h2>
               <Select heading="Style" />
-
-              <Select heading="Color" />
-
-              <NumberInput heading="Size" />
+              <h3>Color</h3>
+              <RadioButton />
+              <RadioButton />
+              <RadioButton />
             </section>
             {/* BORDERs */}
             <section className="borders">
@@ -62,6 +61,10 @@ function Settings() {
                 <h2>Background-Color</h2>
               </div>
 
+              <RadioButton />
+              <RadioButton />
+              <RadioButton />
+              <RadioButton />
               <RadioButton />
               <RadioButton />
               <RadioButton />

@@ -1,0 +1,60 @@
+create view kagle.com food ingredient database
+
+Structure de la vue SECTIONS_INGREDIENTS
+CREATE VIEW sections_ingredients AS SELECT
+    sections.id AS section_id,
+    sections.title AS section_name,
+    ingredients.id AS ingredient_id,
+    ingredients.name AS ingredient_name,
+    ingredients.quantity,    
+    measurements.id AS measurement_id,
+    measurements.unit
+FROM
+    `sections`
+INNER JOIN ingredient_section ON sections.id = ingredient_section.section_id
+INNER JOIN ingredients ON ingredient_section.ingredient_id = ingredients.id
+INNER JOIN measurements ON ingredients.measurement_id = measurements.id
+
+
+# Get a single row from the "customers" table (where "123" is the ID)
+	GET http://api.example.com/users/1/ retourne infos de lutilisateur
+	
+	GET http://api.example.com/recipes/user_id/1(de lutilisateur)/ retourne toute les recttes de lutilisateur
+
+
+
+	
+	CREATE VIEW recipe_subcategory AS SELECT
+    sub_categories.id AS subcategory_id,
+    sub_categories.name AS subcategory_name
+   
+FROM
+    `sub_categories`
+INNER JOIN recipe_subcategory ON sub_categories.id = recipe_subcategory.recipe_subcategory_id
+
+
+CREATE VIEW recipe_settings AS 
+SELECT
+    settings.id AS setting_id,
+    fonts.id AS font_id,
+    borders.id AS border_id,
+    background_colors.id AS backgroundcolor_id,
+    font_styles.id AS fontstyle_id,
+    font_colors.id AS fontcolor_id,
+    fonts.size AS font_size,
+    background_colors.name AS backgroundcolor_name,
+    font_styles.name AS font_name,
+    font_colors.name AS font_color,
+    border_styles.id AS border_style_id,
+    borders.width AS border_width,
+    border_styles.name AS border_name 
+FROM
+    `settings`
+
+INNER JOIN borders ON settings.id = borders.setting_id
+INNER JOIN fonts ON settings.id = fonts.setting_id
+INNER JOIN background_colors ON settings.id = background_colors.setting_id
+INNER JOIN border_styles ON borders.border_style_id = border_styles.id
+
+INNER JOIN font_styles ON fonts.font_style_id = font_styles.id
+INNER JOIN font_colors ON fonts.font_color_id = font_colors.id; 
