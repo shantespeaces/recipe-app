@@ -6,7 +6,7 @@ import Select from "./forms/Select";
 import CheckBoxContainer from "./forms/CheckBoxContainer";
 import IngredientSection from "./forms/IngredientSection";
 import Button from "./buttons/Button";
-import Steps from "./forms/Steps";
+import Instructions from "./forms/Instructions";
 import Notes from "./forms/Notes";
 
 function Form() {
@@ -33,7 +33,7 @@ function Form() {
         <IngredientSection />
       </section>
       <section className="steps">
-        <Steps />
+        <Instructions />
       </section>
       <section className="notes">
         <Notes />

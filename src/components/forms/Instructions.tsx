@@ -3,15 +3,15 @@ import ImageUpload from "./ImageUpload";
 import InputText from "./InputText";
 import InputTextarea from "./InputTextarea";
 
-function Steps() {
+function Instructions() {
   function handleClick() {
-    alert("Button clicked need have props to add (more) steps!");
+    alert("Button clicked need have props to add (more) instructions!");
   }
   return (
     <>
-      <h2>Steps</h2>
+      <h2>Instructions</h2>
       <InputText
-        name="Step {steps.number}"
+        name="Step {instructions.number}"
         placeholder=" ex: prepare the filling"
       />
       <InputTextarea heading="Description" />
@@ -21,4 +21,4 @@ function Steps() {
   );
 }
 
-export default Steps;
+export default Instructions;
