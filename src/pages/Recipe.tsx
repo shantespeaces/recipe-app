@@ -54,7 +54,7 @@ function Recipe() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/instructions/1")
+      .get("http://localhost:8000/api/instructions")
       .then((response) => {
         setInstructions(response.data);
       })
