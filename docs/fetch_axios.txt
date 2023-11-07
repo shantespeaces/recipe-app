@@ -1,0 +1,12 @@
+FETCH/AXIOS
+
+
+# Get a single row from the "customers" table (where "123" is the ID)
+	GET http://api.example.com/users/1/ retourne infos de lutilisateur
+
+# Get   toute les recettes de lutilisateur	
+	GET http://api.example.com/recipes/user_id/1(de lutilisateur)
+
+
+
+	
