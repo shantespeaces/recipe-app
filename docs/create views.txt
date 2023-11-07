@@ -15,6 +15,45 @@ INNER JOIN ingredient_section ON sections.id = ingredient_section.section_id
 INNER JOIN ingredients ON ingredient_section.ingredient_id = ingredients.id
 INNER JOIN measurements ON ingredients.measurement_id = measurements.id
 
+Structure de la vue SECTIONS_INGREDIENTS VERSION 2
+CREATE VIEW sections_ingredients AS SELECT
+    sections.id AS section_id,
+    sections.title AS section_name,
+    ingredients.id AS ingredient_id,
+    ingredients.name AS ingredient_name,  
+    measurements.id AS measurement_id,
+    measurements.name AS measurement_name,
+    ingredient_section.quantity AS quantity,
+    recipes.id AS recipe_id,
+    recipes.name as recipe_name
+FROM
+    `sections`
+INNER JOIN ingredient_section ON sections.id = ingredient_section.section_id
+INNER JOIN ingredients ON ingredient_section.ingredient_id = ingredients.id
+INNER JOIN measurements ON ingredient_section.measurement_id = measurements.id
+INNER JOIN recipes ON ingredient_section.recipe_id = recipes.id
+
+
+
+Structure de la vue sub_categoriesCREATE VIEW subcategories AS SELECT
+
+sub_categories.id as subcategory_id,
+sub_categories.name as subcategory_name,
+recipe_subcategory.id AS recipe_subcategory_id,
+sub_categories.id,
+recipes.id AS recipe_id,
+    recipes.name as recipe_name
+
+
+FROM
+    `recipe_subcategory`
+INNER JOIN sub_categories ON recipe_subcategory.subcategory_id = sub_categories.id
+
+INNER JOIN recipes ON recipe_subcategory.recipe_id = recipes.id
+
+
+
+
 
 # Get a single row from the "customers" table (where "123" is the ID)
 	GET http://api.example.com/users/1/ retourne infos de lutilisateur
@@ -24,13 +63,7 @@ INNER JOIN measurements ON ingredients.measurement_id = measurements.id
 
 
 	
-	CREATE VIEW recipe_subcategory AS SELECT
-    sub_categories.id AS subcategory_id,
-    sub_categories.name AS subcategory_name
-   
-FROM
-    `sub_categories`
-INNER JOIN recipe_subcategory ON sub_categories.id = recipe_subcategory.recipe_subcategory_id
+	
 
 
 CREATE VIEW recipe_settings AS 
