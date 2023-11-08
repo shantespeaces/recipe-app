@@ -23,11 +23,12 @@ function App() {
     <div>
       {/* <p>{bgs.color}</p> */}
       <NavBar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/Recipe" element={<Recipe />} />
+        <Route path="/recipe" element={<Recipe />} />{" "}
       </Routes>
     </div>
   );
