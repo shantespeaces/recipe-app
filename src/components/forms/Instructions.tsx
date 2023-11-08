@@ -16,7 +16,7 @@ function Instructions() {
       />
       <InputTextarea heading="Description" />
       <ImageUpload />
-      <ButtonMore name="Step" onClick={handleClick} />
+      <ButtonMore name="Instructions" onClick={handleClick} />
     </>
   );
 }
