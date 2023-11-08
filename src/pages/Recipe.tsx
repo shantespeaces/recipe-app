@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Settings from "../components/Settings";
+import Button from "../components/buttons/Button";
 
 function Recipe() {
   interface Recipe {
@@ -89,6 +90,7 @@ function Recipe() {
             ))}
           </li>
         </section>
+        <Button name="Settings" onClick={() => setIsOpen(true)} />
       </main>
     </>
   );

@@ -1,8 +1,11 @@
 import NumberInput from "./forms/NumberInput";
 import Select from "./forms/Select";
 import RadioButton from "./forms/RadioButton";
+import { useState } from "react";
 
 function Settings() {
+  const [isOpen, setIsOpen] = useState(true);
+  if (!isOpen) return null;
   return (
     <>
       <div
@@ -19,6 +22,7 @@ function Settings() {
             className="btn-close"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            onClick={() => setIsOpen(false)}
           ></button>
         </div>
         <div className="offcanvas-body">
