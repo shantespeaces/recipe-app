@@ -11,56 +11,42 @@ function Recipe() {
     serves: string;
   }
 
-  interface SectionIngredients {
+  interface SectionIngredient {
     section_name: string;
     ingredient_name: string;
     quantity: string;
     measurement_name: string;
   }
-  interface Instructions {
+  type SectionsIngredients = SectionIngredient[];
+  interface Instruction {
     name: string;
     description: string;
   }
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  type Instructions = Instruction[];
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/recipes/1")
-      .then((response) => {
-        setRecipe(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching ingredients section:", error);
-      });
-  }, []);
-
-  const [sections_ingredients, setSectionIngredients] = useState<
-    SectionIngredients[] | null
-  >(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/sections_ingredients/section_id/2")
-      .then((response) => {
-        setSectionIngredients(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching ingredients section:", error);
-      });
-  }, []);
-
-  const [instructions, setInstructions] = useState<Instructions[] | null>(null);
+  const [recipe, setRecipe] = useState<Recipe>();
+  const [sectionsIngredients, setSectionsIngredients] =
+    useState<SectionsIngredients>([]);
+  const [instructions, setInstructions] = useState<Instructions>([]);
   console.log(instructions);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/instructions")
-      .then((response) => {
-        setInstructions(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching instructions:", error);
-      });
+      .get("http://localhost:8000/api/recipes/1")
+      .then((response) => setRecipe(response.data));
+    // .catch((error) => console.error("Error fetching recipe:", error));
+
+    axios
+      .get("http://localhost:8000/api/sections_ingredients/recipe_id/1")
+      .then((response) => setSectionsIngredients(response.data));
+    // .catch((error) =>
+    //   console.error("Error fetching ingredients section:", error)
+    // );
+
+    axios
+      .get("http://localhost:8000/api/instructions/recipe_id/1")
+      .then((response) => setInstructions(response.data));
+    // .catch((error) => console.error("Error fetching instructions:", error));
   }, []);
 
   return (
@@ -80,18 +66,28 @@ function Recipe() {
           )}
         </section>
         <section className="ingredients">
-          {sections_ingredients && (
-            <div>
-              <h2>{sections_ingredients[0].section_name}</h2>
-              <p>{sections_ingredients[0].ingredient_name}</p>
-              <p>{sections_ingredients[0].quantity}</p>
-              <p>{sections_ingredients[0].measurement_name}</p>
-            </div>
-          )}
+          <h3>Ingredients</h3>
+          <li>
+            {sectionsIngredients.map((sectionsIngredients) => (
+              <div key={sectionsIngredients}>
+                <h4>{sectionsIngredients.section_name}</h4>
+                <p>{sectionsIngredients.ingredient_name}</p>
+                <p>{sectionsIngredients.quantity}</p>
+                <p>{sectionsIngredients.measurement_name}</p>
+              </div>
+            ))}
+          </li>
         </section>
         <section className="instructions">
-          {/* <h2>{instructions[0].name}</h2>
-          <h2>{instructions[0].description}</h2> */}
+          <h3>Instructions</h3>
+          <li>
+            {instructions.map((instructions) => (
+              <div key={instructions}>
+                <h4> {instructions.name}</h4>
+                <p> {instructions.description}</p>
+              </div>
+            ))}
+          </li>
         </section>
       </main>
     </>
