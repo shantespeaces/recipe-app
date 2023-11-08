@@ -11,3 +11,6 @@ https://youtu.be/xNQo6gEl16g?si=B_XEewMNml2koVNU
 
 DOCS
 https://react.dev/learn
+
+TYPESCRIPT
+https://reacthustle.com/blog/how-to-use-react-usestate-with-typescript?expand_article=1
