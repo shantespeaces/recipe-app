@@ -1,9 +1,9 @@
 import { useState } from "react";
-interface NumberInputProps {
+interface CounterProps {
   heading: string;
 }
 
-function NumberInput({ heading }: NumberInputProps) {
+function Counter({ heading }: CounterProps) {
   const [count, setCount] = useState<number>(0);
 
   const handleIncrement = () => {
@@ -49,4 +49,4 @@ function NumberInput({ heading }: NumberInputProps) {
   );
 }
 
-export default NumberInput;
+export default Counter;
