@@ -1,6 +1,6 @@
 import InputText from "./InputText";
 
-import NumberInput from "./NumberInput";
+import NumberInput from "./Counter";
 
 import Select from "./Select";
 

@@ -17,6 +17,7 @@ function OneRecipe() {
     measurement_name: string;
   }
   type SectionsIngredients = SectionIngredient[];
+
   interface Instruction {
     name: string;
     description: string;

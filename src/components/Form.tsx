@@ -1,6 +1,6 @@
 import InputText from "./forms/InputText";
 import InputTextarea from "./forms/InputTextarea";
-import NumberInput from "./forms/NumberInput";
+import Counter from "./forms/Counter";
 import ImageUpload from "./forms/ImageUpload";
 import Select from "./forms/Select";
 import CheckBoxContainer from "./forms/CheckBoxContainer";
@@ -17,8 +17,8 @@ function Form() {
         <InputText name="Recipe Title" placeholder=" ex: Annie's Apple Pie" />
 
         <InputTextarea heading="Description" />
-        <NumberInput heading="Serves" />
-        <NumberInput heading="Time" />
+        <Counter heading="Serves" />
+        <Counter heading="Time" />
         <ImageUpload />
       </section>
       <section className="categories">

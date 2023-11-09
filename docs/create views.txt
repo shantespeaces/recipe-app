@@ -35,7 +35,9 @@ INNER JOIN recipes ON ingredient_section.recipe_id = recipes.id
 
 
 
-Structure de la vue sub_categoriesCREATE VIEW subcategories AS SELECT
+Structure de la vue sub_categories
+
+CREATE VIEW subcategories AS SELECT
 
 sub_categories.id as subcategory_id,
 sub_categories.name as subcategory_name,
@@ -45,14 +47,16 @@ recipes.id AS recipe_id,
     recipes.name as recipe_name
 
 
-FROM
-    `recipe_subcategory`
-INNER JOIN sub_categories ON recipe_subcategory.subcategory_id = sub_categories.id
-
-INNER JOIN recipes ON recipe_subcategory.recipe_id = recipes.id
-
-
-
+Structure de la vue user_recipes
+CREATE VIEW user_recipes AS SELECT 
+users.id as user_id, 
+recipes.name as recipe_name, 
+recipes.description AS recipe_description, 
+recipes.image AS recipe_image, 
+recipes.id AS recipe_id, 
+recipes.time as recipe_time, 
+recipes.serves as recipe_serves 
+FROM `users` INNER JOIN recipes ON users.recipe_id = recipes.id; 
 
 
 # Get a single row from the "customers" table (where "123" is the ID)

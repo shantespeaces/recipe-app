@@ -6,6 +6,7 @@ body{
 main{
     max-width: 1200px;
     margin: auto;
+    position: relative;
     
 }
 
@@ -26,18 +27,17 @@ nav{
 //Buttons
 // Custom Button Styles
 button.custom-button {
-    border: 2px solid #FB2E65;
-    background-color: transparent;
-    width: 500px;
-    color: #FB2E65; 
-    transition: background-color 0.3s;
-   
-  
-    &:hover {
-      background-color: #FB2E65;
-      color: #fff; 
-      border: none;
-    }
+  background-color: #FB2E65;
+  color: #fff; 
+  border: none;
+
+&:hover {
+  border: 2px solid #FB2E65;
+  background-color: transparent;
+ 
+  color: #FB2E65; 
+  transition: background-color 0.3s;
+}
   }
   .btn.btn.btn-secondary{
 background-color: #F36912;
@@ -70,20 +70,23 @@ border: none;
       }
   }
   button.settings{
-  position: relative;
-  top: 0px;
-  left: 1230px;
-  border: 2px solid #FB2E65;
-  background-color: transparent;
-  width: 200px;
-  color: #FB2E65; 
-  transition: background-color 0.3s;
+  position: fixed;
+  top: 300px;
+ right: 50px;
+ width: 200px;
+ background-color: #FB2E65;
+    color: #fff; 
+    border: none;
+   
+ 
  
 
   &:hover {
-    background-color: #FB2E65;
-    color: #fff; 
-    border: none;
+    border: 2px solid #FB2E65;
+    background-color: transparent;
+   
+    color: #FB2E65; 
+    transition: background-color 0.3s;
   }
   }
   
