@@ -90,7 +90,7 @@ function Recipe() {
             ))}
           </li>
         </section>
-        <Button name="Settings" onClick={() => setIsOpen(true)} />
+        {/* <Button name="Settings" onClick={() => setIsOpen(true)  } /> or add active class to settings? */}
       </main>
     </>
   );
