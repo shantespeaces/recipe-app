@@ -1,28 +1,37 @@
-import NumberInput from "./forms/NumberInput";
+import Counter from "./forms/Counter";
 import Select from "./forms/Select";
 import RadioButton from "./forms/RadioButton";
 import { useState } from "react";
 
 function Settings() {
-  const [isOpen, setIsOpen] = useState(true);
-  if (!isOpen) return null;
+  const [isOpen, SetIsOpen] = useState(false);
+
+  const toggleSettings = () => {
+    SetIsOpen(!isOpen);
+  };
+
   return (
     <>
-      <div
-        className="offcanvas offcanvas-end show"
-        id="offcanvas"
-        aria-labelledby="offcanvasLabel"
+      <button
+        className="btn btn-primary settings"
+        type="button"
+        data-bs-toggle="offcanvas"
+        onClick={toggleSettings}
       >
+        Settings
+      </button>
+
+      <div className={`offcanvas offcanvas-end ${isOpen ? "show" : ""}`}>
         <div className="offcanvas-header">
           <h1 className="offcanvas-title" id="offcanvasLabel">
             Settings
           </h1>
           <button
             type="button"
-            className="btn-close"
+            className="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
-            onClick={() => setIsOpen(false)}
+            onClick={toggleSettings}
           ></button>
         </div>
         <div className="offcanvas-body">
@@ -57,7 +66,7 @@ function Settings() {
 
               <Select heading="Style" />
 
-              <NumberInput heading="Width" />
+              <Counter heading="Width" />
             </section>
             {/* BACKGROUND COLORS*/}
             <section className="backgroundColors">
@@ -78,7 +87,7 @@ function Settings() {
               Save your settings
             </button>
           </form>
-        </div>{" "}
+        </div>
       </div>
     </>
   );

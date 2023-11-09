@@ -60,6 +60,22 @@ button.custom-search:hover {
   border: none;
 }
 
+button.settings {
+  position: relative;
+  top: 0px;
+  left: 1230px;
+  border: 2px solid #FB2E65;
+  background-color: transparent;
+  width: 200px;
+  color: #FB2E65;
+  transition: background-color 0.3s;
+}
+button.settings:hover {
+  background-color: #FB2E65;
+  color: #fff;
+  border: none;
+}
+
 section {
   border: 2px solid #F36912;
   border-radius: 25px;

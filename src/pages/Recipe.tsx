@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Settings from "../components/Settings";
-import Button from "../components/buttons/Button";
+// import Button from "../components/buttons/Button";
 
 function Recipe() {
   interface Recipe {
@@ -29,7 +29,6 @@ function Recipe() {
   const [sectionsIngredients, setSectionsIngredients] =
     useState<SectionsIngredients>([]);
   const [instructions, setInstructions] = useState<Instructions>([]);
-  console.log(instructions);
 
   useEffect(() => {
     axios
@@ -50,6 +49,10 @@ function Recipe() {
     // .catch((error) => console.error("Error fetching instructions:", error));
   }, []);
 
+  // function changerCouleur(nom: string) {
+  //   console.log("Changer couleur depuis Recipe");
+  // }
+
   return (
     <>
       <main>
@@ -69,12 +72,12 @@ function Recipe() {
         <section className="ingredients">
           <h3>Ingredients</h3>
           <li>
-            {sectionsIngredients.map((sectionsIngredients) => (
-              <div key={sectionsIngredients}>
-                <h4>{sectionsIngredients.section_name}</h4>
-                <p>{sectionsIngredients.ingredient_name}</p>
-                <p>{sectionsIngredients.quantity}</p>
-                <p>{sectionsIngredients.measurement_name}</p>
+            {sectionsIngredients.map((sectionsIngredient) => (
+              <div key={sectionsIngredient.ingredient_name}>
+                <h4>{sectionsIngredient.section_name}</h4>
+                <p>{sectionsIngredient.ingredient_name}</p>
+                <p>{sectionsIngredient.quantity}</p>
+                <p>{sectionsIngredient.measurement_name}</p>
               </div>
             ))}
           </li>
@@ -82,15 +85,15 @@ function Recipe() {
         <section className="instructions">
           <h3>Instructions</h3>
           <li>
-            {instructions.map((instructions) => (
-              <div key={instructions}>
-                <h4> {instructions.name}</h4>
-                <p> {instructions.description}</p>
+            {instructions.map((instruction) => (
+              <div key={instruction.name}>
+                <h4> {instruction.name}</h4>
+                <p> {instruction.description}</p>
               </div>
             ))}
           </li>
         </section>
-        {/* <Button name="Settings" onClick={() => setIsOpen(true)  } /> or add active class to settings? */}
+        {/* <Button name="Settings" onClick={() => setIsOpen(true)} /> or add active class to settings? */}
       </main>
     </>
   );
