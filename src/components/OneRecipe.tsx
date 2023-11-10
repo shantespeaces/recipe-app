@@ -8,6 +8,7 @@ function OneRecipe() {
     rating: string;
     time: string;
     serves: string;
+    image: string;
   }
 
   interface SectionIngredient {
@@ -61,7 +62,7 @@ function OneRecipe() {
             <div>
               <h1>{recipe.name}</h1>
               <p>{recipe.description}</p>
-              <img src="src\assets\images\logo.png" alt="" />
+              <img className="img-thumbnail" src={recipe.image} alt="" />
               <p>{recipe.rating}</p>
               <p>{recipe.time}</p>
               <p>{recipe.serves}</p>

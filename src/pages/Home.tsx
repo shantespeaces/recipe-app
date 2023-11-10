@@ -9,6 +9,7 @@ function Home() {
     rating: string;
     time: string;
     serves: string;
+    image: string;
   }
   type Recipes = Recipe[];
 
@@ -28,11 +29,13 @@ function Home() {
 
         <li>
           {recipes.map((recipe) => (
-            <section className="carte-recette">
+            <section className="carte-recette" key={recipe.name}>
               <div>
                 <h1>{recipe.name}</h1>
                 <p>{recipe.description}</p>
-                <img src="src\assets\images\logo.png" alt="" />
+                <div className="image-container">
+                  <img className="img-thumbnail" src={recipe.image} alt="" />
+                </div>
                 <p>{recipe.rating}</p>
                 <p>{recipe.time}</p>
                 <p>{recipe.serves}</p>

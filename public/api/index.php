@@ -30,6 +30,8 @@ function traiterFILES($array, $table, $name)
 		$image = new Image($value['tmp_name']);
 		$image->name = $name;
 		$image->addOutput(512, 512, "image/webp");
+		$image->addOutput(512, 512, "image/png");
+		$image->addOutput(200, 200, "image/jpg");
 		$image->addOutput(512, 0, "image/webp");
 		$image->addOutput(0, 512, "image/webp");
 		$image->addOutput(256, 256, "image/webp");

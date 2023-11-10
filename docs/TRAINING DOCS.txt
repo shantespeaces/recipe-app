@@ -20,6 +20,11 @@ REACT
 ROUTES
 https://www.geeksforgeeks.org/how-to-redirect-to-another-page-in-reactjs/
 
+IMAGES 
+https://www.youtube.com/watch?v=ooSkf0QzF_U
+et  
+IMAGES.md
+
 EVENTS
 https://stackoverflow.com/questions/68724280/close-react-component-on-click
 https://www.w3schools.com/react/react_events.asp
