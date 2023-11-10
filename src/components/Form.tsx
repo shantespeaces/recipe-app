@@ -22,7 +22,13 @@ function Form() {
         <ImageUpload />
       </section>
       <section className="categories">
-        <Select heading="Categories" />
+        <Select
+          heading="Categories"
+          onSelectOption={(categoryId) =>
+            console.log(`Selected category: ${categoryId}`)
+          }
+          endpoint="http://localhost:8000/api/categories"
+        />
         <CheckBoxContainer title="Sub-categorie" />
         <CheckBoxContainer title="Filters" />
       </section>

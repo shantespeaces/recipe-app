@@ -21,7 +21,13 @@ function Notes() {
       <CheckBox name="{note_colors.color}" />
       <CheckBox name="{note_colors.color}" />
       <CheckBox name="{note_colors.color}" />
-      <Select heading="Orientation" />
+      {/* <Select
+        heading="Orientation"
+        onSelectOption={(orientationId) =>
+          console.log(`Selected orientation: ${orientationId}`)
+        }
+        endpoint="http://localhost:8000/api/orientations"
+      /> */}
 
       <ButtonMore name="Note" onClick={handleClick} />
     </>

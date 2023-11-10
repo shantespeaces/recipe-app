@@ -9,7 +9,13 @@ function Ingredients() {
     <>
       <InputText name="Ingredients" placeholder=" ex: flour" />
       <NumberInput heading="Qty" />
-      <Select heading="Measurement" />
+      <Select
+        heading="Measurement"
+        onSelectOption={(measurementId) =>
+          console.log(`Selected measurement: ${measurementId}`)
+        }
+        endpoint="http://localhost:8000/api/measurements"
+      />
     </>
   );
 }
