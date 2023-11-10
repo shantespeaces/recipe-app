@@ -29,8 +29,7 @@ function Form() {
           }
           endpoint="http://localhost:8000/api/categories"
         />
-        <CheckBoxContainer title="Sub-categorie" />
-        <CheckBoxContainer title="Filters" />
+        <CheckBoxContainer title="Sub-categorie/filters" />
       </section>
       <section className="ingredients">
         <IngredientSection />

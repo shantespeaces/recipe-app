@@ -29,5 +29,10 @@ EVENTS
 https://stackoverflow.com/questions/68724280/close-react-component-on-click
 https://www.w3schools.com/react/react_events.asp
 
+FORMS (reuse components)
+https://www.altogic.com/blog/difference-between-controlled-and-uncontrolled-component#:~:text=%E2%80%8B,the%20state%20of%20the%20component
+https://stackoverflow.com/questions/76788231/how-do-i-reuse-a-react-select-component-across-my-application
+
+
 REDUX
 https://redux.js.org/introduction/getting-started

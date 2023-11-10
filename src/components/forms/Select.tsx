@@ -3,9 +3,12 @@ import axios from "axios";
 
 interface SelectProps {
   heading: string;
-  selectedOption?: number; // Allow passing a selected option
-  onSelectOption: (optionId: number) => void; // Callback when an option is selected
-  endpoint: string; // API endpoint for fetching options
+  // Allow passing a selected option
+  selectedOption?: number;
+  // Callback when an option is selected
+  onSelectOption: (optionId: number) => void;
+  // API endpoint for fetching options
+  endpoint: string;
 }
 
 interface Option {
@@ -31,6 +34,7 @@ function Select({
   }, [endpoint]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    //converts selected value into an interger so that the id can be passed to the callback
     const selectedOptionId = parseInt(event.target.value, 10);
     onSelectOption(selectedOptionId);
   };

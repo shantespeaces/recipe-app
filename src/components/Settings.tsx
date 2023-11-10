@@ -39,7 +39,7 @@ function Settings() {
             {/* FONTs */}
             <section className="fonts">
               <h2>Fonts</h2>
-              <Select heading="Style" />
+              {/* <Select heading="Style" /> */}
               <h3>Color</h3>
               <RadioButton />
               <RadioButton />
@@ -64,7 +64,7 @@ function Settings() {
                 </label>
               </div>
 
-              <Select heading="Style" />
+              {/* <Select heading="Style" /> */}
 
               <Counter heading="Width" />
             </section>
