@@ -3,7 +3,9 @@ import InputTextarea from "./forms/InputTextarea";
 import Counter from "./forms/Counter";
 import ImageUpload from "./forms/ImageUpload";
 import Select from "./forms/Select";
-import CheckBoxContainer from "./forms/CheckBoxContainer";
+import CheckBox from "./forms/CheckBox";
+
+// import CheckBoxContainer from "./forms/CheckBoxContainer";
 import IngredientSection from "./forms/IngredientSection";
 import Button from "./buttons/Button";
 import Instructions from "./forms/Instructions";
@@ -20,6 +22,7 @@ function Form() {
         <Counter heading="Serves" />
         <Counter heading="Time" />
         <ImageUpload />
+        <Button name=" Save Instructions" route="null" />
       </section>
       <section className="categories">
         <Select
@@ -29,7 +32,11 @@ function Form() {
           }
           endpoint="http://localhost:8000/api/categories"
         />
-        <CheckBoxContainer title="Sub-categorie/filters" />
+        <CheckBox
+          title="filters"
+          endpoint="http://localhost:8000/api/sub_categories"
+        />
+        <Button name=" Save Instructions" route="null" />
       </section>
       <section className="ingredients">
         <IngredientSection />
@@ -40,7 +47,7 @@ function Form() {
       <section className="notes">
         <Notes />
       </section>
-      <Button name="Add Recipe" route="/recipe"></Button>{" "}
+      {/* <Button name="Add Recipe" route="/recipe"></Button>{" "} */}
     </form>
   );
 }

@@ -18,9 +18,9 @@ function Home() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/recipes/")
-      .then((response) => setRecipes(response.data));
-    // .catch((error) => console.error("Error fetching recipe:", error));
-  });
+      .then((response) => setRecipes(response.data))
+      .catch((error) => console.error("Error fetching recipe:", error));
+  }, []);
 
   return (
     <>

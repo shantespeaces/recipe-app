@@ -1,8 +1,9 @@
 import ButtonMore from "../buttons/ButtonMore";
+import Button from "../buttons/Button";
 
 import InputText from "./InputText";
-import CheckBox from "./CheckBox";
-import CheckBoxContainer from "./CheckBoxContainer";
+// import CheckBox from "./CheckBox";
+// import CheckBoxContainer from "./CheckBoxContainer";
 import Select from "./Select";
 
 function Notes() {
@@ -16,11 +17,11 @@ function Notes() {
         name="Add a personnalised note"
         placeholder=" ex: Micha`s favorite dish"
       />
-      <CheckBoxContainer title="Colors" />
+      {/* <CheckBoxContainer title="Colors" />
       <CheckBox name="{note_colors.color}" />
       <CheckBox name="{note_colors.color}" />
       <CheckBox name="{note_colors.color}" />
-      <CheckBox name="{note_colors.color}" />
+      <CheckBox name="{note_colors.color}" /> */}
       {/* <Select
         heading="Orientation"
         onSelectOption={(orientationId) =>
@@ -30,6 +31,7 @@ function Notes() {
       /> */}
 
       <ButtonMore name="Note" onClick={handleClick} />
+      <Button name=" Save Instructions" route="null" />
     </>
   );
 }

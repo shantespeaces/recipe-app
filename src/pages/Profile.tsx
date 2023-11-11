@@ -8,11 +8,12 @@ function Profile() {
   }
 
   interface UserRecipe {
-    recipe_name: string;
-    recipe_description: string;
-    // rating: string;
-    recipe_time: string;
-    recipe_serves: string;
+    id: number;
+    name: string;
+    description: string;
+    rating: string;
+    time: string;
+    serves: string;
   }
   type UserRecipes = UserRecipe[];
 
@@ -48,14 +49,14 @@ function Profile() {
 
         <li>
           {userRecipes.map((userRecipe) => (
-            <section className="carte-recette" key={userRecipe.recipe_name}>
+            <section className="carte-recette" key={userRecipe.id}>
               <div>
-                <h1>{userRecipe.recipe_name}</h1>
-                <p>{userRecipe.recipe_description}</p>
+                <h1>{userRecipe.name}</h1>
+                <p>{userRecipe.description}</p>
                 {/* <img src="src\assets\images\logo.png" alt="" /> */}
-                {/* <p>{userRecipe.rating}</p> */}
-                <p>{userRecipe.recipe_time}</p>
-                <p>{userRecipe.recipe_serves}</p>
+                <p>{userRecipe.rating}</p>
+                <p>{userRecipe.time}</p>
+                <p>{userRecipe.serves}</p>
               </div>
             </section>
           ))}
