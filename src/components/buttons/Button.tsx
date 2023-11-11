@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 interface ButtonProps {
   name: string;
-  route: string;
+  route: string | null;
   onClick?: () => void;
 }
 
