@@ -36,3 +36,5 @@ https://stackoverflow.com/questions/76788231/how-do-i-reuse-a-react-select-compo
 
 REDUX
 https://redux.js.org/introduction/getting-started
+VIDÉO
+https://youtu.be/9zySeP5vH9c
