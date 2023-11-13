@@ -9,6 +9,7 @@ function OneRecipe() {
     time: string;
     serves: string;
     image: string;
+    id: number;
   }
 
   interface SectionIngredient {
@@ -16,12 +17,14 @@ function OneRecipe() {
     ingredient_name: string;
     quantity: string;
     measurement_name: string;
+    id: number;
   }
   type SectionsIngredients = SectionIngredient[];
 
   interface Instruction {
     name: string;
     description: string;
+    id: number;
   }
   type Instructions = Instruction[];
 
@@ -59,7 +62,7 @@ function OneRecipe() {
         <Settings />
         <section className="carte-recette">
           {recipe && (
-            <div>
+            <div key={recipe.id}>
               <h1>{recipe.name}</h1>
               <p>{recipe.description}</p>
               <img className="img-thumbnail" src={recipe.image} alt="" />
@@ -73,7 +76,7 @@ function OneRecipe() {
           <h3>Ingredients</h3>
           <li>
             {sectionsIngredients.map((sectionsIngredient) => (
-              <div key={sectionsIngredient.ingredient_name}>
+              <div key={sectionsIngredient.id}>
                 <h4>{sectionsIngredient.section_name}</h4>
                 <p>{sectionsIngredient.ingredient_name}</p>
                 <p>{sectionsIngredient.quantity}</p>
@@ -86,7 +89,7 @@ function OneRecipe() {
           <h3>Instructions</h3>
           <li>
             {instructions.map((instruction) => (
-              <div key={instruction.name}>
+              <div key={instruction.id}>
                 <h4> {instruction.name}</h4>
                 <p> {instruction.description}</p>
               </div>

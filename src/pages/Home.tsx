@@ -10,6 +10,7 @@ function Home() {
     time: string;
     serves: string;
     image: string;
+    id: number;
   }
   type Recipes = Recipe[];
 
@@ -29,7 +30,7 @@ function Home() {
 
         <li>
           {recipes.map((recipe) => (
-            <section className="carte-recette" key={recipe.name}>
+            <section className="carte-recette" key={recipe.id}>
               <div>
                 <h1>{recipe.name}</h1>
                 <p>{recipe.description}</p>
