@@ -28,22 +28,31 @@ function Home() {
       <main>
         <CreateIntroMessage />
 
-        <li>
+        <ul>
           {recipes.map((recipe) => (
             <section className="carte-recette" key={recipe.id}>
-              <div>
+              <li>
                 <h1>{recipe.name}</h1>
                 <p>{recipe.description}</p>
                 <div className="image-container">
                   <img className="img-thumbnail" src={recipe.image} alt="" />
                 </div>
-                <p>{recipe.rating}</p>
-                <p>{recipe.time}</p>
-                <p>{recipe.serves}</p>
-              </div>
+                <p>
+                  <span className="material-symbols-outlined">star</span>
+                  {recipe.rating}
+                </p>
+                <p>
+                  <span className="material-symbols-outlined">timer</span>
+                  {recipe.time}
+                </p>
+                <p>
+                  <span className="material-symbols-outlined">person</span>
+                  {recipe.serves}
+                </p>
+              </li>
             </section>
           ))}
-        </li>
+        </ul>
       </main>
     </>
   );

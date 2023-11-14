@@ -9,7 +9,6 @@ function OneRecipe() {
     time: string;
     serves: string;
     image: string;
-    id: number;
   }
 
   interface SectionIngredient {
@@ -28,28 +27,47 @@ function OneRecipe() {
   }
   type Instructions = Instruction[];
 
+  interface Subcategory {
+    subcategory_name: string;
+    id: number;
+  }
+  type Subcategories = Subcategory[];
+
   const [recipe, setRecipe] = useState<Recipe>();
   const [sectionsIngredients, setSectionsIngredients] =
     useState<SectionsIngredients>([]);
   const [instructions, setInstructions] = useState<Instructions>([]);
+  const [subcategories, setSubcategories] = useState<Subcategories>([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/recipes/1")
-      .then((response) => setRecipe(response.data));
-    // .catch((error) => console.error("Error fetching recipe:", error));
+    const fetchData = async () => {
+      try {
+        const recipeResponse = await axios.get(
+          "http://localhost:8000/api/recipes/64"
+        );
+        setRecipe(recipeResponse.data);
 
-    axios
-      .get("http://localhost:8000/api/sections_ingredients/recipe_id/1")
-      .then((response) => setSectionsIngredients(response.data));
-    // .catch((error) =>
-    //   console.error("Error fetching ingredients section:", error)
-    // );
+        const ingredientsResponse = await axios.get(
+          "http://localhost:8000/api/sections_ingredients/recipe_id/64"
+        );
+        setSectionsIngredients(ingredientsResponse.data);
 
-    axios
-      .get("http://localhost:8000/api/instructions/recipe_id/1")
-      .then((response) => setInstructions(response.data));
-    // .catch((error) => console.error("Error fetching instructions:", error));
+        const subcategoryResponse = await axios.get(
+          "http://localhost:8000/api/subcategories/recipe_id/64"
+        );
+
+        setSubcategories(subcategoryResponse.data);
+
+        const instructionsResponse = await axios.get(
+          "http://localhost:8000/api/instructions/recipe_id/64"
+        );
+        setInstructions(instructionsResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   // function changerCouleur(nom: string) {
@@ -62,39 +80,59 @@ function OneRecipe() {
         <Settings />
         <section className="carte-recette">
           {recipe && (
-            <div key={recipe.id}>
+            <div>
               <h1>{recipe.name}</h1>
               <p>{recipe.description}</p>
               <img className="img-thumbnail" src={recipe.image} alt="" />
-              <p>{recipe.rating}</p>
-              <p>{recipe.time}</p>
-              <p>{recipe.serves}</p>
+
+              <p>
+                <span className="material-symbols-outlined">star</span>
+                {recipe.rating}
+              </p>
+              <p>
+                <span className="material-symbols-outlined">timer</span>
+                {recipe.time}
+              </p>
+              <p>
+                <span className="material-symbols-outlined">person</span>
+                {recipe.serves}
+              </p>
             </div>
           )}
         </section>
         <section className="ingredients">
           <h3>Ingredients</h3>
-          <li>
-            {sectionsIngredients.map((sectionsIngredient) => (
-              <div key={sectionsIngredient.id}>
-                <h4>{sectionsIngredient.section_name}</h4>
-                <p>{sectionsIngredient.ingredient_name}</p>
-                <p>{sectionsIngredient.quantity}</p>
-                <p>{sectionsIngredient.measurement_name}</p>
-              </div>
+          <ul>
+            {sectionsIngredients.map((sectionIngredient) => (
+              <li key={sectionIngredient.id}>
+                <h4>{sectionIngredient.section_name}</h4>
+                <p>{sectionIngredient.ingredient_name}</p>
+                <p>{sectionIngredient.quantity}</p>
+                <p>{sectionIngredient.measurement_name}</p>
+              </li>
             ))}
-          </li>
+          </ul>
         </section>
         <section className="instructions">
           <h3>Instructions</h3>
-          <li>
+          <ul>
             {instructions.map((instruction) => (
-              <div key={instruction.id}>
+              <li key={instruction.id}>
                 <h4> {instruction.name}</h4>
                 <p> {instruction.description}</p>
-              </div>
+              </li>
             ))}
-          </li>
+          </ul>
+        </section>
+        <section className="subcategories">
+          <h3>Subcategories</h3>
+          <ul>
+            {subcategories.map((subcategory) => (
+              <li key={subcategory.id}>
+                <p>{subcategory.subcategory_name}</p>
+              </li>
+            ))}
+          </ul>{" "}
         </section>
         {/* <Button name="Settings" onClick={() => setIsOpen(true)} /> or add active class to settings? */}
       </main>
