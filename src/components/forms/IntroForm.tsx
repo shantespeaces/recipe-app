@@ -50,7 +50,9 @@ function IntroForm() {
       <form
         onSubmit={handleSubmit}
         action=""
-        className="row g-3 .container-sm max-width-200 ${isHidden ? 'hidden' : ''}"
+        className={`row g-3 .container-sm max-width-200 ${
+          isHidden ? "hidden" : ""
+        }`}
       >
         <section className="intro">
           <div className="mb-3"></div>

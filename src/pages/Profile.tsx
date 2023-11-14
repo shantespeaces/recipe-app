@@ -18,10 +18,16 @@ function Profile() {
     image: string;
   }
   type UserRecipes = UserRecipe[];
+  // interface Subcategory {
+  //   subcategory_name: string;
+  //   id: number;
+  // }
+  // type Subcategories = Subcategory[];
 
   const [user, setUser] = useState<User>();
 
   const [userRecipes, setUserRecipes] = useState<UserRecipes>([]);
+  // const [subcategories, setSubcategories] = useState<Subcategories>([]);
 
   useEffect(() => {
     axios
@@ -41,6 +47,14 @@ function Profile() {
       .catch((error) => {
         console.error("Error fetching recipes:", error);
       });
+    // axios
+    //   .get("http://localhost:8000/api/subcategories/recipe_id/1")
+    //   .then((response) => {
+    //     setUserRecipes(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching recipes:", error);
+    //   });
   }, []);
 
   const starRating = (count: number) => {
@@ -90,10 +104,21 @@ function Profile() {
                   <span className="material-symbols-outlined">person</span>
                   {userRecipe.serves}
                 </p>
+                {/* <p>{userRecipe.category}</p> */}
               </section>
             </li>
           ))}{" "}
         </ul>
+        {/* <section className="subcategories">
+          <h3>Subcategories</h3>
+          <ul>
+            {subcategories.map((subcategory) => (
+              <li key={subcategory.id}>
+                <p>{subcategory.subcategory_name}</p>
+              </li>
+            ))}
+          </ul>{" "}
+        </section> */}
       </main>
     </>
   );

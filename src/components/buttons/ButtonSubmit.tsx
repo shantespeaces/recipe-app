@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
-interface ButtonProps {
+interface ButtonSubmitProps {
   name: string;
-  route?: string;
+
   type: "button" | "submit" | "reset";
   onClick?: () => void;
 }
 
-function Button({ name, type, onClick }: ButtonProps) {
+function ButtonSubmit({ name, type, onClick }: ButtonSubmitProps) {
   return (
     <div className="d-grid gap-2 col-6 mx-auto">
       <button
@@ -21,4 +20,4 @@ function Button({ name, type, onClick }: ButtonProps) {
   );
 }
 
-export default Button;
+export default ButtonSubmit;

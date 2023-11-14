@@ -1,30 +1,18 @@
-import InputText from "./forms/InputText";
-import InputTextarea from "./forms/InputTextarea";
-import Counter from "./forms/Counter";
-import ImageUpload from "./forms/ImageUpload";
-import Select from "./forms/Select";
-import CheckBox from "./forms/CheckBox";
-
-// import CheckBoxContainer from "./forms/CheckBoxContainer";
-import IngredientSection from "./forms/IngredientSection";
-import Button from "./buttons/Button";
-import Instructions from "./forms/Instructions";
-import Notes from "./forms/Notes";
-
+import IntroForm from "./forms/IntroForm";
+import CategoryForm from "./forms/CategoryForm";
 function Form() {
   return (
-    <form action="" className="row g-3 .container-sm max-width-200">
-      <section className="intro">
-        <div className="mb-3"></div>
-        <InputText name="Recipe Title" placeholder=" ex: Annie's Apple Pie" />
+    <>
+      <IntroForm />
+      <CategoryForm />
+    </>
+  );
+}
 
-        <InputTextarea heading="Description" />
-        <Counter heading="Serves" />
-        <Counter heading="Time" />
-        <ImageUpload />
-        <Button name=" Save Instructions" route="null" />
-      </section>
-      <section className="categories">
+export default Form;
+
+// {
+/* <section className="categories">
         <Select
           heading="Categories"
           onSelectOption={(categoryId) =>
@@ -46,9 +34,4 @@ function Form() {
       </section>
       <section className="notes">
         <Notes />
-      </section>
-      {/* <Button name="Add Recipe" route="/recipe"></Button>{" "} */}
-    </form>
-  );
-}
-export default Form;
+      </section> */

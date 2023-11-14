@@ -110,4 +110,8 @@ section {
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+form.hidden {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
