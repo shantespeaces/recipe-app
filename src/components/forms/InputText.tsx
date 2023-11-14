@@ -1,9 +1,12 @@
+import { ChangeEvent } from "react";
 interface InputTextProps {
   name: string;
   placeholder: string;
+  value?: string; // Make the value prop optional
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function InputText({ name, placeholder }: InputTextProps) {
+function InputText({ name, placeholder, value, onChange }: InputTextProps) {
   return (
     <>
       <label htmlFor="formGroupExampleInput" className="form-label">
@@ -14,6 +17,8 @@ function InputText({ name, placeholder }: InputTextProps) {
         className="form-control"
         id="formGroupExampleInput"
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
     </>
   );
