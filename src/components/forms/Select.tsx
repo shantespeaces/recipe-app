@@ -36,6 +36,7 @@ function Select({
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     //converts selected value into an interger so that the id can be passed to the callback
     const selectedOptionId = parseInt(event.target.value, 10);
+    console.log("Selected Category ID:", selectedOptionId);
     onSelectOption(selectedOptionId);
   };
 

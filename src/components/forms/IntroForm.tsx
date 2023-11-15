@@ -5,43 +5,57 @@ import InputTextarea from "./InputTextarea";
 import Counter from "./Counter";
 import ImageUpload from "./ImageUpload";
 import ButtonSubmit from "../buttons/ButtonSubmit";
+import Select from "./Select";
 
-function IntroForm() {
+import CheckBox from "./CheckBox";
+
+interface IntroFormProps {
+  recipeId: number | undefined;
+}
+
+function IntroForm({ recipeId }: IntroFormProps) {
   const [recipeTitle, setRecipeTitle] = useState("");
   const [description, setDescription] = useState("");
   const [serves, setServes] = useState<number>(0);
   const [time, setTime] = useState<number>(0);
   const [isHidden, setIsHidden] = useState(false);
-
+  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
+    undefined
+  );
+  const [selectedSubCategories, setSelectedSubCategories] = useState<number[]>(
+    []
+  );
+  const handleCategorySelect = (categoryId: number) => {
+    setSelectedCategory(categoryId);
+  };
+  const handleSubCategoriesChange = (selectedOptions: number[]) => {
+    console.log("Selected Subcategories:", selectedOptions);
+    setSelectedSubCategories(selectedOptions);
+  };
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    // console.log("Submit button clicked");
-
-    // try {
-    //   console.log("Data to be sent:", {
-    //     name: recipeTitle,
-    //     description: description,
-    //     serves: serves,
-    //     time: time,
-    //   });
-
-    const response = await axios.post("http://localhost:8000/api/recipes", {
-      name: recipeTitle,
-      description: description,
-      serves: serves,
-      time: time,
+    console.log("Current values:", {
+      selectedSubCategories,
     });
+    e.preventDefault();
 
-    setIsHidden(true);
+    try {
+      await axios.post("http://localhost:8000/api/recipes", {
+        name: recipeTitle,
+        description: description,
+        serves: serves,
+        time: time,
+        recipe_id: recipeId,
+        category_id: selectedCategory,
+      });
+      await axios.post("http://localhost:8000/api/recipe_subcategory", {
+        subcategory_id: selectedSubCategories,
+        recipe_id: recipeId,
+      });
 
-    // console.log("Response:", response.data);
-
-    // Handle success, for example, redirect or show a success message
-    // } catch (error) {
-    //   console.error("Error:", error);
-
-    //   // Handle error, for example, show an error message
-    // }
+      setIsHidden(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -78,11 +92,27 @@ function IntroForm() {
             value={time}
             onChange={(value) => setTime(value)}
           />
+
           <ImageUpload />
-          <ButtonSubmit name=" Save Instructions" type="submit" />
         </section>
+        <section className="categories">
+          <Select
+            heading="Categories"
+            onSelectOption={handleCategorySelect}
+            selectedOption={selectedCategory}
+            endpoint="http://localhost:8000/api/categories"
+          />
+
+          <CheckBox
+            title="filters"
+            endpoint="http://localhost:8000/api/sub_categories"
+            onCheckBoxChange={handleSubCategoriesChange}
+          />
+        </section>
+        <ButtonSubmit name=" Save Instructions" type="submit" />
       </form>
     </>
   );
 }
+
 export default IntroForm;
