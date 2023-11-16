@@ -1,10 +1,10 @@
 import IntroForm from "./forms/IntroForm";
-import CategoryForm from "./forms/CategoryForm";
+
 function Form() {
+  // const createdRecipeId = //something;
   return (
     <>
-      <IntroForm />
-      <CategoryForm />
+      <IntroForm recipeId={createdRecipeId} />
     </>
   );
 }

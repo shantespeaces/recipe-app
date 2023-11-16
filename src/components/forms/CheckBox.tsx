@@ -1,19 +1,20 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 
 interface CheckBoxProps {
   title: string;
   endpoint: string;
+  onCheckBoxChange: (selectedOptions: number[]) => void;
 }
+
 interface Option {
   id: number;
   name: string;
 }
 
-type Options = Option[];
-
-function CheckBox({ title, endpoint }: CheckBoxProps) {
-  const [options, setOptions] = useState<Options>([]);
+function CheckBox({ title, endpoint, onCheckBoxChange }: CheckBoxProps) {
+  const [options, setOptions] = useState<Option[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
   useEffect(() => {
     axios
@@ -21,6 +22,23 @@ function CheckBox({ title, endpoint }: CheckBoxProps) {
       .then((response) => setOptions(response.data))
       .catch((error) => console.error("Error fetching options:", error));
   }, [endpoint]);
+
+  const handleCheckBoxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const optionId = parseInt(event.target.value, 10);
+    if (event.target.checked) {
+      setSelectedOptions((prevOptions) => [...prevOptions, optionId]);
+    } else {
+      setSelectedOptions((prevOptions) =>
+        prevOptions.filter((id) => id !== optionId)
+      );
+    }
+  };
+
+  // Notify the parent component about the selected checkbox options
+  useEffect(() => {
+    onCheckBoxChange(selectedOptions);
+  }, [selectedOptions, onCheckBoxChange]);
+
   return (
     <>
       <h3>{title}</h3>
@@ -32,6 +50,7 @@ function CheckBox({ title, endpoint }: CheckBoxProps) {
               type="checkbox"
               value={option.id}
               id={`flexCheckDefault_${option.id}`}
+              onChange={handleCheckBoxChange}
             />
             <label
               className="form-check-label"
