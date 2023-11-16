@@ -33,6 +33,9 @@ FORMS (reuse components)
 https://www.altogic.com/blog/difference-between-controlled-and-uncontrolled-component#:~:text=%E2%80%8B,the%20state%20of%20the%20component
 https://stackoverflow.com/questions/76788231/how-do-i-reuse-a-react-select-component-across-my-application
 
+SEARCH FILTER https://www.youtube.com/watch?v=MY6ZZIn93V8
+AUTOCOMPLETE REACT COMPONENT TO SEARCH INGREDIENTS https://www.npmjs.com/package/react-search-autocomplete
+DYNAMIC INPUT FIELDS https://www.freecodecamp.org/news/build-dynamic-forms-in-react/
 
 REDUX
 https://redux.js.org/introduction/getting-started
