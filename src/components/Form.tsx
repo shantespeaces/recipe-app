@@ -4,7 +4,7 @@ function Form() {
   // const createdRecipeId = //something;
   return (
     <>
-      <IntroForm recipeId={createdRecipeId} />
+      <IntroForm />
     </>
   );
 }

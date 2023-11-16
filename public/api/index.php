@@ -263,7 +263,9 @@ ArrestDB::Serve('POST', '/(#any)', function ($table) {
 		if ($result === false) {
 			$result = ArrestDB::$HTTP[409];
 		} else {
+			$id = $result;
 			$result = ArrestDB::$HTTP[201];
+			$result["success"]["insert_id"] = $id;
 		}
 	}
 

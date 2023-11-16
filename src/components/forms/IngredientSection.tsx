@@ -1,48 +1,49 @@
-import { useState } from "react";
-import ButtonMore from "../buttons/ButtonMore";
-import Button from "../buttons/Button";
-import Ingredients from "./Ingredients";
-import InputText from "./InputText";
+// import { useState } from "react";
+// import ButtonMore from "../buttons/ButtonMore";
 
-function IngredientSection() {
-  const [ingredientCount, setIngredientCount] = useState(1);
-  const [sectionCount, setSectionCount] = useState(1);
+// import Ingredients from "./Ingredients";
+// import InputText from "./InputText";
 
-  function handleAddIngredient() {
-    setIngredientCount(ingredientCount + 1);
-  }
-  function handleAddSection() {
-    setSectionCount(sectionCount + 1);
-  }
+// function IngredientSection() {
+//   const [ingredientCount, setIngredientCount] = useState(1);
+//   const [sectionCount, setSectionCount] = useState(1);
 
-  return (
-    <>
-      <h2>Ingredients</h2>
-      {/* maintains a state that tracks the number of the component (ingredient or ingredient section) and then render 
-       to dynamically add more instances of that component */}
-      {/* //creates a new array and spreads (...) elements into individual elements */}
-      {/* the (_) indicates that value is not used but is necessary for the callback function */}
+//   function handleAddIngredient() {
+//     setIngredientCount(ingredientCount + 1);
+//   }
+//   function handleAddSection() {
+//     setSectionCount(sectionCount + 1);
+//   }
 
-      {[...Array(sectionCount)].map((_, sectionIndex) => (
-        <div key={sectionIndex} className="ingredient-section">
-          <InputText
-            name={`Section ${sectionIndex + 1}`}
-            placeholder=" ex: Pie Crust"
-          />
+//   //Submit Ingredient Section
 
-          {/* Render Ingredients based on ingredientCount */}
-          {[...Array(ingredientCount)].map((_, ingredientIndex) => (
-            <Ingredients key={ingredientIndex} />
-          ))}
-        </div>
-      ))}
+//   return (
+//     <>
+//       <h2>Ingredients</h2>
+//       {/* maintains a state that tracks the number of the component (ingredient or ingredient section) and then render
+//        to dynamically add more instances of that component */}
+//       {/* //creates a new array and spreads (...) elements into individual elements */}
+//       {/* the (_) indicates that value is not used but is necessary for the callback function */}
 
-      {/* Buttons for adding sections and individual ingredients */}
-      <ButtonMore name="Section" onClick={handleAddSection} />
-      <ButtonMore name="Ingredient" onClick={handleAddIngredient} />
-      <Button name=" Save Instructions" route="null" />
-    </>
-  );
-}
+//       {[...Array(sectionCount)].map((_, sectionIndex) => (
+//         <div key={sectionIndex} className="ingredient-section">
+//           <InputText
+//             name={`Section ${sectionIndex + 1}`}
+//             placeholder=" ex: Pie Crust"
+//           />
 
-export default IngredientSection;
+//           {/* Render Ingredients based on ingredientCount */}
+//           {[...Array(ingredientCount)].map((_, ingredientIndex) => (
+//             <Ingredients key={ingredientIndex} />
+//           ))}
+//         </div>
+//       ))}
+
+//       {/* Buttons for adding sections and individual ingredients */}
+//       <ButtonMore name="Section" onClick={handleAddSection} />
+//       <ButtonMore name="Ingredient" onClick={handleAddIngredient} />
+//     </>
+//   );
+// }
+
+// export default IngredientSection;
