@@ -10,35 +10,60 @@ import Select from "./Select";
 
 import CheckBox from "./CheckBox";
 
+// Define the structure of an Ingredient
 interface Ingredient {
   id: number;
   name: string;
+  ingredient_section_id: number;
 }
+
 function IntroForm() {
   // State for Intro
   const [recipeTitle, setRecipeTitle] = useState("");
   const [description, setDescription] = useState("");
   const [serves, setServes] = useState<number>(0);
   const [time, setTime] = useState<number>(0);
-  // const [image, setImage] = useState("");
-
-  // State for Image
-
-  // const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   // State for Categories
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
+
+  //State for Sub Categories
   const [selectedSubCategories, setSelectedSubCategories] = useState<number[]>(
     []
   );
 
-  //State for Ingredients section
+  //State for Ingredients
 
   const [selectedIngredient, setSelectedIngredient] = useState<string>("");
   const [searchIngredients, setSearchIngredients] = useState<string>("");
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
+  const [quantity, setQuantity] = useState<number>(0);
+  const [ingredientSection, setIngredientSection] = useState<
+    number | undefined
+  >(undefined);
+
+  // State for Measurements
+  const [selectedMeasurement, setSelectedMeasurement] = useState<
+    number | undefined
+  >(undefined);
+
+  // State for Submission Status
+  const [isHidden, setIsHidden] = useState(false);
+
+  // Function to handle category selection
+  const handleCategorySelect = (categoryId: number) => {
+    setSelectedCategory(categoryId);
+  };
+
+  // Function to handle Sub category selection
+  const handleSubCategoriesSelect = (selectedOptions: number[]) => {
+    console.log("Selected Subcategories:", selectedOptions);
+    setSelectedSubCategories(selectedOptions);
+  };
+
+  // Function to handle ingredient search
 
   const handleSearch = async (value: string) => {
     setSearchIngredients(value);
@@ -52,31 +77,18 @@ function IntroForm() {
     }
   };
 
+  // Function to handle measurement selection
+  const handleMeasurementSelect = (measurementId: number) => {
+    setSelectedMeasurement(measurementId);
+  };
+
+  // Function to handle ingredient selection
   const handleSelect = (item: Ingredient) => {
     setSelectedIngredient(item.name);
     setSearchIngredients(item.name);
   };
-  // const [ingredientTitle, setIngredientTitle] = useState("");
-  // const [quantity, setQuantity] = useState<number>(0);
-  // const [ingredients, setIngredients] = useState<number[]>([]);
-  // // const [sections, setSections] = useState<number>();
-  // const [selectedMeasurement, setSelectedMeasurement] = useState<number[]>([]);
 
-  // State for Submission Status
-  const [isHidden, setIsHidden] = useState(false);
-
-  // const handleImageUpload = (image: File | null) => {
-  //   setSelectedImage(image);
-  // };
-
-  const handleCategorySelect = (categoryId: number) => {
-    setSelectedCategory(categoryId);
-  };
-
-  const handleSubCategoriesChange = (selectedOptions: number[]) => {
-    console.log("Selected Subcategories:", selectedOptions);
-    setSelectedSubCategories(selectedOptions);
-  };
+  // Function to handle form submission
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -101,18 +113,6 @@ function IntroForm() {
       const createdRecipeId = introResponse.data.success.insert_id;
       console.log("Created Recipe ID:", createdRecipeId);
 
-      // Submit Image Upload
-      // if (selectedImage) {
-      //   const formData = new FormData();
-      //   formData.append("image", selectedImage, selectedImage.name);
-
-      //   await axios.post(`http://localhost:8000/api/recipes`, {
-      //     formData,
-      //     recipe_id: createdRecipeId,
-      //     image: image,
-      //   });
-      // }
-
       // Submit Sub Categories
 
       for (let subcategory of selectedSubCategories) {
@@ -122,16 +122,18 @@ function IntroForm() {
         });
       }
 
-      //Submit Ingredients Section
-      // for (let ingredient of ingredients) {
-      // await axios.post(`http://localhost:8000/api/ingredient_section`, {
-      //   ingredient_id: ingredient,
-      //   section_id: "100",
-      //   recipe_id: createdRecipeId,
-      //   measurement_id: selectedMeasurement,
-      //   quantity: quantity,
-      // });
-      // }
+      //Submit Ingredient section
+
+      for (let ingredient of ingredientsList) {
+        await axios.post(`http://localhost:8000/api/ingredient_section`, {
+          ingredient_id: ingredient.id,
+          section_id: "100",
+          recipe_id: createdRecipeId,
+          measurement_id: selectedMeasurement,
+          quantity: quantity,
+          id: ingredient.ingredient_section_id,
+        });
+      }
 
       setIsHidden(true);
     } catch (error) {
@@ -187,18 +189,14 @@ function IntroForm() {
           <CheckBox
             title="filters"
             endpoint="http://localhost:8000/api/sub_categories"
-            onCheckBoxChange={handleSubCategoriesChange}
+            onCheckBoxChange={handleSubCategoriesSelect}
           />
         </section>
         <section className="ingredients">
           {/* <IngredientSection /> */}
-          {/* <input
-            type="text"
-            placeholder="Search Ingredients"
-            value={searchIngredients}
-            onChange={(e) => setSearchIngredients(e.target.value)}
-          /> */}
+
           <div>
+            <h2>Ingredients</h2>
             <ReactSearchAutocomplete
               items={ingredientsList}
               onSearch={handleSearch}
@@ -209,19 +207,28 @@ function IntroForm() {
               value={searchIngredients} // Pass the local value to the component
             />
             <p>Selected ingredient: {selectedIngredient}</p>
+            {/* <ul>
+              {selectedIngredients.map((ingredient, index) => (
+                <li key={index}>
+                  {ingredient}
+                  <button onClick={() => handleRemoveIngredient(ingredient)}>
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul> */}
           </div>
-          {/* <Counter
+          <Counter
             heading="Qty"
             value={quantity}
             onChange={(value) => setQuantity(value)}
           />
           <Select
             heading="Measurement"
-            onSelectOption={(measurementId) =>
-              console.log(`Selected measurement: ${measurementId}`)
-            }
+            onSelectOption={handleMeasurementSelect}
+            selectedOption={selectedMeasurement}
             endpoint="http://localhost:8000/api/measurements"
-          /> */}
+          />
         </section>
         {/* <section className="steps">
         <Instructions />
@@ -236,3 +243,23 @@ function IntroForm() {
 }
 
 export default IntroForm;
+// const [image, setImage] = useState("");
+
+// State for Image
+
+// const [selectedImage, setSelectedImage] = useState<File | null>(null);
+// const handleImageUpload = (image: File | null) => {
+//   setSelectedImage(image);
+// };
+
+// Submit Image Upload
+// if (selectedImage) {
+//   const formData = new FormData();
+//   formData.append("image", selectedImage, selectedImage.name);
+
+//   await axios.post(`http://localhost:8000/api/recipes`, {
+//     formData,
+//     recipe_id: createdRecipeId,
+//     image: image,
+//   });
+// }

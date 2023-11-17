@@ -1,5 +1,4 @@
 // import { useState } from "react";
-// import axios from "axios";
 // import InputText from "./InputText";
 
 // import Counter from "./Counter";
