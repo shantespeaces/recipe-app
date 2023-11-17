@@ -123,6 +123,12 @@ function IntroForm() {
       }
 
       //Submit Ingredient section
+      //je veux: post une section qui contient une list d'ingredients et leurs quantités et measurements associer
+      //un ingredient est un objet ingredient{id, quantity_id, measurement_id}
+      //DONC une section est un tableau avec plusieurs objets ingredients a linterieure
+      // section = [ingredient{id, quantity_id, measurement_id}, ingredient{id, quantity_id, measurement_id}, ]
+      //apres...besoin dajouter la fonction pour ajouter une section section`-ingredients du formulaire
+      //et besoin dajouter la fonction pour ajouter un search ingredient a une section
 
       for (let ingredient of ingredientsList) {
         await axios.post(`http://localhost:8000/api/ingredient_section`, {
