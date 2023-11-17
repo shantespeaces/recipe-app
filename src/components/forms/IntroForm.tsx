@@ -6,6 +6,7 @@ import InputTextarea from "./InputTextarea";
 import Counter from "./Counter";
 // import ImageUpload from "./ImageUpload";
 import ButtonSubmit from "../buttons/ButtonSubmit";
+import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
 
 import CheckBox from "./CheckBox";
@@ -14,8 +15,9 @@ import CheckBox from "./CheckBox";
 interface Ingredient {
   id: number;
   name: string;
-  ingredient_section_id: number;
 }
+type Section = Ingredient[];
+type Sections = Section[];
 
 function IntroForm() {
   // State for Intro
@@ -23,6 +25,7 @@ function IntroForm() {
   const [description, setDescription] = useState("");
   const [serves, setServes] = useState<number>(0);
   const [time, setTime] = useState<number>(0);
+  const [sectionTitle, setSectionTitle] = useState("");
 
   // State for Categories
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -40,9 +43,7 @@ function IntroForm() {
   const [searchIngredients, setSearchIngredients] = useState<string>("");
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
   const [quantity, setQuantity] = useState<number>(0);
-  const [ingredientSection, setIngredientSection] = useState<
-    number | undefined
-  >(undefined);
+  const [sections, setSections] = useState<Sections>([]);
 
   // State for Measurements
   const [selectedMeasurement, setSelectedMeasurement] = useState<
@@ -88,6 +89,12 @@ function IntroForm() {
     setSearchIngredients(item.name);
   };
 
+  //Function to handle sections
+
+  // const handleSection = (section: Section) => {
+  //   setSections();
+  // };
+
   // Function to handle form submission
 
   const handleSubmit = async (e: FormEvent) => {
@@ -130,15 +137,41 @@ function IntroForm() {
       //apres...besoin dajouter la fonction pour ajouter une section section`-ingredients du formulaire
       //et besoin dajouter la fonction pour ajouter un search ingredient a une section
 
-      for (let ingredient of ingredientsList) {
-        await axios.post(`http://localhost:8000/api/ingredient_section`, {
-          ingredient_id: ingredient.id,
-          section_id: "100",
-          recipe_id: createdRecipeId,
-          measurement_id: selectedMeasurement,
-          quantity: quantity,
-          id: ingredient.ingredient_section_id,
-        });
+      // Define the structure of an Ingredient
+      // interface Ingredient {
+      //   id: number;
+      //   name: string;
+      //   ingredient_section_id: number;
+      // }
+      // const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
+      //   const [ingredientSection, setIngredientSection] = useState<
+      //     number | undefined
+      //   >(undefined);
+
+      // for (let ingredient of ingredientsList) {
+      //   await axios.post(`http://localhost:8000/api/ingredient_section`, {
+      //     ingredient_id: ingredient.id,
+      //     section_id: "100",
+      //     recipe_id: createdRecipeId,
+      //     measurement_id: selectedMeasurement,
+      //     quantity: quantity,
+      //     id: ingredient.ingredient_section_id,
+      //   });
+      // }
+
+      let section_id = 1;
+      for (let section of sections) {
+        for (let ingredient of section) {
+          console.log(`Section ID: ${section_id}`);
+          await axios.post(`http://localhost:8000/api/ingredient_section`, {
+            ingredient_id: ingredient,
+            section_id: section_id,
+            recipe_id: createdRecipeId,
+            measurement_id: selectedMeasurement,
+            quantity: quantity,
+          });
+        }
+        section_id++;
       }
 
       setIsHidden(true);
@@ -200,7 +233,11 @@ function IntroForm() {
         </section>
         <section className="ingredients">
           {/* <IngredientSection /> */}
-
+          <InputText
+            name="section"
+            placeholder=" ex: Pie Crust"
+            onChange={(e) => setSectionTitle(e.target.value)}
+          />
           <div>
             <h2>Ingredients</h2>
             <ReactSearchAutocomplete
@@ -224,6 +261,9 @@ function IntroForm() {
               ))}
             </ul> */}
           </div>
+          {/* Buttons for adding sections and individual ingredients */}
+          {/* <ButtonMore name="Section" onClick={handleAddSection} /> */}
+          {/* // <ButtonMore name="Ingredient" onClick={handleAddIngredient} /> */}
           <Counter
             heading="Qty"
             value={quantity}
