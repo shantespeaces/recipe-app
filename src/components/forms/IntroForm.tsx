@@ -102,24 +102,6 @@ function IntroForm() {
     }
   };
 
-  const handleCreateSections = async () => {
-    // Récupération de l'ingrédient sélectionné, s'il existe, pour créer la section
-    // TODO: plusieurs ingrédients sélectionnés nécessiteraient une boucle sur chacun
-    if (selectedIngredient) {
-      // Création de la section contenant l'ingrédient sélectionné
-      const nouvelleSection: Section = {
-        title: sectionTitle,
-        ingredients: [selectedIngredient],
-      };
-
-      // Création des sections (une seule présentement)
-      const les_sections: Sections = [nouvelleSection];
-
-      // Assignation
-      setSections(les_sections);
-    }
-  };
-
   // Function to handle measurement selection
   const handleMeasurementSelect = (measurementId: number) => {
     setSelectedMeasurement(measurementId);
@@ -311,26 +293,6 @@ function IntroForm() {
 }
 
 export default IntroForm;
-// const [image, setImage] = useState("");
-
-// State for Image
-
-// const [selectedImage, setSelectedImage] = useState<File | null>(null);
-// const handleImageUpload = (image: File | null) => {
-//   setSelectedImage(image);
-// };
-
-// Submit Image Upload
-// if (selectedImage) {
-//   const formData = new FormData();
-//   formData.append("image", selectedImage, selectedImage.name);
-
-//   await axios.post(`http://localhost:8000/api/recipes`, {
-//     formData,
-//     recipe_id: createdRecipeId,
-//     image: image,
-//   });
-// }
 // const [image, setImage] = useState("");
 
 // State for Image
