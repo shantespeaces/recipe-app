@@ -16,7 +16,12 @@ interface Ingredient {
   id: number;
   name: string;
 }
-type Section = Ingredient[];
+
+interface Section {
+  title: string;
+  ingredients: Ingredient[];
+}
+
 type Sections = Section[];
 
 function IntroForm() {
@@ -39,7 +44,8 @@ function IntroForm() {
 
   //State for Ingredients
 
-  const [selectedIngredient, setSelectedIngredient] = useState<string>("");
+  const [selectedIngredient, setSelectedIngredient] =
+    useState<Ingredient | null>(null);
   const [searchIngredients, setSearchIngredients] = useState<string>("");
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
   const [quantity, setQuantity] = useState<number>(0);
@@ -60,7 +66,7 @@ function IntroForm() {
 
   // Function to handle Sub category selection
   const handleSubCategoriesSelect = (selectedOptions: number[]) => {
-    console.log("Selected Subcategories:", selectedOptions);
+    // console.log("Selected Subcategories:", selectedOptions);
     setSelectedSubCategories(selectedOptions);
   };
 
@@ -78,6 +84,25 @@ function IntroForm() {
     }
   };
 
+  const handleCreateSections = async () => {
+    // Récupération de l'ingrédient sélectionné, s'il existe, pour créer la section
+    // TODO: plusieurs ingrédients sélectionnés nécessiteraient une boucle sur chacun
+      if (selectedIngredient) {
+        // Création de la section contenant l'ingrédient sélectionné
+        const nouvelleSection: Section = {
+          title: sectionTitle,
+          ingredients: [selectedIngredient],
+        };
+
+        // Création des sections (une seule présentement)
+        const les_sections: Sections = [nouvelleSection];
+
+        // Assignation
+        setSections(les_sections);
+
+      }
+  };
+
   // Function to handle measurement selection
   const handleMeasurementSelect = (measurementId: number) => {
     setSelectedMeasurement(measurementId);
@@ -85,15 +110,9 @@ function IntroForm() {
 
   // Function to handle ingredient selection
   const handleSelect = (item: Ingredient) => {
-    setSelectedIngredient(item.name);
+    setSelectedIngredient(item);
     setSearchIngredients(item.name);
   };
-
-  //Function to handle sections
-
-  // const handleSection = (section: Section) => {
-  //   setSections();
-  // };
 
   // Function to handle form submission
 
@@ -101,6 +120,9 @@ function IntroForm() {
     e.preventDefault();
 
     try {
+      // Create sections
+      await handleCreateSections();
+
       // Submit Intro Section
       const introResponse = await axios.post(
         "http://localhost:8000/api/recipes",
@@ -118,7 +140,6 @@ function IntroForm() {
 
       // Get the recipe ID from the response
       const createdRecipeId = introResponse.data.success.insert_id;
-      console.log("Created Recipe ID:", createdRecipeId);
 
       // Submit Sub Categories
 
@@ -129,52 +150,33 @@ function IntroForm() {
         });
       }
 
-      //Submit Ingredient section
-      //je veux: post une section qui contient une list d'ingredients et leurs quantités et measurements associer
-      //un ingredient est un objet ingredient{id, quantity_id, measurement_id}
-      //DONC une section est un tableau avec plusieurs objets ingredients a linterieure
-      // section = [ingredient{id, quantity_id, measurement_id}, ingredient{id, quantity_id, measurement_id}, ]
-      //apres...besoin dajouter la fonction pour ajouter une section section`-ingredients du formulaire
-      //et besoin dajouter la fonction pour ajouter un search ingredient a une section
-
-      // Define the structure of an Ingredient
-      // interface Ingredient {
-      //   id: number;
-      //   name: string;
-      //   ingredient_section_id: number;
-      // }
-      // const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
-      //   const [ingredientSection, setIngredientSection] = useState<
-      //     number | undefined
-      //   >(undefined);
-
-      // for (let ingredient of ingredientsList) {
-      //   await axios.post(`http://localhost:8000/api/ingredient_section`, {
-      //     ingredient_id: ingredient.id,
-      //     section_id: "100",
-      //     recipe_id: createdRecipeId,
-      //     measurement_id: selectedMeasurement,
-      //     quantity: quantity,
-      //     id: ingredient.ingredient_section_id,
-      //   });
-      // }
-
-      let section_id = 1;
+      // Submit sections and ingredients
       for (let section of sections) {
-        for (let ingredient of section) {
-          console.log(`Section ID: ${section_id}`);
+        // Section
+        const sectionResponse = await axios.post(
+          "http://localhost:8000/api/sections",
+          {
+            title: section.title,
+            recipe_id: createdRecipeId,
+          }
+        );
+
+        // Get the last inserted section id from the response
+        const createdSectionId = sectionResponse.data.success.insert_id;
+
+        // Section's ingredients
+        for (let ingredient of section.ingredients) {
           await axios.post(`http://localhost:8000/api/ingredient_section`, {
-            ingredient_id: ingredient,
-            section_id: section_id,
+            ingredient_id: ingredient.id,
+            section_id: createdSectionId,
             recipe_id: createdRecipeId,
             measurement_id: selectedMeasurement,
             quantity: quantity,
           });
         }
-        section_id++;
       }
 
-      setIsHidden(true);
+      // setIsHidden(true);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -249,7 +251,10 @@ function IntroForm() {
               onSelectItem={(item: Ingredient) => handleSelect(item)}
               value={searchIngredients} // Pass the local value to the component
             />
-            <p>Selected ingredient: {selectedIngredient}</p>
+            <p>
+              Selected ingredient:{" "}
+              {selectedIngredient ? selectedIngredient.name : "None"}
+            </p>
             {/* <ul>
               {selectedIngredients.map((ingredient, index) => (
                 <li key={index}>
