@@ -15,6 +15,7 @@ import CheckBox from "./CheckBox";
 interface Ingredient {
   id: number;
   name: string;
+  quantity: number;
 }
 type Section = Ingredient[];
 type Sections = Section[];
@@ -25,7 +26,6 @@ function IntroForm() {
   const [description, setDescription] = useState("");
   const [serves, setServes] = useState<number>(0);
   const [time, setTime] = useState<number>(0);
-  const [sectionTitle, setSectionTitle] = useState("");
 
   // State for Categories
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -44,7 +44,7 @@ function IntroForm() {
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
   const [quantity, setQuantity] = useState<number>(0);
   const [sections, setSections] = useState<Sections>([]);
-
+  const [sectionTitle, setSectionTitle] = useState("");
   // State for Measurements
   const [selectedMeasurement, setSelectedMeasurement] = useState<
     number | undefined
@@ -60,7 +60,7 @@ function IntroForm() {
 
   // Function to handle Sub category selection
   const handleSubCategoriesSelect = (selectedOptions: number[]) => {
-    console.log("Selected Subcategories:", selectedOptions);
+    // console.log("Selected Subcategories:", selectedOptions);
     setSelectedSubCategories(selectedOptions);
   };
 
@@ -91,8 +91,8 @@ function IntroForm() {
 
   //Function to handle sections
 
-  // const handleSection = (section: Section) => {
-  //   setSections();
+  // const handleSection = (section: any) => {
+  //   setSections(sectionTitle);
   // };
 
   // Function to handle form submission
@@ -160,15 +160,17 @@ function IntroForm() {
       // }
 
       let section_id = 1;
+      // console.log(sections);
+      // throw new Error();
       for (let section of sections) {
         for (let ingredient of section) {
           console.log(`Section ID: ${section_id}`);
           await axios.post(`http://localhost:8000/api/ingredient_section`, {
-            ingredient_id: ingredient,
-            section_id: section_id,
+            ingredient_id: ingredient.id,
+            section_id: "100",
             recipe_id: createdRecipeId,
             measurement_id: selectedMeasurement,
-            quantity: quantity,
+            quantity: ingredient.quantity,
           });
         }
         section_id++;
