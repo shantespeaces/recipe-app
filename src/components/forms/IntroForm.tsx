@@ -102,6 +102,24 @@ function IntroForm() {
     }
   };
 
+  const handleCreateSections = async () => {
+    // Récupération de l'ingrédient sélectionné, s'il existe, pour créer la section
+    // TODO: plusieurs ingrédients sélectionnés nécessiteraient une boucle sur chacun
+    if (selectedIngredient) {
+      // Création de la section contenant l'ingrédient sélectionné
+      const nouvelleSection: Section = {
+        title: sectionTitle,
+        ingredients: [selectedIngredient],
+      };
+
+      // Création des sections (une seule présentement)
+      const les_sections: Sections = [nouvelleSection];
+
+      // Assignation
+      setSections(les_sections);
+    }
+  };
+
   // Function to handle measurement selection
   const handleMeasurementSelect = (measurementId: number) => {
     setSelectedMeasurement(measurementId);
