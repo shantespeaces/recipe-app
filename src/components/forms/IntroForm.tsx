@@ -139,7 +139,11 @@ function IntroForm() {
   };
 
   // function to handle adding ingredients to a ingredientsList
+  const [showSectionInput, setShowSectionInput] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
   const handleAddIngredientToList = () => {
+    setShowContent(!showContent);
     if (selectedIngredient) {
       const newIngredient = {
         ingredient: selectedIngredient,
@@ -150,6 +154,17 @@ function IntroForm() {
       setSelectedIngredientsList([...selectedIngredientsList, newIngredient]);
       resetFields(); // Clear fields for new entries
     }
+
+    // Hide the section title input after adding an ingredient
+    setShowSectionInput(false);
+  };
+
+  // State of Next Section
+  const [showNextSection, setShowNextSection] = useState(false);
+  const handleAddSection = () => {
+    //show next section
+    setShowNextSection(!showNextSection);
+    setShowSectionInput(true);
   };
 
   // Function to handle form submission
@@ -201,7 +216,7 @@ function IntroForm() {
       };
 
       const updatedSections = [...sections, newSection];
-      // Submit sections and ingredients
+      // Submit one section and ingredients
       for (let section of updatedSections) {
         // Section
         const sectionResponse = await axios.post(
@@ -289,9 +304,92 @@ function IntroForm() {
             onCheckBoxChange={handleSubCategoriesSelect}
           />
         </section>
-        <section className="ingredientSection">
-          {/* <IngredientSection /> */}
-          <InputText
+
+        {/* <IngredientSection /> */}
+        <section className="ingredientSection first">
+          <div className="first-section">
+            {showContent && (
+              <div className="content">
+                <h2>Section: {sectionTitle}</h2>
+
+                <h3>Selected Ingredients</h3>
+              </div>
+            )}
+            <div className="selectedIngredients">
+              {selectedIngredientsList.map((item, index) => (
+                <div key={index}>
+                  <p>
+                    Ingredient:{" "}
+                    {item.ingredient ? item.ingredient.name : "None"}
+                  </p>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>
+                    Measurement: {item.measurement ? item.measurement : "None"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="next-section">
+            {showNextSection && <h2>Section: {sectionTitle}</h2>}
+            {/* <div className="selectedIngredients">
+              <h3>Selected Ingredients</h3>
+              {selectedIngredientsList.map((item, index) => (
+                <div key={index}>
+                  <p>
+                    Ingredient:{" "}
+                    {item.ingredient ? item.ingredient.name : "None"}
+                  </p>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>
+                    Measurement: {item.measurement ? item.measurement : "None"}
+                  </p>
+                </div>
+              ))}
+            </div> */}
+          </div>
+          {showSectionInput && (
+            <InputText
+              name="section"
+              placeholder=" ex: Pie Crust"
+              onChange={(e) => setSectionTitle(e.target.value)}
+            />
+          )}
+          <div className="ingredientObject">
+            <h2>Ingredients</h2>
+            <ReactSearchAutocomplete
+              items={ingredientsList}
+              onSearch={handleSearch}
+              onSelect={handleSelect}
+              placeholder="Search Ingredients"
+              autoFocus
+              onSelectItem={(item: Ingredient) => handleSelect(item)}
+              value={searchIngredients} // Pass the local value to the component
+            />
+
+            <Counter
+              heading="Qty"
+              value={quantity}
+              onChange={(value) => setQuantity(value)}
+            />
+            <Select
+              heading="Measurement"
+              onSelectOption={handleMeasurementSelect}
+              selectedOption={selectedMeasurement}
+              endpoint="http://localhost:8000/api/measurements"
+            />
+          </div>
+          <ButtonMore
+            name="Add an ingredient"
+            onClick={handleAddIngredientToList}
+          />{" "}
+        </section>
+        <ButtonMore name="Add a Section" onClick={handleAddSection} />
+        {/* {sectionComponents.map((sectionComponent) => sectionComponent)} */}
+
+        {/* <section className="ingredientSection second"> */}
+        {/* <IngredientSection /> */}
+        {/* <InputText
             name="section"
             placeholder=" ex: Pie Crust"
             onChange={(e) => setSectionTitle(e.target.value)}
@@ -308,17 +406,6 @@ function IntroForm() {
               value={searchIngredients} // Pass the local value to the component
             />
 
-            {/* <ul>
-              {selectedIngredients.map((ingredient, index) => (
-                <li key={index}>
-                  {ingredient}
-                  <button onClick={() => handleRemoveIngredient(ingredient)}>
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul> */}
-
             <Counter
               heading="Qty"
               value={quantity}
@@ -332,12 +419,12 @@ function IntroForm() {
             />
           </div>
           <ButtonMore
-            name="Add ingredient"
+            name="Add an ingredient"
             onClick={handleAddIngredientToList}
-          />
-          <p>Section: {sectionTitle}</p>
+          />{" "}
+          <h2>Section: {sectionTitle}</h2>
           <div className="selectedIngredients">
-            <h2>Selected Ingredients</h2>
+            <h3>Selected Ingredients</h3>
             {selectedIngredientsList.map((item, index) => (
               <div key={index}>
                 <p>
@@ -350,9 +437,8 @@ function IntroForm() {
               </div>
             ))}
           </div>
+        </section> */}
 
-          <ButtonMore name="Ingredient" onClick={resetFields} />
-        </section>
         {/* <section className="steps">
         <Instructions />
       </section>
