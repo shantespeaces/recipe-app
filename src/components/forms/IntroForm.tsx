@@ -46,6 +46,17 @@ function IntroForm() {
     []
   );
 
+  // Function to handle category selection
+  const handleCategorySelect = (categoryId: number) => {
+    setSelectedCategory(categoryId);
+  };
+
+  // Function to handle Sub category selection
+  const handleSubCategoriesSelect = (selectedOptions: number[]) => {
+    // console.log("Selected Subcategories:", selectedOptions);
+    setSelectedSubCategories(selectedOptions);
+  };
+
   //State for Ingredients
 
   const [selectedIngredient, setSelectedIngredient] =
@@ -60,8 +71,6 @@ function IntroForm() {
     number | undefined
   >(undefined);
 
-  // State for Submission Status
-  // const [isHidden, setIsHidden] = useState(false);
   //State to make a list of ingredients
   const [selectedIngredientsList, setSelectedIngredientsList] = useState<
     {
@@ -70,17 +79,6 @@ function IntroForm() {
       measurement: number | undefined;
     }[]
   >([]);
-
-  // Function to handle category selection
-  const handleCategorySelect = (categoryId: number) => {
-    setSelectedCategory(categoryId);
-  };
-
-  // Function to handle Sub category selection
-  const handleSubCategoriesSelect = (selectedOptions: number[]) => {
-    // console.log("Selected Subcategories:", selectedOptions);
-    setSelectedSubCategories(selectedOptions);
-  };
 
   // Function to handle ingredient search
 
@@ -95,6 +93,8 @@ function IntroForm() {
       console.error("Error fetching data:", error);
     }
   };
+  const [showNextSection, setShowNextSection] = useState(false);
+  const [sectionCount, setSectionCount] = useState(1); // Initialize the count to 1
 
   const handleCreateSections = () => {
     console.log("Selected Ingredients List:", selectedIngredientsList);
@@ -115,6 +115,11 @@ function IntroForm() {
       console.log("Updated Sections:", updatedSections);
 
       resetFields(); // Clear fields for new entries
+      //show next section
+      setShowNextSection(!showNextSection);
+      setShowSectionInput(true);
+      // Increment the section count when adding a new section
+      setSectionCount(sectionCount + 1);
     }
   };
 
@@ -159,13 +164,18 @@ function IntroForm() {
     setShowSectionInput(false);
   };
 
-  // State of Next Section
-  const [showNextSection, setShowNextSection] = useState(false);
-  const handleAddSection = () => {
-    //show next section
-    setShowNextSection(!showNextSection);
-    setShowSectionInput(true);
-  };
+  // // State of Next Section
+  // const [showNextSection, setShowNextSection] = useState(false);
+  // const [sectionCount, setSectionCount] = useState(1); // Initialize the count to 1
+  // //Function to handle added section
+  // //  section title should be initially set at section 2: sectionTitle added once ingredient has been added
+  // const handleAddSection = () => {
+  //   //show next section
+  //   setShowNextSection(!showNextSection);
+  //   setShowSectionInput(true);
+  //   // Increment the section count when adding a new section
+  //   setSectionCount(sectionCount + 1);
+  // };
 
   // Function to handle form submission
 
@@ -304,141 +314,59 @@ function IntroForm() {
             onCheckBoxChange={handleSubCategoriesSelect}
           />
         </section>
-
         {/* <IngredientSection /> */}
-        <section className="ingredientSection first">
-          <div className="first-section">
-            {showContent && (
-              <div className="content">
-                <h2>Section: {sectionTitle}</h2>
-
-                <h3>Selected Ingredients</h3>
+        <div>
+          {sections.map((section, index) => (
+            <section key={index} className="ingredientSection">
+              <h2>{`Section ${index + 1}: ${section.title}`}</h2>
+              <div className="selectedIngredients">
+                {section.selectedIngredientsList.map((ingredient, idx) => (
+                  <div key={idx}>
+                    <p>Ingredient: {ingredient.ingredient.name}</p>
+                    <p>Quantity: {ingredient.quantity}</p>
+                    <p>Measurement: {ingredient.measurement}</p>
+                  </div>
+                ))}
               </div>
-            )}
-            <div className="selectedIngredients">
-              {selectedIngredientsList.map((item, index) => (
-                <div key={index}>
-                  <p>
-                    Ingredient:{" "}
-                    {item.ingredient ? item.ingredient.name : "None"}
-                  </p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>
-                    Measurement: {item.measurement ? item.measurement : "None"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="next-section">
-            {showNextSection && <h2>Section: {sectionTitle}</h2>}
-            {/* <div className="selectedIngredients">
-              <h3>Selected Ingredients</h3>
-              {selectedIngredientsList.map((item, index) => (
-                <div key={index}>
-                  <p>
-                    Ingredient:{" "}
-                    {item.ingredient ? item.ingredient.name : "None"}
-                  </p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>
-                    Measurement: {item.measurement ? item.measurement : "None"}
-                  </p>
-                </div>
-              ))}
-            </div> */}
-          </div>
-          {showSectionInput && (
-            <InputText
-              name="section"
-              placeholder=" ex: Pie Crust"
-              onChange={(e) => setSectionTitle(e.target.value)}
-            />
-          )}
-          <div className="ingredientObject">
-            <h2>Ingredients</h2>
-            <ReactSearchAutocomplete
-              items={ingredientsList}
-              onSearch={handleSearch}
-              onSelect={handleSelect}
-              placeholder="Search Ingredients"
-              autoFocus
-              onSelectItem={(item: Ingredient) => handleSelect(item)}
-              value={searchIngredients} // Pass the local value to the component
-            />
-
-            <Counter
-              heading="Qty"
-              value={quantity}
-              onChange={(value) => setQuantity(value)}
-            />
-            <Select
-              heading="Measurement"
-              onSelectOption={handleMeasurementSelect}
-              selectedOption={selectedMeasurement}
-              endpoint="http://localhost:8000/api/measurements"
-            />
-          </div>
-          <ButtonMore
-            name="Add an ingredient"
-            onClick={handleAddIngredientToList}
-          />{" "}
-        </section>
-        <ButtonMore name="Add a Section" onClick={handleAddSection} />
-        {/* {sectionComponents.map((sectionComponent) => sectionComponent)} */}
-
-        {/* <section className="ingredientSection second"> */}
-        {/* <IngredientSection /> */}
-        {/* <InputText
+            </section>
+          ))}
+        </div>
+        {showSectionInput && (
+          <InputText
             name="section"
             placeholder=" ex: Pie Crust"
             onChange={(e) => setSectionTitle(e.target.value)}
           />
-          <div className="ingredientObject">
-            <h2>Ingredients</h2>
-            <ReactSearchAutocomplete
-              items={ingredientsList}
-              onSearch={handleSearch}
-              onSelect={handleSelect}
-              placeholder="Search Ingredients"
-              autoFocus
-              onSelectItem={(item: Ingredient) => handleSelect(item)}
-              value={searchIngredients} // Pass the local value to the component
-            />
+        )}
+        <div className="ingredientObject">
+          <h2>Ingredients</h2>
+          <ReactSearchAutocomplete
+            items={ingredientsList}
+            onSearch={handleSearch}
+            onSelect={handleSelect}
+            placeholder="Search Ingredients"
+            autoFocus
+            onSelectItem={(item: Ingredient) => handleSelect(item)}
+            value={searchIngredients} // Pass the local value to the component
+          />
 
-            <Counter
-              heading="Qty"
-              value={quantity}
-              onChange={(value) => setQuantity(value)}
-            />
-            <Select
-              heading="Measurement"
-              onSelectOption={handleMeasurementSelect}
-              selectedOption={selectedMeasurement}
-              endpoint="http://localhost:8000/api/measurements"
-            />
-          </div>
-          <ButtonMore
-            name="Add an ingredient"
-            onClick={handleAddIngredientToList}
-          />{" "}
-          <h2>Section: {sectionTitle}</h2>
-          <div className="selectedIngredients">
-            <h3>Selected Ingredients</h3>
-            {selectedIngredientsList.map((item, index) => (
-              <div key={index}>
-                <p>
-                  Ingredient: {item.ingredient ? item.ingredient.name : "None"}
-                </p>
-                <p>Quantity: {item.quantity}</p>
-                <p>
-                  Measurement: {item.measurement ? item.measurement : "None"}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
+          <Counter
+            heading="Qty"
+            value={quantity}
+            onChange={(value) => setQuantity(value)}
+          />
+          <Select
+            heading="Measurement"
+            onSelectOption={handleMeasurementSelect}
+            selectedOption={selectedMeasurement}
+            endpoint="http://localhost:8000/api/measurements"
+          />
+        </div>
+        <ButtonMore
+          name="Add an ingredient"
+          onClick={handleAddIngredientToList}
+        />{" "}
+        <ButtonMore name="Add a Section" onClick={handleCreateSections} />
         {/* <section className="steps">
         <Instructions />
       </section>
@@ -452,23 +380,24 @@ function IntroForm() {
 }
 
 export default IntroForm;
-// const [image, setImage] = useState("");
 
-// State for Image
+// // const [image, setImage] = useState("");
 
-// const [selectedImage, setSelectedImage] = useState<File | null>(null);
-// const handleImageUpload = (image: File | null) => {
-//   setSelectedImage(image);
-// };
+// // State for Image
 
-// Submit Image Upload
-// if (selectedImage) {
-//   const formData = new FormData();
-//   formData.append("image", selectedImage, selectedImage.name);
+// // const [selectedImage, setSelectedImage] = useState<File | null>(null);
+// // const handleImageUpload = (image: File | null) => {
+// //   setSelectedImage(image);
+// // };
 
-//   await axios.post(`http://localhost:8000/api/recipes`, {
-//     formData,
-//     recipe_id: createdRecipeId,
-//     image: image,
-//   });
-// }
+// // Submit Image Upload
+// // if (selectedImage) {
+// //   const formData = new FormData();
+// //   formData.append("image", selectedImage, selectedImage.name);
+
+// //   await axios.post(`http://localhost:8000/api/recipes`, {
+// //     formData,
+// //     recipe_id: createdRecipeId,
+// //     image: image,
+// //   });
+// // }
