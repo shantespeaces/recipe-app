@@ -11,7 +11,6 @@ import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
 
 import CheckBox from "./CheckBox";
-import zIndex from "@mui/material/styles/zIndex";
 
 // Define the structure of an Ingredient
 interface Ingredient {
@@ -23,7 +22,7 @@ interface Ingredient {
 
 type Sections = Section[];
 interface Section {
-  title: string;
+  title: string;  
   ingredients: Ingredient[];
 }
 
@@ -390,7 +389,7 @@ function IntroForm() {
           name="Add an ingredient"
           onClick={handleAddIngredientToList}
         />
-        <ButtonMore name="Add a Section" onClick={handleCreateSections} />
+        <ButtonMore name="Save the Section" onClick={handleCreateSections} />
         {/* <section className="steps">
         <Instructions />
       </section>
