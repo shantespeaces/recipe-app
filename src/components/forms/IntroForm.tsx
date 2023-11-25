@@ -11,6 +11,7 @@ import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
 
 import CheckBox from "./CheckBox";
+import zIndex from "@mui/material/styles/zIndex";
 
 // Define the structure of an Ingredient
 interface Ingredient {
@@ -369,7 +370,8 @@ function IntroForm() {
             onSelect={handleSelect}
             placeholder="Search Ingredients"
             autoFocus
-            value={searchIngredients} // Pass the local value to the component
+            inputSearchString={searchIngredients}
+            styling={{zIndex: 100}}
           />
 
           <Counter
