@@ -23,7 +23,7 @@ interface Ingredient {
 type Sections = Section[];
 interface Section {
   title: string;
-  selectedIngredientsList: Ingredient[];
+  ingredients: Ingredient[];
 }
 
 function IntroForm() {
@@ -96,9 +96,14 @@ function IntroForm() {
     setSelectedIngredient(null);
     setSelectedQuantity(0);
     setSelectedMeasurement(undefined);
-    console.log("Search Ingredients Reset");
+    console.log("Search ingredients, selected ingredient, selected quantity, selected measurement and selected ingredients list were reset")
   };
 
+  const resetSection = () => {
+    setSectionTitle("")
+    setSelectedIngredientsList([])
+  }
+  
   //state for selected ingredient
   const [selectedIngredient, setSelectedIngredient] =
     useState<Ingredient | null>(null);
@@ -119,10 +124,6 @@ function IntroForm() {
 
   // function to handle the creation of a section
   const handleCreateSections = () => {
-    console.log("Selected Ingredients List:", selectedIngredientsList);
-    console.log("Section title: " + sectionTitle);
-    console.log("Section count: " + sectionCount)
-
 
     // Check if section title exists (TODO: show error message in page)
     if (sectionTitle.trim() === "") {
@@ -141,7 +142,7 @@ function IntroForm() {
 
     const newSection: Section = {
       title: sectionTitle,
-      selectedIngredientsList: selectedIngredientsList.map((ingredient) => ({
+      ingredients: selectedIngredientsList.map((ingredient) => ({
         name: ingredient.name,
         quantity: ingredient.quantity,
         measurement: ingredient.measurement,
@@ -151,15 +152,11 @@ function IntroForm() {
     //update sections state (stores section array and object?)
     const updatedSections = [...sections, newSection];
     setSections(updatedSections); // Update the sections state
-    console.log("Updated Sections:", updatedSections);
+    console.log("Updated Sections:", sections);
 
     resetFields(); // Clear fields for new entries
+    resetSection(); // Clear the previous ingredients list and section title
 
-    //show next section
-    setShowNextSection(!showNextSection);
-    //show section title input
-    setShowSectionInput(true);
-    // Increment the section count when adding a new section
     setSectionCount(sectionCount + 1);
   };
 
@@ -247,7 +244,7 @@ function IntroForm() {
       // Construct updatedSections based on selectedIngredientsList and sectionTitle
       const newSection: Section = {
         title: sectionTitle,
-        selectedIngredientsList: selectedIngredientsList.map((ingredient) => ({
+        ingredients: selectedIngredientsList.map((ingredient) => ({
           name: ingredient.name,
           quantity: ingredient.quantity,
           measurement: ingredient.measurement,
@@ -273,7 +270,7 @@ function IntroForm() {
         console.log("Section ID:", createdSectionId);
 
         // Section's ingredients
-        for (let ingredient of section.selectedIngredientsList) {
+        for (let ingredient of section.ingredients) {
           console.log("Ingredient:", ingredient.name);
           await axios.post(`http://localhost:8000/api/ingredient_section`, {
             ingredient_id: ingredient.id,
@@ -342,9 +339,10 @@ function IntroForm() {
         <div>
           {sections.map((section, index) => (
             <section key={index} className="ingredientSection">
-              <h2>{`Section ${index + 1}: ${section.title}`}</h2>
+              <h2>{`Section ${index + 1}: ${section.title}`}</h2>                            
               <div className="selectedIngredients">
-                {selectedIngredientsList.map((ingredient, index) => (
+                {/* Check if there is ingredients and then show them */}
+                {section.ingredients && section.ingredients.map((ingredient, index) => (
                   <div key={index}>
                     <p>Ingredient: {ingredient.name}</p>
                     <p>Quantity: {ingredient.quantity}</p>
