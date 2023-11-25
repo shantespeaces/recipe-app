@@ -1,4 +1,5 @@
 import CreateIntroMessage from "../components/forms/CreateIntroMessage";
+import Rating from "../components/forms/Rating";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -26,8 +27,6 @@ function Home() {
   return (
     <>
       <main>
-        <CreateIntroMessage />
-
         <ul>
           {recipes.map((recipe) => (
             <section className="carte-recette" key={recipe.id}>
@@ -37,10 +36,7 @@ function Home() {
                 <div className="image-container">
                   <img className="img-thumbnail" src={recipe.image} alt="" />
                 </div>
-                <p>
-                  <span className="material-symbols-outlined">star</span>
-                  {recipe.rating}
-                </p>
+                <Rating rating={recipe.rating} />
                 <p>
                   <span className="material-symbols-outlined">timer</span>
                   {recipe.time}
