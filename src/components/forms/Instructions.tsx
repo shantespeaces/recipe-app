@@ -20,12 +20,16 @@ function Instructions() {
 
       {[...Array(instructionCount)].map((_, instructionIndex) => (
         <div key={instructionIndex} className="instructions">
-          <InputText
+          {/* <InputText
             name={`Step ${instructionIndex + 1}`}
             placeholder=" ex: prepare the filling"
+            onChange={(e) => setRecipeTitle(e.target.value)}
           />
-          <InputTextarea heading="Description" />
-          <ImageUpload />
+          <InputTextarea
+            heading="Description"
+            onChange={(e) => setDescription(e.target.value)}
+          /> */}
+          {/* <ImageUpload /> */}
         </div>
       ))}
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Settings from "../components/Settings";
+import Rating from "../components/forms/Rating";
 function OneRecipe() {
   interface Recipe {
     name: string;
@@ -85,10 +86,7 @@ function OneRecipe() {
               <p>{recipe.description}</p>
               <img className="img-thumbnail" src={recipe.image} alt="" />
 
-              <p>
-                <span className="material-symbols-outlined">star</span>
-                {recipe.rating}
-              </p>
+              <Rating rating={recipe.rating} />
               <p>
                 <span className="material-symbols-outlined">timer</span>
                 {recipe.time}

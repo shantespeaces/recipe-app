@@ -1,6 +1,7 @@
 import CreateIntroMessage from "../components/forms/CreateIntroMessage";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Rating from "../components/forms/Rating";
 
 function Profile() {
   interface User {
@@ -12,7 +13,7 @@ function Profile() {
     id: number;
     name: string;
     description: string;
-    rating: number;
+    rating: string;
     time: string;
     serves: string;
     image: string;
@@ -57,18 +58,6 @@ function Profile() {
     //   });
   }, []);
 
-  const starRating = (count: number) => {
-    const stars = [];
-    for (let i = 0; i < count; i++) {
-      stars.push(
-        <span key={i} className="material-symbols-outlined">
-          star
-        </span>
-      );
-    }
-    return stars;
-  };
-
   return (
     <>
       <main>
@@ -95,7 +84,7 @@ function Profile() {
                   />
                 </div>
 
-                <p>{starRating(userRecipe.rating)}</p>
+                <Rating rating={userRecipe.rating} />
                 <p>
                   <span className="material-symbols-outlined">timer</span>
                   {userRecipe.time}
