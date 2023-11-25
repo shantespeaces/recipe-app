@@ -14,7 +14,7 @@ import CheckBox from "./CheckBox";
 
 // Define the structure of an Ingredient
 interface Ingredient {
-  id?: number;
+  id: number;
   name: string;
   quantity?: number;
   measurement?: number | undefined;
@@ -110,6 +110,7 @@ function IntroForm() {
 
   // Function to handle ingredient selection
   const handleSelect = (item: Ingredient) => {
+    console.log(item.id, item.name)
     setSelectedIngredient(item);
   };
 
@@ -143,6 +144,7 @@ function IntroForm() {
     const newSection: Section = {
       title: sectionTitle,
       ingredients: selectedIngredientsList.map((ingredient) => ({
+        id: ingredient.id,
         name: ingredient.name,
         quantity: ingredient.quantity,
         measurement: ingredient.measurement,
@@ -221,18 +223,6 @@ function IntroForm() {
         });
       }
       console.log("Sections:", sections);
-
-      // Construct updatedSections based on selectedIngredientsList and sectionTitle
-      // const newSection: Section = {
-      //   title: sectionTitle,
-      //   ingredients: selectedIngredientsList.map((ingredient) => ({
-      //     name: ingredient.name,
-      //     quantity: ingredient.quantity,
-      //     measurement: ingredient.measurement,
-      //   })),
-      // };
-      // stae to update a new section
-      // const updatedSections = [...sections, newSection];
 
       // Submit one section and ingredients
       for (let section of sections) {
@@ -368,6 +358,7 @@ function IntroForm() {
             name="section"
             placeholder=" ex: Pie Crust"
             onChange={(e) => setSectionTitle(e.target.value)}
+            value={sectionTitle}            
           />
         )}
         <div className="ingredientObject">
