@@ -182,35 +182,16 @@ function IntroForm() {
 
     // Clear fields for new entries
     resetFields();
-    console.log("searchIngredients:", searchIngredients);
-    console.log("selectedIngredient:", selectedIngredient);
-    console.log("quantity:", selectedQuantity);
-    console.log("selectedMeasurement:", selectedMeasurement);
 
-    // Hide the section title input after adding an ingredient
-    setShowSectionInput(false);
+    
   };
-  // useEffect(() => {
-  //   console.log("searchIngredients:", searchIngredients); // Log the searchIngredients state value
-  // }, [searchIngredients]);
-  // //Function to handle added section
-  // //  section title should be initially set at section 2: sectionTitle added once ingredient has been added
-  // const handleAddSection = () => {
-  //   //show next section
-  //   setShowNextSection(!showNextSection);
-  //   setShowSectionInput(true);
-  //   // Increment the section count when adding a new section
-  //   setSectionCount(sectionCount + 1);
-  // };
 
   // Function to handle form submission
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    try {
-      // Create sections
-      await handleCreateSections();
+    try {      
 
       // Submit Intro Section
       const introResponse = await axios.post(
@@ -242,19 +223,19 @@ function IntroForm() {
       console.log("Sections:", sections);
 
       // Construct updatedSections based on selectedIngredientsList and sectionTitle
-      const newSection: Section = {
-        title: sectionTitle,
-        ingredients: selectedIngredientsList.map((ingredient) => ({
-          name: ingredient.name,
-          quantity: ingredient.quantity,
-          measurement: ingredient.measurement,
-        })),
-      };
+      // const newSection: Section = {
+      //   title: sectionTitle,
+      //   ingredients: selectedIngredientsList.map((ingredient) => ({
+      //     name: ingredient.name,
+      //     quantity: ingredient.quantity,
+      //     measurement: ingredient.measurement,
+      //   })),
+      // };
       // stae to update a new section
-      const updatedSections = [...sections, newSection];
+      // const updatedSections = [...sections, newSection];
 
       // Submit one section and ingredients
-      for (let section of updatedSections) {
+      for (let section of sections) {
         // Section
         const sectionResponse = await axios.post(
           "http://localhost:8000/api/sections",
@@ -281,6 +262,8 @@ function IntroForm() {
           });
         }
       }
+
+      alert("The recipe was created!")
     } catch (error) {
       console.error("Error submitting form:", error);
     }
