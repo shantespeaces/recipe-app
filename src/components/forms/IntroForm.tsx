@@ -22,7 +22,7 @@ interface Ingredient {
 
 type Sections = Section[];
 interface Section {
-  title: string;  
+  title: string;
   ingredients: Ingredient[];
 }
 
@@ -56,6 +56,7 @@ function IntroForm() {
   };
 
   //////////////////////////////////////////////////////INGREDIENTS ET SECTIONS/////////////////////////////////////////////////////////////////////////
+
   //State for Ingredients
 
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
@@ -96,36 +97,38 @@ function IntroForm() {
     setSelectedIngredient(null);
     setSelectedQuantity(0);
     setSelectedMeasurement(undefined);
-    console.log("Search ingredients, selected ingredient, selected quantity, selected measurement and selected ingredients list were reset")
+    console.log(
+      "Search ingredients, selected ingredient, selected quantity, selected measurement and selected ingredients list were reset"
+    );
   };
 
   const resetSection = () => {
-    setSectionTitle("")
-    setSelectedIngredientsList([])
-  }
-  
+    setSectionTitle("");
+    setSelectedIngredientsList([]);
+  };
+
   //state for selected ingredient
   const [selectedIngredient, setSelectedIngredient] =
     useState<Ingredient | null>(null);
 
   // Function to handle ingredient selection
   const handleSelect = (item: Ingredient) => {
-    console.log(item.id, item.name)
+    console.log(item.id, item.name);
     setSelectedIngredient(item);
   };
 
   //State to make a list of ingredients
-  const [selectedIngredientsList, setSelectedIngredientsList] = useState<Ingredient[]>([]);
+  const [selectedIngredientsList, setSelectedIngredientsList] = useState<
+    Ingredient[]
+  >([]);
 
-  //state to show next section
-  const [showNextSection, setShowNextSection] = useState(false);
+  ////////////////////////////////////////////////////////////////////////SECTIONS/////////////////////////////////////////////////////////////////
 
   //state for section title increment
   const [sectionCount, setSectionCount] = useState(1); // Initialize the count to 1
 
-  // function to handle the creation of a section
+  // function to handle the creation of a section (Save section Button)
   const handleCreateSections = () => {
-
     // Check if section title exists (TODO: show error message in page)
     if (sectionTitle.trim() === "") {
       // Temporary alert
@@ -159,42 +162,59 @@ function IntroForm() {
     resetFields(); // Clear fields for new entries
     resetSection(); // Clear the previous ingredients list and section title
 
+    //show section title input
+    setToggleSectionInput(true);
     setSectionCount(sectionCount + 1);
+    setToggleSection(false);
+    setToggleCreateSectionBtn(true);
+    setToggleSaveSectionBtn(false);
+    setToggleAddIngredientBtn(false);
   };
 
-  // function to handle adding ingredients to a ingredientsList
-  const [showSectionInput, setShowSectionInput] = useState(true);
+  //state to toggle visibility of form elements
+  const [toggleSectionInput, setToggleSectionInput] = useState(true);
+  const [toggleSection, setToggleSection] = useState(true);
+  const [toggleSaveSectionBtn, setToggleSaveSectionBtn] = useState(false);
+  const [toggleCreateSectionBtn, setToggleCreateSectionBtn] = useState(false);
+  const [toggleaddIngredientBtn, setToggleAddIngredientBtn] = useState(true);
 
-  //stae to show ingredients
-  const [showContent, setShowContent] = useState(false);
-
-  //function to handle adding a list of ingredients
+  //function to handle adding a list of ingredients (Add Ingredients Button)
 
   const handleAddIngredientToList = () => {
-    // setShowContent(!showContent);
     if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
       alert("Please select an ingredient, a quantity and a measurement");
       return;
     }
 
     selectedIngredient.quantity = selectedQuantity;
-    selectedIngredient.measurement = selectedMeasurement;  
+    selectedIngredient.measurement = selectedMeasurement;
 
-    setSelectedIngredientsList([...selectedIngredientsList, selectedIngredient]);
+    setSelectedIngredientsList([
+      ...selectedIngredientsList,
+      selectedIngredient,
+    ]);
 
     // Clear fields for new entries
     resetFields();
-
-    
+    //hide section title input
+    setToggleSectionInput(false);
+    setToggleSaveSectionBtn(true);
   };
 
+  //Function to toggle new section visibility (Create new section Button)
+  const handleSectionToggle = () => {
+    setToggleSection(true);
+    setToggleAddIngredientBtn(true);
+    setToggleCreateSectionBtn(false);
+  };
+
+  /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
   // Function to handle form submission
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    try {      
-
+    try {
       // Submit Intro Section
       const introResponse = await axios.post(
         "http://localhost:8000/api/recipes",
@@ -253,7 +273,7 @@ function IntroForm() {
         }
       }
 
-      alert("The recipe was created!")
+      alert("The recipe was created!");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -308,42 +328,36 @@ function IntroForm() {
             onCheckBoxChange={handleSubCategoriesSelect}
           />
         </section>
-        {/* <IngredientSection /> */}
+
         <div>
           {sections.map((section, index) => (
-            <section key={index} className="ingredientSection">
-              <h2>{`Section ${index + 1}: ${section.title}`}</h2>                            
+            <section key={index} className="ingredientSection first">
+              <h2>{`Section ${index + 1}: ${section.title}`}</h2>
               <div className="selectedIngredients">
                 {/* Check if there is ingredients and then show them */}
-                {section.ingredients && section.ingredients.map((ingredient, index) => (
-                  <div key={index}>
-                    <p>Ingredient: {ingredient.name}</p>
-                    <p>Quantity: {ingredient.quantity}</p>
-                    <p>Measurement: {ingredient.measurement}</p>
-                  </div>
-                ))}
+                {section.ingredients &&
+                  section.ingredients.map((ingredient, index) => (
+                    <div key={index}>
+                      <p>Ingredient: {ingredient.name}</p>
+                      <p>Quantity: {ingredient.quantity}</p>
+                      <p>Measurement: {ingredient.measurement}</p>
+                    </div>
+                  ))}
               </div>
             </section>
           ))}
         </div>
-        {/* <IngredientSection /> */}
-        <section className="ingredientSection first">
-          <div className="first-section">
+
+        {toggleSection && (
+          <section className="ingredientSection next">
             <h2>
               {`Section ${sectionCount}`} : {sectionTitle}
             </h2>
-            {showContent && (
-              <div className="content">
-                <h3>Selected Ingredients</h3>
-              </div>
-            )}
+
             <div className="selectedIngredients">
               {selectedIngredientsList.map((item, index) => (
                 <div key={index}>
-                  <p>
-                    Ingredient:{" "}
-                    {item.name ? item.name : "None"}
-                  </p>
+                  <p>Ingredient: {item.name ? item.name : "None"}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p>
                     Measurement: {item.measurement ? item.measurement : "None"}
@@ -351,52 +365,63 @@ function IntroForm() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        {showSectionInput && (
-          <InputText
-            name="section"
-            placeholder=" ex: Pie Crust"
-            onChange={(e) => setSectionTitle(e.target.value)}
-            value={sectionTitle}            
+            {/* </div> */}
+
+            {toggleSectionInput && (
+              <InputText
+                name=""
+                placeholder=" ex: Pie Crust"
+                onChange={(e) => setSectionTitle(e.target.value)}
+                value={sectionTitle}
+              />
+            )}
+
+            <div className="ingredientObject">
+              <h2>Ingredients</h2>
+              <ReactSearchAutocomplete
+                items={ingredientsList}
+                onSearch={handleSearch}
+                onSelect={handleSelect}
+                placeholder="Search Ingredients"
+                autoFocus
+                inputSearchString={searchIngredients}
+                styling={{ zIndex: 100 }}
+              />
+
+              <Counter
+                heading="Qty"
+                value={selectedQuantity}
+                onChange={(value) => setSelectedQuantity(value)}
+              />
+              <Select
+                heading="Measurement"
+                onSelectOption={handleMeasurementSelect}
+                selectedOption={selectedMeasurement}
+                endpoint="http://localhost:8000/api/measurements"
+              />
+            </div>
+          </section>
+        )}
+
+        {toggleaddIngredientBtn && (
+          <ButtonMore
+            name="Add ingredient"
+            onClick={handleAddIngredientToList}
           />
         )}
-        <div className="ingredientObject">
-          <h2>Ingredients</h2>
-          <ReactSearchAutocomplete
-            items={ingredientsList}
-            onSearch={handleSearch}
-            onSelect={handleSelect}
-            placeholder="Search Ingredients"
-            autoFocus
-            inputSearchString={searchIngredients}
-            styling={{zIndex: 100}}
-          />
-
-          <Counter
-            heading="Qty"
-            value={selectedQuantity}
-            onChange={(value) => setSelectedQuantity(value)}
-          />
-          <Select
-            heading="Measurement"
-            onSelectOption={handleMeasurementSelect}
-            selectedOption={selectedMeasurement}
-            endpoint="http://localhost:8000/api/measurements"
-          />
-        </div>
-        <ButtonMore
-          name="Add an ingredient"
-          onClick={handleAddIngredientToList}
-        />
-        <ButtonMore name="Save the Section" onClick={handleCreateSections} />
+        {toggleSaveSectionBtn && (
+          <ButtonMore name="Save Section" onClick={handleCreateSections} />
+        )}
+        {toggleCreateSectionBtn && (
+          <ButtonMore name="Create new section" onClick={handleSectionToggle} />
+        )}
         {/* <section className="steps">
-        <Instructions />
-      </section>
-      <section className="notes">
-        <Notes />
-      </section>  */}
-        <ButtonSubmit name="Save Instructions" type="submit" />
+          <Instructions />
+        </section>
+        <section className="notes">
+          <Notes />
+        </section> */}
+        <ButtonSubmit name="All Done? Save your Recipe!" type="submit" />
       </form>
     </>
   );
