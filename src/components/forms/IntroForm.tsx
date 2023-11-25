@@ -16,8 +16,8 @@ import CheckBox from "./CheckBox";
 interface Ingredient {
   id?: number;
   name: string;
-  quantity: number;
-  measurement: number | undefined;
+  quantity?: number;
+  measurement?: number | undefined;
 }
 
 type Sections = Section[];
@@ -59,7 +59,7 @@ function IntroForm() {
   //State for Ingredients
 
   const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([]);
-  const [quantity, setQuantity] = useState<number>(0);
+  const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
   const [sections, setSections] = useState<Sections>([]);
 
   // State for Measurements
@@ -94,7 +94,7 @@ function IntroForm() {
   const resetFields = () => {
     setSearchIngredients("");
     setSelectedIngredient(null);
-    setQuantity(0);
+    setSelectedQuantity(0);
     setSelectedMeasurement(undefined);
     console.log("Search Ingredients Reset");
   };
@@ -106,7 +106,6 @@ function IntroForm() {
   // Function to handle ingredient selection
   const handleSelect = (item: Ingredient) => {
     setSelectedIngredient(item);
-    // setSearchIngredients(item.name);
   };
 
   //State to make a list of ingredients
@@ -121,19 +120,22 @@ function IntroForm() {
   // function to handle the creation of a section
   const handleCreateSections = () => {
     console.log("Selected Ingredients List:", selectedIngredientsList);
+    console.log("Section title: " + sectionTitle);
+    console.log("Section count: " + sectionCount)
+
+
+    // Check if section title exists (TODO: show error message in page)
+    if (sectionTitle.trim() === "") {
+      // Temporary alert
+      alert("Please write a title before saving the section");
+      return;
+    }
 
     // Validation before creating a section (title, ingredients)
     // Check if at least one ingredient was added (TODO: show error message in page)
     if (selectedIngredientsList.length === 0) {
-      // Alerte temporaire
-      alert("Vous devez sélectionner un ingrédient avant de créer la section");
-      return;
-    }
-
-    // Check if section title exists (TODO: show error message in page)
-    if (sectionTitle.trim() !== "") {
-      // Alerte temporaire
-      alert("Vous devez fournir un titre à la section");
+      // Temporary alert
+      alert("Please choose an ingredient before saving the section");
       return;
     }
 
@@ -171,11 +173,13 @@ function IntroForm() {
 
   const handleAddIngredientToList = () => {
     // setShowContent(!showContent);
-    if (!selectedIngredient) {
-      alert("Please select an ingredient and a measurement");
+    if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
+      alert("Please select an ingredient, a quantity and a measurement");
       return;
     }
-  
+
+    selectedIngredient.quantity = selectedQuantity;
+    selectedIngredient.measurement = selectedMeasurement;  
 
     setSelectedIngredientsList([...selectedIngredientsList, selectedIngredient]);
 
@@ -183,7 +187,7 @@ function IntroForm() {
     resetFields();
     console.log("searchIngredients:", searchIngredients);
     console.log("selectedIngredient:", selectedIngredient);
-    console.log("quantity:", quantity);
+    console.log("quantity:", selectedQuantity);
     console.log("selectedMeasurement:", selectedMeasurement);
 
     // Hide the section title input after adding an ingredient
@@ -398,8 +402,8 @@ function IntroForm() {
 
           <Counter
             heading="Qty"
-            value={quantity}
-            onChange={(value) => setQuantity(value)}
+            value={selectedQuantity}
+            onChange={(value) => setSelectedQuantity(value)}
           />
           <Select
             heading="Measurement"
