@@ -1,42 +1,35 @@
-import ButtonMore from "../buttons/ButtonMore";
-import Button from "../buttons/Button";
-import ImageUpload from "./ImageUpload";
-import InputText from "./InputText";
-import InputTextarea from "./InputTextarea";
-import { useState } from "react";
+// import ButtonMore from "../buttons/ButtonMore";
+// import InputTextarea from "./InputTextarea";
+// import { useState } from "react";
 
-function Instructions() {
-  const [instructionCount, setInstructionCount] = useState(1);
-  function handleAddInstruction() {
-    setInstructionCount(instructionCount + 1);
-  }
-  return (
-    <>
-      <h2>Instructions</h2>
-      {/* maintains a state that tracks the number of the component (instructions) and then render 
-       to dynamically add more instances of that component */}
-      {/* //creates a new array and spreads (...) elements into individual elements */}
-      {/* the (_) indicates that value is not used but is necessary for the callback function */}
+// interface Instruction {
+//   id: number;
+//   description: string;
+// }
+// type Instructions = Instruction[];
 
-      {[...Array(instructionCount)].map((_, instructionIndex) => (
-        <div key={instructionIndex} className="instructions">
-          {/* <InputText
-            name={`Step ${instructionIndex + 1}`}
-            placeholder=" ex: prepare the filling"
-            onChange={(e) => setRecipeTitle(e.target.value)}
-          />
-          <InputTextarea
-            heading="Description"
-            onChange={(e) => setDescription(e.target.value)}
-          /> */}
-          {/* <ImageUpload /> */}
-        </div>
-      ))}
+// function Instructions() {
+//   const [instructions, setInstructions] = useState<Instructions>([]);
 
-      <ButtonMore name="Instructions" onClick={handleAddInstruction} />
-      <Button name=" Save Instructions" route="null" />
-    </>
-  );
-}
+//   function handleAddInstruction() {}
 
-export default Instructions;
+//   return (
+//     <>
+//        <InputTextarea
+//         heading="Instructions"
+//         onChange={(e) => setInstructions(e.target.value)}
+//       />
+//       <div className="description">
+//         {instructions.map((instruction) => (
+//           <div key={instruction.id}>
+//             <p>Instruction: {instruction.description}</p>
+//           </div>
+//         ))}
+//       </div>
+
+//       <ButtonMore name="Instructions" onClick={handleAddInstruction} />
+//     </>
+//   );
+// }
+
+// export default Instructions;

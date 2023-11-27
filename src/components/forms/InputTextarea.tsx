@@ -1,12 +1,18 @@
 import { ChangeEvent } from "react";
 interface InputTextareaProps {
   heading: string;
+  placeholder: string;
 
   value?: string; // Make the value prop optional
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function InputTextarea({ heading, value, onChange }: InputTextareaProps) {
+function InputTextarea({
+  heading,
+  value,
+  onChange,
+  placeholder,
+}: InputTextareaProps) {
   return (
     <>
       <label htmlFor="formGroupExampleInput" className="form-label">
@@ -15,7 +21,7 @@ function InputTextarea({ heading, value, onChange }: InputTextareaProps) {
       <textarea
         className="form-control"
         id="formGroupExampleInput2"
-        placeholder=" Describe your dish!"
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
       ></textarea>

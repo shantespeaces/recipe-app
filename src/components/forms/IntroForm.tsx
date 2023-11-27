@@ -9,7 +9,7 @@ import Counter from "./Counter";
 import ButtonSubmit from "../buttons/ButtonSubmit";
 import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
-
+// import Instructions from "./Instructions";
 import CheckBox from "./CheckBox";
 
 // Define the structure of an Ingredient
@@ -26,6 +26,9 @@ interface Section {
   ingredients: Ingredient[];
 }
 
+interface Instruction {
+  description: string;
+}
 function IntroForm() {
   // State for Intro
   const [recipeTitle, setRecipeTitle] = useState("");
@@ -55,7 +58,7 @@ function IntroForm() {
     setSelectedSubCategories(selectedOptions);
   };
 
-  //////////////////////////////////////////////////////INGREDIENTS ET SECTIONS/////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////INGREDIENTS /////////////////////////////////////////////////////////////////////////
 
   //State for Ingredients
 
@@ -121,7 +124,35 @@ function IntroForm() {
   const [selectedIngredientsList, setSelectedIngredientsList] = useState<
     Ingredient[]
   >([]);
+  //function to handle adding a list of ingredients (Add Ingredients Button)
 
+  const handleAddIngredientToList = () => {
+    if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
+      alert("Please select an ingredient, a quantity and a measurement");
+      return;
+    }
+
+    selectedIngredient.quantity = selectedQuantity;
+    selectedIngredient.measurement = selectedMeasurement;
+
+    setSelectedIngredientsList([
+      ...selectedIngredientsList,
+      selectedIngredient,
+    ]);
+
+    // Clear fields for new entries
+    resetFields();
+    //hide section title input
+    setToggleSectionInput(false);
+    setToggleSaveSectionBtn(true);
+  };
+
+  //Function to toggle new section visibility (Create new section Button)
+  const handleSectionToggle = () => {
+    setToggleSection(true);
+    setToggleAddIngredientBtn(true);
+    setToggleCreateSectionBtn(false);
+  };
   ////////////////////////////////////////////////////////////////////////SECTIONS/////////////////////////////////////////////////////////////////
 
   //state for section title increment
@@ -178,34 +209,23 @@ function IntroForm() {
   const [toggleCreateSectionBtn, setToggleCreateSectionBtn] = useState(false);
   const [toggleaddIngredientBtn, setToggleAddIngredientBtn] = useState(true);
 
-  //function to handle adding a list of ingredients (Add Ingredients Button)
+  ////INSTRUCTIONS
 
-  const handleAddIngredientToList = () => {
-    if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
-      alert("Please select an ingredient, a quantity and a measurement");
-      return;
+  // State for instructions
+  const [instructions, setInstructions] = useState<Instruction[]>([]);
+  const [newInstruction, setNewInstruction] = useState<string>("");
+
+  // Function to add a new instruction
+  const handleAddInstruction = () => {
+    if (newInstruction.trim() !== "") {
+      const updatedInstructions: Instruction[] = [
+        ...instructions,
+        { description: newInstruction },
+      ];
+      setInstructions(updatedInstructions);
+      setNewInstruction(""); // Reset text area for a new instruction
+      console.log("Updated Instructions:", updatedInstructions);
     }
-
-    selectedIngredient.quantity = selectedQuantity;
-    selectedIngredient.measurement = selectedMeasurement;
-
-    setSelectedIngredientsList([
-      ...selectedIngredientsList,
-      selectedIngredient,
-    ]);
-
-    // Clear fields for new entries
-    resetFields();
-    //hide section title input
-    setToggleSectionInput(false);
-    setToggleSaveSectionBtn(true);
-  };
-
-  //Function to toggle new section visibility (Create new section Button)
-  const handleSectionToggle = () => {
-    setToggleSection(true);
-    setToggleAddIngredientBtn(true);
-    setToggleCreateSectionBtn(false);
   };
 
   /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
@@ -271,6 +291,16 @@ function IntroForm() {
             quantity: ingredient.quantity,
           });
         }
+
+        //Submit Instructions
+
+        for (let instruction of instructions) {
+          console.log("Sending instruction:", instruction);
+          await axios.post("http://localhost:8000/api/instructions", {
+            description: instruction.description,
+            recipe_id: createdRecipeId,
+          });
+        }
       }
 
       alert("The recipe was created!");
@@ -300,6 +330,7 @@ function IntroForm() {
             heading="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Describe your dish!"
           />
           <Counter
             heading="Serves"
@@ -400,25 +431,43 @@ function IntroForm() {
                 endpoint="http://localhost:8000/api/measurements"
               />
             </div>
+            {toggleaddIngredientBtn && (
+              <ButtonMore
+                name="Add ingredient"
+                onClick={handleAddIngredientToList}
+              />
+            )}
           </section>
         )}
 
-        {toggleaddIngredientBtn && (
-          <ButtonMore
-            name="Add ingredient"
-            onClick={handleAddIngredientToList}
-          />
-        )}
         {toggleSaveSectionBtn && (
           <ButtonMore name="Save Section" onClick={handleCreateSections} />
         )}
         {toggleCreateSectionBtn && (
           <ButtonMore name="Create new section" onClick={handleSectionToggle} />
         )}
-        {/* <section className="steps">
-          <Instructions />
+        <section className="instructions">
+          <div className="description">
+            <h2>Instructions</h2>
+            <ul>
+              {instructions.map((instruction, index) => (
+                <li key={index}>
+                  <p>{instruction.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <InputTextarea
+            heading=""
+            value={newInstruction}
+            onChange={(e) => setNewInstruction(e.target.value)}
+            placeholder=" ex: Pour the prepared filling into the pie crust."
+          />
+
+          <ButtonMore name="Add Instruction" onClick={handleAddInstruction} />
         </section>
-        <section className="notes">
+        {/* <section className="notes">
           <Notes />
         </section> */}
         <ButtonSubmit name="All Done? Save your Recipe!" type="submit" />

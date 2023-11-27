@@ -22,7 +22,6 @@ function OneRecipe() {
   type SectionsIngredients = SectionIngredient[];
 
   interface Instruction {
-    name: string;
     description: string;
     id: number;
   }
@@ -116,7 +115,7 @@ function OneRecipe() {
           <ul>
             {instructions.map((instruction) => (
               <li key={instruction.id}>
-                <h4> {instruction.name}</h4>
+                {/* <h4> {instruction.name}</h4> */}
                 <p> {instruction.description}</p>
               </li>
             ))}
