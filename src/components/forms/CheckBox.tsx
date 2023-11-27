@@ -41,25 +41,29 @@ function CheckBox({ title, endpoint, onCheckBoxChange }: CheckBoxProps) {
 
   return (
     <>
-      <h3>{title}</h3>
-      <div className="form-check">
-        {options.map((option) => (
-          <div key={option.id}>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value={option.id}
-              id={`flexCheckDefault_${option.id}`}
-              onChange={handleCheckBoxChange}
-            />
-            <label
-              className="form-check-label"
-              htmlFor={`flexCheckDefault_${option.id}`}
-            >
-              {option.name}
-            </label>
-          </div>
-        ))}
+      <div>
+        <h3>{title}</h3>
+        <div className="row">
+          {options.map((option) => (
+            <div key={option.id} className="col-md-4">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={option.id}
+                  id={`flexCheckDefault_${option.id}`}
+                  onChange={handleCheckBoxChange}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor={`flexCheckDefault_${option.id}`}
+                >
+                  {option.name}
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

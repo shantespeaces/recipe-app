@@ -12,7 +12,7 @@ function RadioButton() {
         <label className="form-check-label" htmlFor="inlineRadio1">
           colors from BDD
         </label>
-        <div className="color"></div>
+        {/* <div className="color"></div> */}
         {/* background color will be displayed dynamically */}
       </div>
     </>

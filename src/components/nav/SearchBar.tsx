@@ -3,7 +3,7 @@ function SearchBar() {
     <div className="container-md-fluid">
       <form className="d-flex me-2" role="search">
         <input
-          className="form-control me-2"
+          className="form-control me-2 rounded-5"
           type="search"
           placeholder="Search"
           aria-label="Search"

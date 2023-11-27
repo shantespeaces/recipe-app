@@ -11,6 +11,7 @@ import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
 // import Instructions from "./Instructions";
 import CheckBox from "./CheckBox";
+import RatingButton from "../buttons/RatingButton";
 
 // Define the structure of an Ingredient
 interface Ingredient {
@@ -317,52 +318,82 @@ function IntroForm() {
         action=""
         className={`row g-3 .container-sm max-width-200 `}
       >
-        <section className="intro">
-          <div className="mb-3"></div>
-          <InputText
-            name="Recipe Title"
-            placeholder=" ex: Annie's Apple Pie"
-            value={recipeTitle}
-            onChange={(e) => setRecipeTitle(e.target.value)}
-          />
-
-          <InputTextarea
-            heading="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe your dish!"
-          />
-          <Counter
-            heading="Serves"
-            value={serves}
-            onChange={(value) => setServes(value)}
-          />
-          <Counter
-            heading="Time"
-            value={time}
-            onChange={(value) => setTime(value)}
-          />
+        <section className="intro px-3 py-3 mb-3">
+          <div className="py-3">
+            <InputText
+              name="Recipe Title"
+              placeholder=" ex: Annie's Apple Pie"
+              value={recipeTitle}
+              onChange={(e) => setRecipeTitle(e.target.value)}
+            />
+          </div>
+          <div className="py-3">
+            <InputTextarea
+              heading="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe your dish!"
+            />
+          </div>
+          <div className="row">
+            <div className="col-md-6 py-3">
+              <Counter
+                heading="Serves"
+                value={serves}
+                onChange={(value) => setServes(value)}
+              />
+            </div>
+            <div className="col-md-6 py-3">
+              <Counter
+                heading="Time"
+                value={time}
+                onChange={(value) => setTime(value)}
+              />
+            </div>
+          </div>
+          <h3>Rating</h3>
+          <div className="row">
+            <div className="col py-3">
+              <RatingButton numberOfStars={1} />
+            </div>
+            <div className="col py-3">
+              <RatingButton numberOfStars={2} />
+            </div>
+            <div className="col py-3">
+              <RatingButton numberOfStars={3} />
+            </div>
+            <div className="col py-3">
+              <RatingButton numberOfStars={4} />
+            </div>
+            <div className="col py-3">
+              <RatingButton numberOfStars={5} />
+            </div>
+          </div>
 
           {/* <ImageUpload onImageUpload={(image) => handleImageUpload(image)} /> */}
         </section>
-        <section className="categories">
+        <section className="categories px-3 py-3 mb-3">
           <Select
             heading="Categories"
             onSelectOption={handleCategorySelect}
             selectedOption={selectedCategory}
             endpoint="http://localhost:8000/api/categories"
           />
-
-          <CheckBox
-            title="filters"
-            endpoint="http://localhost:8000/api/sub_categories"
-            onCheckBoxChange={handleSubCategoriesSelect}
-          />
+          <div className="py-3">
+            <CheckBox
+              title="filters"
+              endpoint="http://localhost:8000/api/sub_categories"
+              onCheckBoxChange={handleSubCategoriesSelect}
+            />
+          </div>
         </section>
 
         <div>
           {sections.map((section, index) => (
-            <section key={index} className="ingredientSection first">
+            <section
+              key={index}
+              className="ingredientSection first px-3 py-3 mb-3"
+            >
               <h2>{`Section ${index + 1}: ${section.title}`}</h2>
               <div className="selectedIngredients">
                 {/* Check if there is ingredients and then show them */}
@@ -380,7 +411,7 @@ function IntroForm() {
         </div>
 
         {toggleSection && (
-          <section className="ingredientSection next">
+          <section className="ingredientSection next px-3 py-3 mb-3">
             <h2>
               {`Section ${sectionCount}`} : {sectionTitle}
             </h2>
@@ -399,43 +430,52 @@ function IntroForm() {
             {/* </div> */}
 
             {toggleSectionInput && (
-              <InputText
-                name=""
-                placeholder=" ex: Pie Crust"
-                onChange={(e) => setSectionTitle(e.target.value)}
-                value={sectionTitle}
-              />
+              <div className="py-3">
+                <InputText
+                  name=""
+                  placeholder=" ex: Pie Crust"
+                  onChange={(e) => setSectionTitle(e.target.value)}
+                  value={sectionTitle}
+                />
+              </div>
             )}
 
             <div className="ingredientObject">
               <h2>Ingredients</h2>
-              <ReactSearchAutocomplete
-                items={ingredientsList}
-                onSearch={handleSearch}
-                onSelect={handleSelect}
-                placeholder="Search Ingredients"
-                autoFocus
-                inputSearchString={searchIngredients}
-                styling={{ zIndex: 100 }}
-              />
-
-              <Counter
-                heading="Qty"
-                value={selectedQuantity}
-                onChange={(value) => setSelectedQuantity(value)}
-              />
-              <Select
-                heading="Measurement"
-                onSelectOption={handleMeasurementSelect}
-                selectedOption={selectedMeasurement}
-                endpoint="http://localhost:8000/api/measurements"
-              />
+              <div className="py-3">
+                <ReactSearchAutocomplete
+                  items={ingredientsList}
+                  onSearch={handleSearch}
+                  onSelect={handleSelect}
+                  placeholder="Search Ingredients"
+                  autoFocus
+                  inputSearchString={searchIngredients}
+                  styling={{ zIndex: 100 }}
+                />
+              </div>
+              <div className="py-3">
+                <Counter
+                  heading="Qty"
+                  value={selectedQuantity}
+                  onChange={(value) => setSelectedQuantity(value)}
+                />
+              </div>
+              <div className="py-3">
+                <Select
+                  heading="Measurement"
+                  onSelectOption={handleMeasurementSelect}
+                  selectedOption={selectedMeasurement}
+                  endpoint="http://localhost:8000/api/measurements"
+                />
+              </div>
             </div>
             {toggleaddIngredientBtn && (
-              <ButtonMore
-                name="Add ingredient"
-                onClick={handleAddIngredientToList}
-              />
+              <div className="py-3">
+                <ButtonMore
+                  name="Add ingredient"
+                  onClick={handleAddIngredientToList}
+                />
+              </div>
             )}
           </section>
         )}
@@ -446,7 +486,7 @@ function IntroForm() {
         {toggleCreateSectionBtn && (
           <ButtonMore name="Create new section" onClick={handleSectionToggle} />
         )}
-        <section className="instructions">
+        <section className="instructions px-3 py-3 mb-3">
           <div className="description">
             <h2>Instructions</h2>
             <ul>
@@ -457,13 +497,14 @@ function IntroForm() {
               ))}
             </ul>
           </div>
-
-          <InputTextarea
-            heading=""
-            value={newInstruction}
-            onChange={(e) => setNewInstruction(e.target.value)}
-            placeholder=" ex: Pour the prepared filling into the pie crust."
-          />
+          <div className="py-3">
+            <InputTextarea
+              heading=""
+              value={newInstruction}
+              onChange={(e) => setNewInstruction(e.target.value)}
+              placeholder=" ex: Pour the prepared filling into the pie crust."
+            />
+          </div>
 
           <ButtonMore name="Add Instruction" onClick={handleAddInstruction} />
         </section>

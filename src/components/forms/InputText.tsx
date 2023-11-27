@@ -14,7 +14,7 @@ function InputText({ name, placeholder, value, onChange }: InputTextProps) {
       </label>
       <input
         type="text"
-        className="form-control"
+        className="form-control rounded-5"
         id="formGroupExampleInput"
         placeholder={placeholder}
         value={value}

@@ -19,7 +19,7 @@ function InputTextarea({
         <h3>{heading}</h3>
       </label>
       <textarea
-        className="form-control"
+        className="form-control rounded-5"
         id="formGroupExampleInput2"
         placeholder={placeholder}
         value={value}
