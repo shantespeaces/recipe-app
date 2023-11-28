@@ -8,11 +8,11 @@ function ButtonMore({ name, onClick }: ButtonMoreProps) {
     <>
       <button
         type="button"
-        className="btn btn-primary custom-more"
+        className="btn btn-primary custom-more d-flex align-items-center"
         onClick={onClick}
       >
+        <span className="material-symbols-outlined me-2">add_circle</span>
         {name}
-        <span className="material-symbols-outlined">add_circle</span>
       </button>
     </>
   );

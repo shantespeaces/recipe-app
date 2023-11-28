@@ -318,7 +318,7 @@ function IntroForm() {
         action=""
         className={`row g-3 .container-sm max-width-200 `}
       >
-        <section className="intro px-3 py-3 mb-3">
+        <section className="intro px-5 py-5 mb-3">
           <div className="py-3">
             <InputText
               name="Recipe Title"
@@ -335,22 +335,25 @@ function IntroForm() {
               placeholder="Describe your dish!"
             />
           </div>
-          <div className="row">
-            <div className="col-md-6 py-3">
+          <div className="row justify-content-between">
+            <div className="col-md-5 py-3">
               <Counter
                 heading="Serves"
                 value={serves}
                 onChange={(value) => setServes(value)}
+                icon="person"
               />
             </div>
-            <div className="col-md-6 py-3">
+            <div className="col-md-5 py-3">
               <Counter
                 heading="Time"
                 value={time}
                 onChange={(value) => setTime(value)}
+                icon="timer"
               />
             </div>
           </div>
+
           <h3>Rating</h3>
           <div className="row">
             <div className="col py-3">
@@ -372,13 +375,15 @@ function IntroForm() {
 
           {/* <ImageUpload onImageUpload={(image) => handleImageUpload(image)} /> */}
         </section>
-        <section className="categories px-3 py-3 mb-3">
-          <Select
-            heading="Categories"
-            onSelectOption={handleCategorySelect}
-            selectedOption={selectedCategory}
-            endpoint="http://localhost:8000/api/categories"
-          />
+        <section className="categories px-5 py-3 mb-3">
+          <div className="py-3">
+            <Select
+              heading="Categories"
+              onSelectOption={handleCategorySelect}
+              selectedOption={selectedCategory}
+              endpoint="http://localhost:8000/api/categories"
+            />
+          </div>
           <div className="py-3">
             <CheckBox
               title="filters"
@@ -392,7 +397,7 @@ function IntroForm() {
           {sections.map((section, index) => (
             <section
               key={index}
-              className="ingredientSection first px-3 py-3 mb-3"
+              className="ingredientSection first px-5 py-5 mb-3"
             >
               <h2>{`Section ${index + 1}: ${section.title}`}</h2>
               <div className="selectedIngredients">
@@ -411,7 +416,7 @@ function IntroForm() {
         </div>
 
         {toggleSection && (
-          <section className="ingredientSection next px-3 py-3 mb-3">
+          <section className="ingredientSection next px-5 py-5 mb-3">
             <h2>
               {`Section ${sectionCount}`} : {sectionTitle}
             </h2>
@@ -441,7 +446,7 @@ function IntroForm() {
             )}
 
             <div className="ingredientObject">
-              <h2>Ingredients</h2>
+              <h3>Ingredients</h3>
               <div className="py-3">
                 <ReactSearchAutocomplete
                   items={ingredientsList}
@@ -458,6 +463,7 @@ function IntroForm() {
                   heading="Qty"
                   value={selectedQuantity}
                   onChange={(value) => setSelectedQuantity(value)}
+                  icon=""
                 />
               </div>
               <div className="py-3">
@@ -470,23 +476,38 @@ function IntroForm() {
               </div>
             </div>
             {toggleaddIngredientBtn && (
-              <div className="py-3">
-                <ButtonMore
-                  name="Add ingredient"
-                  onClick={handleAddIngredientToList}
-                />
+              <div className="d-flex justify-content-center">
+                <div className="py-3">
+                  <ButtonMore
+                    name="Add ingredient"
+                    onClick={handleAddIngredientToList}
+                  />
+                </div>
               </div>
             )}
           </section>
         )}
 
         {toggleSaveSectionBtn && (
-          <ButtonMore name="Save Section" onClick={handleCreateSections} />
+          <div className="d-flex justify-content-center">
+            <div className="py-3">
+              <ButtonMore name="Save Section" onClick={handleCreateSections} />
+            </div>
+          </div>
         )}
+
+        {/* For Create new section Button */}
         {toggleCreateSectionBtn && (
-          <ButtonMore name="Create new section" onClick={handleSectionToggle} />
+          <div className="d-flex justify-content-center">
+            <div className="py-3">
+              <ButtonMore
+                name="Create new section"
+                onClick={handleSectionToggle}
+              />
+            </div>
+          </div>
         )}
-        <section className="instructions px-3 py-3 mb-3">
+        <section className="instructions px-5 py-5 mb-3">
           <div className="description">
             <h2>Instructions</h2>
             <ul>
@@ -506,12 +527,21 @@ function IntroForm() {
             />
           </div>
 
-          <ButtonMore name="Add Instruction" onClick={handleAddInstruction} />
+          <div className="d-flex justify-content-center">
+            <div className="py-3">
+              <ButtonMore
+                name="Add Instruction"
+                onClick={handleAddInstruction}
+              />
+            </div>
+          </div>
         </section>
         {/* <section className="notes">
           <Notes />
         </section> */}
-        <ButtonSubmit name="All Done? Save your Recipe!" type="submit" />
+        <div className="mb-5">
+          <ButtonSubmit name="All Done? Save your Recipe!" type="submit" />
+        </div>
       </form>
     </>
   );

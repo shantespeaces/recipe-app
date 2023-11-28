@@ -16,9 +16,11 @@ function NavBar({}: NavBarProps) {
   // const handleClick = (event: MouseEvent) => console.log(event);
   return (
     <>
-      <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid d-flex justify-content-between align-items-center">
+      <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary px-5">
+        <div className="search-bar" style={{ paddingLeft: "10rem" }}>
           <SearchBar />
+        </div>
+        <div className="container-fluid d-flex justify-content-between align-items-center">
           <Link className="navbar-brand mx-auto" to="/">
             <img src="src\assets\images\logo.png" alt="the menu logo" />
           </Link>
@@ -36,7 +38,10 @@ function NavBar({}: NavBarProps) {
         </div>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul
+            className="navbar-nav me-auto mb-2 mb-lg-0 "
+            style={{ paddingRight: "10rem" }}
+          >
             {items.map((item, index) => (
               <li
                 key={item}
@@ -44,7 +49,9 @@ function NavBar({}: NavBarProps) {
                   setSelectedIndex(index);
                 }}
                 className={
-                  selectedIndex === index ? "nav-item active" : "nav-item"
+                  selectedIndex === index
+                    ? "nav-item active ps-5 pe-5"
+                    : "nav-item ps-5 pe-5"
                 }
               >
                 <Link

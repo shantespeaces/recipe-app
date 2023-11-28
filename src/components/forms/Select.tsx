@@ -47,10 +47,14 @@ function Select({
       </label>
       <select
         id="optionSelect"
-        className="form-select rounded-5"
+        className="form-select rounded-5 "
         aria-label={`Select ${heading.toLowerCase()}`}
         value={selectedOption || ""}
         onChange={handleSelectChange}
+        style={{
+          height: "50px",
+          fontSize: "18px",
+        }}
       >
         <option value="" disabled>
           Select {heading.toLowerCase()}

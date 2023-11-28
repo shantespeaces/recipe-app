@@ -1,5 +1,5 @@
 body {
-  background-color: #FAF9F6 !important;
+  background-color: #faf8f6 !important;
 }
 
 main {
@@ -9,55 +9,61 @@ main {
 }
 
 nav {
-  background-color: #FAF9F6;
-  margin-left: 5em;
-  margin-right: 5em;
+  background-color: #fb2e65;
 }
 
 .nav-item.active a {
-  color: #F36912;
+  color: #f36912;
+}
+
+.nav-item a {
+  color: black;
+}
+.nav-item a:hover {
+  color: #f36912;
 }
 
 button.custom-button {
-  background-color: #FB2E65;
+  background-color: #fb2e65;
   color: #fff;
   border: none;
 }
 button.custom-button:hover {
-  border: 2px solid #FB2E65;
+  border: 2px solid #fb2e65;
   background-color: transparent;
-  color: #FB2E65;
+  color: #fb2e65;
   transition: background-color 0.3s;
 }
 
 .btn.btn.btn-secondary {
-  background-color: #F36912;
+  background-color: #fb2e65;
   border: none;
 }
 
 button.custom-more {
   background-color: transparent;
   border: none;
-  color: #F36912;
+  color: #f36912;
   transition: background-color 0.3s;
 }
 button.custom-more:hover {
-  background-color: #F36912;
+  background-color: #f36912;
   color: #fff;
 }
 
 button.custom-search {
-  border-color: #F36912;
-}
-button.custom-search .material-symbols-outlined {
-  color: #F36912;
-}
-button.custom-search .material-symbols-outlined:hover {
-  color: #fff;
+  background-color: #f36912;
+  border: #f36912;
 }
 button.custom-search:hover {
-  background-color: #F36912;
-  border: none;
+  background-color: #fff;
+  border: solid 1px #ced4da;
+}
+button.custom-search .material-symbols-outlined {
+  color: #fff;
+}
+button.custom-search .material-symbols-outlined:hover {
+  color: #f36912;
 }
 
 button.settings {
@@ -65,19 +71,28 @@ button.settings {
   top: 300px;
   right: 50px;
   width: 200px;
-  background-color: #FB2E65;
+  background-color: #fb2e65;
   color: #fff;
   border: none;
 }
 button.settings:hover {
-  border: 2px solid #FB2E65;
+  border: 2px solid #fb2e65;
   background-color: transparent;
-  color: #FB2E65;
+  color: #fb2e65;
   transition: background-color 0.3s;
 }
 
+button.btn.btn-outline-secondary.custom-star:focus {
+  background-color: #f36912;
+  color: #fff;
+}
+
+button.btn.btn-outline-secondary.custom-star:hover {
+  background-color: #f36912;
+}
+
 section {
-  border: 2px solid #F36912;
+  border: 2px solid #f36912;
   border-radius: 25px;
   background-color: #fff;
 }

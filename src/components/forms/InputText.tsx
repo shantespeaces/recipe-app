@@ -14,11 +14,15 @@ function InputText({ name, placeholder, value, onChange }: InputTextProps) {
       </label>
       <input
         type="text"
-        className="form-control rounded-5"
+        className="form-control rounded-5 p-3"
         id="formGroupExampleInput"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        style={{
+          height: "50px",
+          fontSize: "18px",
+        }}
       />
     </>
   );

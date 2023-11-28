@@ -2,9 +2,22 @@ interface CounterProps {
   heading: string;
   value: number;
   onChange: (value: number) => void;
+  icon: string;
 }
 
-function Counter({ heading, value, onChange }: CounterProps) {
+const Counter: React.FC<CounterProps> = ({
+  heading,
+  value,
+  onChange,
+  icon,
+}) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = parseInt(event.target.value);
+    if (!isNaN(inputValue)) {
+      onChange(inputValue);
+    }
+  };
+
   const handleIncrement = () => {
     onChange(value + 1);
   };
@@ -16,38 +29,56 @@ function Counter({ heading, value, onChange }: CounterProps) {
   };
 
   return (
-    <div className="input-group align-items-center">
-      <label htmlFor="formGroupExampleInput" className="form-label">
-        <h3 className="mb-0 me-2"> {heading}</h3>
-      </label>
-      <div className="d-flex align-items-center">
-        <span className="input-group-btn">
+    <div className="position-relative">
+      <div className="row align-items-center">
+        <div className="col-auto">
+          <label htmlFor="formGroupExampleInput" className="form-label">
+            <h3 className="mb-0 me-2">{heading}</h3>
+          </label>
+        </div>
+        <div className="col-auto">
+          <span
+            className="material-symbols-outlined"
+            style={{ fontSize: "36px" }}
+          >
+            {icon}
+          </span>
+        </div>
+      </div>
+      <div className="input-group align-items-center">
+        <div className="position-absolute end-0 top-0 bottom-0 d-flex align-items-center pe-4">
           <button
-            className="btn btn-secondary me-2"
+            className="btn btn-secondary rounded-circle me-4 d-flex justify-content-center align-items-center"
             type="button"
             onClick={handleDecrement}
+            style={{ width: "34px", height: "34px" }}
           >
-            -
+            <span style={{ fontSize: "34px", paddingBottom: "5px" }}>-</span>
           </button>
-        </span>
-        <input
-          type="text"
-          className="form-control rounded-start rounded-end text-center me-2"
-          value={value}
-          readOnly
-        />
-        <span className="input-group-btn">
           <button
-            className="btn btn-secondary me-2"
+            className="btn btn-secondary rounded-circle d-flex justify-content-center align-items-center"
             type="button"
             onClick={handleIncrement}
+            style={{ width: "34px", height: "34px" }}
           >
-            +
+            <span style={{ fontSize: "34px", paddingBottom: "5px" }}>+</span>
           </button>
-        </span>
+        </div>
+        <input
+          type="text"
+          className="form-control rounded-5 text-left px-4"
+          value={value}
+          style={{
+            paddingLeft: "50px",
+            paddingRight: "90px",
+            height: "50px",
+            fontSize: "24px",
+          }}
+          onChange={handleInputChange}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Counter;

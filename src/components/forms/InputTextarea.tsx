@@ -19,11 +19,12 @@ function InputTextarea({
         <h3>{heading}</h3>
       </label>
       <textarea
-        className="form-control rounded-5"
+        className="form-control rounded-5 p-3"
         id="formGroupExampleInput2"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        style={{ fontSize: "18px" }}
       ></textarea>
     </>
   );
