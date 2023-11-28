@@ -25,7 +25,6 @@ function RatingButton({ numberOfStars }: RatingButtonProps) {
       <button
         type="button"
         className="btn btn-outline-secondary border-0 custom-star"
-        // style={{ backgroundColor: "#F36912" }}
       >
         {stars}
         <span className="visually-hidden">Button</span>
