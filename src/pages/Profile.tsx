@@ -1,7 +1,6 @@
-import CreateIntroMessage from "../components/forms/CreateIntroMessage";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Rating from "../components/forms/Rating";
+import RecipeCard from "../components/RecipeCard";
 
 function Profile() {
   interface User {
@@ -9,7 +8,7 @@ function Profile() {
     image: string;
   }
 
-  interface UserRecipe {
+  interface Recipe {
     id: number;
     name: string;
     description: string;
@@ -18,7 +17,7 @@ function Profile() {
     serves: string;
     image: string;
   }
-  type UserRecipes = UserRecipe[];
+  type Recipes = Recipe[];
   // interface Subcategory {
   //   subcategory_name: string;
   //   id: number;
@@ -27,7 +26,7 @@ function Profile() {
 
   const [user, setUser] = useState<User>();
 
-  const [userRecipes, setUserRecipes] = useState<UserRecipes>([]);
+  const [recipes, setRecipes] = useState<Recipes>([]);
   // const [subcategories, setSubcategories] = useState<Subcategories>([]);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ function Profile() {
     axios
       .get("http://localhost:8000/api/user_recipes/user_id/1")
       .then((response) => {
-        setUserRecipes(response.data);
+        setRecipes(response.data);
       })
       .catch((error) => {
         console.error("Error fetching recipes:", error);
@@ -70,34 +69,13 @@ function Profile() {
           </div>
         )}
 
-        <ul>
-          {userRecipes.map((userRecipe) => (
-            <li key={userRecipe.id}>
-              <section className="carte-recette">
-                <h1>{userRecipe.name}</h1>
-                <p>{userRecipe.description}</p>
-                <div className="image-container">
-                  <img
-                    className="img-thumbnail"
-                    src={userRecipe.image}
-                    alt=""
-                  />
-                </div>
-
-                <Rating rating={userRecipe.rating} />
-                <p>
-                  <span className="material-symbols-outlined">timer</span>
-                  {userRecipe.time}
-                </p>
-                <p>
-                  <span className="material-symbols-outlined">person</span>
-                  {userRecipe.serves}
-                </p>
-                {/* <p>{userRecipe.category}</p> */}
-              </section>
-            </li>
-          ))}{" "}
-        </ul>
+        <div className="container my-5">
+          <div className="recipe-card row g-5">
+            {recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        </div>
         {/* <section className="subcategories">
           <h3>Subcategories</h3>
           <ul>
