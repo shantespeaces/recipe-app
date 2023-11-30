@@ -23,7 +23,7 @@ function Header() {
     <>
       <div className="position-relative my-5">
         <img
-          src="src\assets\images\header.png"
+          src="src/assets/images/header.png"
           alt="header"
           style={{
             backgroundImage: `url("src/assets/images/header.png")`,
@@ -34,16 +34,21 @@ function Header() {
           }}
         />
         {user && (
-          <div className="profile-image-container position-absolute top-50 start-20  d-flex col-6 py-5 px-5 my-3">
+          <div
+            className=" d-flex flex-row pb-5 position-absolute top-50 start-0 mx-5 my-5 py-4 "
+            style={{
+              width: "100%",
+            }}
+          >
             <div
-              className="col-6 d-flex "
+              className="profile-image-container"
               style={{
-                width: "150px",
-                height: "150px",
+                width: "10em",
+                height: "10em",
               }}
             >
               <img
-                className="profile"
+                className="profile img-fluid"
                 src={user.image}
                 alt=""
                 style={{
@@ -53,9 +58,7 @@ function Header() {
                 }}
               />
             </div>
-            <div className="col-6 py-5 my-5">
-              <h3>@{user.name}</h3>
-            </div>
+            <h3 className="pt-5 px-3 mt-5">@{user.name}</h3>
           </div>
         )}
       </div>

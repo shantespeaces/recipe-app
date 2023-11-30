@@ -24,7 +24,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="container my-5">
+    <div className="container" style={{ marginTop: "8em" }}>
       <div className="recipe-card row g-5">
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />

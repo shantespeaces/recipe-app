@@ -60,16 +60,8 @@ function Profile() {
   return (
     <>
       <main>
-        {user && (
-          <div>
-            <h2>{user.name}</h2>
-            <div className="profile-image-container">
-              <img className="profile" src={user.image} alt="" />
-            </div>
-          </div>
-        )}
-
-        <div className="container my-5">
+        <div className="container " style={{ marginTop: "6em" }}>
+          <h1 className="pb-3">Shantés recipes</h1>
           <div className="recipe-card row g-5">
             {recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />

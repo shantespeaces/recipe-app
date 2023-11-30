@@ -107,8 +107,11 @@ function OneRecipe() {
   return (
     <>
       <main>
-        {/* <Settings /> */}
-        <section className="carte-recette intro px-5 py-5 mb-3 ">
+        {/* <Settings />" */}
+        <section
+          className="carte-recette intro px-5 py-5 mb-3  "
+          style={{ marginTop: "8em" }}
+        >
           <div className="row ">
             <div className="col-md-6">
               <img
@@ -204,7 +207,6 @@ function OneRecipe() {
                     ))}
                   </div>
                 </section> */}
-
         <section className="instructions px-5 py-5 mb-3">
           <h3>Instructions</h3>
           <ul className=" ">
