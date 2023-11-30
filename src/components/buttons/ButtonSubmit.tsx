@@ -14,7 +14,7 @@ function ButtonSubmit({ name, type, onClick }: ButtonSubmitProps) {
         onClick={onClick}
       >
         {name}
-        <span className="material-symbols-outlined ms-2">add_circle</span>
+        {/* <span className="material-symbols-outlined ms-2">add_circle</span> */}
       </button>
     </div>
   );
