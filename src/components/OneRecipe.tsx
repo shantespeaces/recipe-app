@@ -107,8 +107,8 @@ function OneRecipe() {
   return (
     <>
       <main>
-        <Settings />
-        <section className="carte-recette intro px-5 py-5 mb-3">
+        {/* <Settings /> */}
+        <section className="carte-recette intro px-5 py-5 mb-3 ">
           <div className="row ">
             <div className="col-md-6">
               <img
