@@ -16,7 +16,12 @@ function NavBar({}: NavBarProps) {
   // const handleClick = (event: MouseEvent) => console.log(event);
   return (
     <>
-      <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary px-5">
+      <nav
+        className="navbar sticky-top navbar-expand-lg bg-body-tertiary px-5"
+        style={{
+          height: "100px",
+        }}
+      >
         <div className="search-bar" style={{ paddingLeft: "10rem" }}>
           <SearchBar />
         </div>

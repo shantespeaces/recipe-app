@@ -5,6 +5,7 @@ import Recipe from "./pages/Recipe";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/nav/NavBar";
+import Header from "./components/Header";
 
 function App() {
   // // const bgs = ref([])
@@ -23,6 +24,7 @@ function App() {
     <div>
       {/* <p>{bgs.color}</p> */}
       <NavBar />
+      <Header />
 
       <Routes>
         <Route path="/" element={<Home />} />
