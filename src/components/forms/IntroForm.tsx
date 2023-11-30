@@ -485,15 +485,17 @@ function IntroForm() {
                 </div>
               </div>
             )}
+            {toggleSaveSectionBtn && (
+              <div className="d-flex justify-content-center">
+                <div className="py-3">
+                  <ButtonMore
+                    name="Save Section"
+                    onClick={handleCreateSections}
+                  />
+                </div>
+              </div>
+            )}
           </section>
-        )}
-
-        {toggleSaveSectionBtn && (
-          <div className="d-flex justify-content-center">
-            <div className="py-3">
-              <ButtonMore name="Save Section" onClick={handleCreateSections} />
-            </div>
-          </div>
         )}
 
         {/* For Create new section Button */}

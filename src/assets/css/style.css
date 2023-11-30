@@ -8,10 +8,6 @@ main {
   position: relative;
 }
 
-nav {
-  background-color: #fb2e65;
-}
-
 .nav-item.active a {
   color: #f36912;
 }

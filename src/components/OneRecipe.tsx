@@ -2,8 +2,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Settings from "../components/Settings";
 import Rating from "../components/forms/Rating";
+// import RecipeCard from "../components/RecipeCard";
 function OneRecipe() {
   interface Recipe {
+    id: number;
     name: string;
     description: string;
     rating: string;
@@ -12,14 +14,14 @@ function OneRecipe() {
     image: string;
   }
 
-  interface SectionIngredient {
+  interface Ingredient {
     section_name: string;
     ingredient_name: string;
     quantity: string;
     measurement_name: string;
     id: number;
   }
-  type SectionsIngredients = SectionIngredient[];
+  // type SectionsIngredients = SectionIngredient[];
 
   interface Instruction {
     description: string;
@@ -33,41 +35,69 @@ function OneRecipe() {
   }
   type Subcategories = Subcategory[];
 
-  const [recipe, setRecipe] = useState<Recipe>();
-  const [sectionsIngredients, setSectionsIngredients] =
-    useState<SectionsIngredients>([]);
+  const [recipe, setRecipe] = useState<Recipe>([]);
+  // const [sectionsIngredients, setSectionsIngredients] = useState<Ingredient>(
+  //   []
+  // );
   const [instructions, setInstructions] = useState<Instructions>([]);
   const [subcategories, setSubcategories] = useState<Subcategories>([]);
+  const [groupedIngredients, setGroupedIngredients] = useState<{
+    [key: number]: Ingredient[];
+  }>({});
+
+  const groupIngredientsBySectionId = (ingredients: Ingredient[]) => {
+    const groupedIngredients: { [key: number]: Ingredient[] } = {};
+    ingredients.forEach((ingredient) => {
+      const { section_id, ...rest } = ingredient;
+      if (!groupedIngredients[section_id]) {
+        groupedIngredients[section_id] = [rest];
+      } else {
+        groupedIngredients[section_id].push(rest);
+      }
+    });
+    return groupedIngredients;
+  };
+  // const groupedIngredients = groupIngredientsBySectionId(sectionsIngredients);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const recipeResponse = await axios.get(
-          "http://localhost:8000/api/recipes/64"
-        );
-        setRecipe(recipeResponse.data);
+    axios
+      .get("http://localhost:8000/api/recipes/64")
+      .then((response) => {
+        setRecipe(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching recipe:", error);
+      });
 
-        const ingredientsResponse = await axios.get(
-          "http://localhost:8000/api/sections_ingredients/recipe_id/64"
-        );
-        setSectionsIngredients(ingredientsResponse.data);
+    axios
+      .get("http://localhost:8000/api/sections_ingredients/recipe_id/64")
+      .then((response) => {
+        const ingredients = response.data; // Assuming this is the fetched data
 
-        const subcategoryResponse = await axios.get(
-          "http://localhost:8000/api/subcategories/recipe_id/64"
-        );
+        const grouped = groupIngredientsBySectionId(ingredients);
+        setGroupedIngredients(grouped);
+      })
+      .catch((error) => {
+        console.error("Error fetching sections ingredients:", error);
+      });
 
-        setSubcategories(subcategoryResponse.data);
+    axios
+      .get("http://localhost:8000/api/subcategories/recipe_id/64")
+      .then((response) => {
+        setSubcategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching subcategories:", error);
+      });
 
-        const instructionsResponse = await axios.get(
-          "http://localhost:8000/api/instructions/recipe_id/64"
-        );
-        setInstructions(instructionsResponse.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    axios
+      .get("http://localhost:8000/api/instructions/recipe_id/64")
+      .then((response) => {
+        setInstructions(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching instructions:", error);
+      });
   }, []);
 
   // function changerCouleur(nom: string) {
@@ -78,58 +108,112 @@ function OneRecipe() {
     <>
       <main>
         <Settings />
-        <section className="carte-recette">
-          {recipe && (
-            <div>
-              <h1>{recipe.name}</h1>
-              <p>{recipe.description}</p>
-              <img className="img-thumbnail" src={recipe.image} alt="" />
-
-              <Rating rating={recipe.rating} />
-              <p>
-                <span className="material-symbols-outlined">timer</span>
-                {recipe.time}
-              </p>
-              <p>
-                <span className="material-symbols-outlined">person</span>
-                {recipe.serves}
-              </p>
+        <section className="carte-recette intro px-5 py-5 mb-3">
+          <div className="row ">
+            <div className="col-md-6">
+              <img
+                className="card-img-left w-100 h-100"
+                src={recipe.image}
+                alt=""
+                style={{ objectFit: "cover" }}
+              />
             </div>
+            <div className="col-md-6 ">
+              <h3>{recipe.name}</h3>
+              <div>
+                <Rating rating={recipe.rating} />
+                <div className="d-flex justify-content-between align-items-center flex-grow-1 pb-3">
+                  <div className="d-flex align-items-center py-3">
+                    <span className="material-symbols-outlined me-2">
+                      timer
+                    </span>
+                    <p className="mb-0">{recipe.time}</p>
+                  </div>
+                  <div className="d-flex align-items-center px-5">
+                    <span className="material-symbols-outlined me-2 ">
+                      person
+                    </span>
+                    <p className="mb-0">{recipe.serves}</p>
+                  </div>
+                </div>
+              </div>
+              <p>{recipe.description}</p>{" "}
+              <div className="subcategories">
+                <h3>Categories</h3>
+                <ul className="list-unstyled d-flex flex-wrap">
+                  {subcategories.map((subcategory) => (
+                    <li
+                      key={subcategory.id}
+                      className="me-3 mb-3 rounded-5 p-2 d-flex justify-content-center align-items-center"
+                      style={{
+                        backgroundColor: " rgba(243, 105, 18, 0.5)",
+                      }}
+                    >
+                      <p className="m-0 px-5">{subcategory.subcategory_name}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>{" "}
+            </div>
+          </div>
+        </section>
+        <section className="ingredients px-5 py-5 mb-3">
+          <h3 className="py-3">Ingredients</h3>
+          {Object.entries(groupedIngredients).map(
+            ([sectionId, ingredients]) => (
+              <div key={sectionId} className=" mb-4">
+                <section className="ingredients px-5 py-5 mb-3">
+                  <h4>{ingredients[0].section_name}</h4>
+                  <ul className="row px-0">
+                    {ingredients.map((ingredient, index) => (
+                      <li key={index} className=" d-flex ">
+                        <p className=" px-1">{ingredient.quantity}</p>
+                        <p className=" px-1">{ingredient.measurement_name}</p>
+                        <p>{ingredient.ingredient_name}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </div>
+            )
           )}
         </section>
-        <section className="ingredients">
-          <h3>Ingredients</h3>
-          <ul>
-            {sectionsIngredients.map((sectionIngredient) => (
-              <li key={sectionIngredient.id}>
-                <h4>{sectionIngredient.section_name}</h4>
-                <p>{sectionIngredient.ingredient_name}</p>
-                <p>{sectionIngredient.quantity}</p>
-                <p>{sectionIngredient.measurement_name}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="instructions">
+        {/* <section className="ingredients px-5 py-5 mb-3">
+                  <h4 className="py-3">{ingredients[0].section_name}</h4>
+                  <div className="row">
+                    {ingredients.map((ingredient, index) => (
+                      <div key={index} className="col-12 mb-3">
+                        <div className="row gx-1">
+                          <p
+                            className="col-1 mb-0"
+                            style={{ maxWidth: "25px", maxHeight: "30px" }}
+                          >
+                            {ingredient.quantity}
+                          </p>
+                          <p
+                            className="col-1 mb-0"
+                            style={{ maxWidth: "50px" }}
+                          >
+                            {ingredient.measurement_name}
+                          </p>
+                          <p className="col-9 mb-0 ">
+                            {ingredient.ingredient_name}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section> */}
+
+        <section className="instructions px-5 py-5 mb-3">
           <h3>Instructions</h3>
-          <ul>
+          <ul className=" ">
             {instructions.map((instruction) => (
               <li key={instruction.id}>
-                {/* <h4> {instruction.name}</h4> */}
                 <p> {instruction.description}</p>
               </li>
             ))}
           </ul>
-        </section>
-        <section className="subcategories">
-          <h3>Subcategories</h3>
-          <ul>
-            {subcategories.map((subcategory) => (
-              <li key={subcategory.id}>
-                <p>{subcategory.subcategory_name}</p>
-              </li>
-            ))}
-          </ul>{" "}
         </section>
         {/* <Button name="Settings" onClick={() => setIsOpen(true)} /> or add active class to settings? */}
       </main>
