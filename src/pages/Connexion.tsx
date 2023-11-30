@@ -67,6 +67,7 @@ function Connexion() {
           </div>
         </div>
       </section>
+
       <PostIt position="right" />
       <PostIt position="left" />
       <PostIt position="right" />

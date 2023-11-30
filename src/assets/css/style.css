@@ -125,4 +125,39 @@ section {
 
 form.hidden {
   display: none;
+}
+
+.post-it-right {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  padding: 40px;
+  background-color: #ffd700; /* Yellow color for the note */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 3px 3px 8px #888888;
+  transform: rotate(20deg); /* Apply rotation transformation */
+}
+
+.post-it-left {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  padding: 40px;
+  background-color: #fb2e65; /* Yellow color for the note */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 3px 3px 8px #888888;
+  transform: rotate(-20deg); /* Apply rotation transformation */
+}
+
+.tape {
+  position: absolute;
+  width: 35px;
+  height: 70px;
+  background-color: #fff; /* White color for tape */
+  border: 1px solid #ccc;
+  top: -30px; /* Adjust position as needed */
+  left: 130px; /* Position on the left side of the note */
+  z-index: 1;
 }/*# sourceMappingURL=style.css.map */
