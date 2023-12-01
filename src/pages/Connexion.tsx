@@ -10,7 +10,7 @@ import { useState, FormEvent, useEffect } from "react";
 // }
 
 function Connexion() {
-  //Stae for user information
+  //State for user information
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -125,7 +125,7 @@ function Connexion() {
           </section>
         </form>
       </main>
-      <div className="leftSide position-absolute start-0 top-0 mx-5 my-5 px-5 py-5">
+      <div className="leftSide position-absolute start-0 top-0  my-5  py-5">
         <div className="mx-5 px-5">
           <PostIt
             backgroundColor="#FB9B2E"
@@ -145,7 +145,7 @@ function Connexion() {
           />
         </div>
       </div>
-      <div className="rightSide position-absolute end-0 top-0 mx-5 my-5 px-5 py-5">
+      <div className="rightSide position-absolute end-0 top-0  my-5  py-5">
         <div className="mx-5 px-5">
           <PostIt
             backgroundColor="#ffd700"

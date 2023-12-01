@@ -176,4 +176,14 @@ form.hidden {
 
   z-index: 1;
 }
+@media (max-width: 1700px) {
+  .post-it-right,
+  .post-it-left {
+    max-width: 200px;
+    max-height: 200px;
+    p {
+      display: none;
+    }
+  }
+}
 //   @import "../node_modules/bootstrap/scss/functions";

@@ -160,4 +160,16 @@ form.hidden {
   top: -30px;
   left: 130px;
   z-index: 1;
+}
+
+@media (max-width: 1700px) {
+  .post-it-right,
+  .post-it-left {
+    max-width: 200px;
+    max-height: 200px;
+  }
+  .post-it-right p,
+  .post-it-left p {
+    display: none;
+  }
 }/*# sourceMappingURL=style.css.map */
