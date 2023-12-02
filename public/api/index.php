@@ -68,9 +68,15 @@ if (array_key_exists('_method', $_GET) === true) {
 
 ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 	$query = array(
-		sprintf('SELECT * FROM "%s"', $table),
-		sprintf('WHERE "%s" %s ?', $id, (ctype_digit($data) === true) ? '=' : 'LIKE'),
+		sprintf('SELECT * FROM "%s"', $table),		
+		sprintf(
+			'WHERE %s %s ? %s', 
+			$id, 
+			(ctype_digit($data) === true) ? '=' : 'LIKE', 			
+		),
 	);
+
+
 
 	if (isset($_GET['by']) === true) {
 		if ($_GET['by'] === 'rand') {
@@ -92,6 +98,10 @@ ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 	}
 
 	$query = sprintf('%s;', implode(' ', $query));
+
+	error_log($query);
+	error_log($data);
+
 	$result = ArrestDB::Query($query, $data);
 
 	if ($result === false) {
@@ -106,6 +116,7 @@ ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 ArrestDB::Serve('GET', '/(#any)/(#num)?', function ($table, $id = null) {
 	$query = array(
 		sprintf('SELECT * FROM "%s"', $table),
+		isset($_GET["email"]) ? "WHERE email LIKE '%".$_GET["email"]."%'" : ""
 	);
 
 	if (isset($id) === true) {
@@ -132,6 +143,7 @@ ArrestDB::Serve('GET', '/(#any)/(#num)?', function ($table, $id = null) {
 	}
 
 	$query = sprintf('%s;', implode(' ', $query));
+	error_log($query);
 	$result = (isset($id) === true) ? ArrestDB::Query($query, $id) : ArrestDB::Query($query);
 
 	if ($result === false) {
