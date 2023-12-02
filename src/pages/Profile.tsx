@@ -31,10 +31,11 @@ function Profile() {
   useEffect(() => {
     // Get userId from local storage
     const userId = localStorage.getItem("userId");
+    
     if (userId) {
       // Fetch user data using userId ${userId}
       axios
-        .get("http://localhost:8000/api/users/1")
+        .get(`http://localhost:8000/api/users/${userId}`)
         .then((response) => {
           setUser(response.data);
         })
@@ -43,7 +44,7 @@ function Profile() {
         });
 
       axios
-        .get("http://localhost:8000/api/user_recipes/user_id/1")
+        .get(`http://localhost:8000/api/user_recipes/user_id/${userId}`)
         .then((response) => {
           setRecipes(response.data);
         })
