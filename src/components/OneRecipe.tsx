@@ -3,38 +3,38 @@ import { useState, useEffect } from "react";
 import Settings from "../components/Settings";
 import Rating from "../components/forms/Rating";
 // import RecipeCard from "../components/RecipeCard";
+
+interface Recipe {
+  id: number;
+  name: string;
+  description: string;
+  rating: string;
+  time: string;
+  serves: string;
+  image: string;
+}
+
+interface Ingredient {
+  section_name: string;
+  ingredient_name: string;
+  quantity: string;
+  measurement_name: string;
+  id: number;
+}
+// type SectionsIngredients = SectionIngredient[];
+
+interface Instruction {
+  description: string;
+  id: number;
+}
+type Instructions = Instruction[];
+
+interface Subcategory {
+  subcategory_name: string;
+  id: number;
+}
+type Subcategories = Subcategory[];
 function OneRecipe() {
-  interface Recipe {
-    id: number;
-    name: string;
-    description: string;
-    rating: string;
-    time: string;
-    serves: string;
-    image: string;
-  }
-
-  interface Ingredient {
-    section_name: string;
-    ingredient_name: string;
-    quantity: string;
-    measurement_name: string;
-    id: number;
-  }
-  // type SectionsIngredients = SectionIngredient[];
-
-  interface Instruction {
-    description: string;
-    id: number;
-  }
-  type Instructions = Instruction[];
-
-  interface Subcategory {
-    subcategory_name: string;
-    id: number;
-  }
-  type Subcategories = Subcategory[];
-
   const [recipe, setRecipe] = useState<Recipe>([]);
   // const [sectionsIngredients, setSectionsIngredients] = useState<Ingredient>(
   //   []

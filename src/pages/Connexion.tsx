@@ -1,7 +1,7 @@
 import PostIt from "../components/PostIt";
 import ButtonSubmit from "../components/buttons/ButtonSubmit";
 import axios from "axios";
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 
 // interface User {
 //   name: string;
@@ -11,7 +11,7 @@ import { useState, FormEvent, useEffect } from "react";
 
 function Connexion() {
   //State for user information
-  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,21 +20,24 @@ function Connexion() {
 
     try {
       // Submit user data
-      await axios.post("http://localhost:8000/api/users", {
-        name: name,
+      const response = await axios.post("http://localhost:8000/api/users", {
         email: email,
         password: password,
       });
+      const userId = response.data.userId;
+      localStorage.setItem("userId", userId);
 
       // Reset form fields after successful submission
-      setName("");
+
       setEmail("");
       setPassword("");
     } catch (error) {
       console.error("Error submitting form: ", error);
     }
   };
-
+  function handleClick() {
+    window.location.href = "/profile";
+  }
   return (
     <>
       <main>
@@ -64,58 +67,47 @@ function Connexion() {
                           Sign into your account
                         </h2>
 
-                        <form>
-                          <div className="form-outline mb-4">
-                            <input
-                              type="text"
-                              className="form-control form-control-lg rounded-5"
-                              id="id"
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
-                            />
-                            <label className="form-label" htmlFor="name">
-                              Your Name
-                            </label>
-                          </div>
+                        <div className="form-outline mb-4">
+                          <input
+                            type="email"
+                            id="id"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="form-control form-control-lg rounded-5"
+                          />
+                          <label className="form-label" htmlFor="email">
+                            Email address
+                          </label>
+                        </div>
 
-                          <div className="form-outline mb-4">
-                            <input
-                              type="email"
-                              id="id"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              className="form-control form-control-lg rounded-5"
-                            />
-                            <label className="form-label" htmlFor="email">
-                              Email address
-                            </label>
-                          </div>
-
-                          <div className="form-outline mb-4">
-                            <input
-                              type="password"
-                              id="id"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                              className="form-control form-control-lg rounded-5"
-                            />
-                            <label className="form-label" htmlFor="password">
-                              Password
-                            </label>
-                          </div>
-                          <div className="mb-5">
-                            <ButtonSubmit name="Login" type="submit" />
-                          </div>
-                          <p
-                            className="mb-5 pb-lg-2"
-                            style={{ color: "#393f81" }}
-                          >
-                            Don't have an account?{" "}
-                            <a href="/account" style={{ color: "#393f81" }}>
-                              Register here
-                            </a>
-                          </p>
-                        </form>
+                        <div className="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="id"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="form-control form-control-lg rounded-5"
+                          />
+                          <label className="form-label" htmlFor="password">
+                            Password
+                          </label>
+                        </div>
+                        <div className="mb-5">
+                          <ButtonSubmit
+                            name="Login"
+                            type="submit"
+                            onClick={handleClick}
+                          />
+                        </div>
+                        <p
+                          className="mb-5 pb-lg-2"
+                          style={{ color: "#393f81" }}
+                        >
+                          Don't have an account?{" "}
+                          <a href="/account" style={{ color: "#393f81" }}>
+                            Register here
+                          </a>
+                        </p>
                       </div>
                     </div>
                   </div>

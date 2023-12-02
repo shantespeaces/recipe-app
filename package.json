@@ -20,7 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-password-checklist": "^1.5.0",
-    "react-router-dom": "^6.17.0",
+    "react-router-dom": "^6.20.1",
     "react-search-autocomplete": "^8.5.2",
     "redux": "^4.2.1",
     "switch": "^0.0.0"
