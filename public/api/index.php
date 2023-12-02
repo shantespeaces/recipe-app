@@ -70,7 +70,7 @@ ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 	$query = array(
 		sprintf('SELECT * FROM "%s"', $table),		
 		sprintf(
-			'WHERE %s %s ? %s', 
+			'WHERE %s %s ?', 
 			$id, 
 			(ctype_digit($data) === true) ? '=' : 'LIKE', 			
 		),
