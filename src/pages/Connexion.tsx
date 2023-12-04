@@ -15,29 +15,66 @@ function Connexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  /**
+   * Email validation 
+   * 
+   * @param email 
+   * @returns
+   */
+  const validateEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
+
+      // Check if email is provided and valid
+      if(email === "" || ! validateEmail(email)) {
+        alert("Please enter a valid email address")
+        return
+      }
+
+      // Check if password is provided
+      if(password === "") {
+        alert("Please enter your password")
+        return
+      }
+
       // Submit user data
-      const response = await axios.post("http://localhost:8000/api/users", {
-        email: email,
-        password: password,
-      });
-      const userId = response.data.userId;
+      const response = await axios.get(`http://localhost:8000/api/users?email=${email}`);
+
+      // Check if user exists
+      if(response.data.error && response.data.error.code === 204){
+        alert("The credentials you provided do not match our records");
+        return;
+      }
+
+      // Check if password match (DO NOT DO THIS!)
+      if(response.data[0].password !== password){
+        alert("The credentials you provided do not match our records");
+        return;
+      }
+
+      const userId = response.data[0].id;
       localStorage.setItem("userId", userId);
 
       // Reset form fields after successful submission
-
       setEmail("");
       setPassword("");
+
+      window.location.href = "/profile"
+
     } catch (error) {
       console.error("Error submitting form: ", error);
     }
   };
-  // function handleClick() {
-  //   window.location.href = "/profile";
-  // }
+
   return (
     <>
       <main>
@@ -96,7 +133,7 @@ function Connexion() {
                           <ButtonSubmit
                             name="Login"
                             type="submit"
-                            // onClick={handleClick}
+
                           />
                         </div>
                         <p
