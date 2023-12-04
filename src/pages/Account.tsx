@@ -34,6 +34,7 @@ function Account() {
   //         // or update the data in redux store.
   //     }
   //     else {
+
   //         // invalid email, maybe show an error to the user.
   //     }
 

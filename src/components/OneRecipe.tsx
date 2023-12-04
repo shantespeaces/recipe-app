@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Settings from "../components/Settings";
+// import Settings from "../components/Settings";
 import Rating from "../components/forms/Rating";
 // import RecipeCard from "../components/RecipeCard";
 

@@ -31,7 +31,7 @@ function Profile() {
   useEffect(() => {
     // Get userId from local storage
     const userId = localStorage.getItem("userId");
-    
+
     if (userId) {
       // Fetch user data using userId ${userId}
       axios
