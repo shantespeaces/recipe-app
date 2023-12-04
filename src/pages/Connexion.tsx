@@ -35,9 +35,9 @@ function Connexion() {
       console.error("Error submitting form: ", error);
     }
   };
-  function handleClick() {
-    window.location.href = "/profile";
-  }
+  // function handleClick() {
+  //   window.location.href = "/profile";
+  // }
   return (
     <>
       <main>
@@ -96,7 +96,7 @@ function Connexion() {
                           <ButtonSubmit
                             name="Login"
                             type="submit"
-                            onClick={handleClick}
+                            // onClick={handleClick}
                           />
                         </div>
                         <p
