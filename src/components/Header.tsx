@@ -42,13 +42,7 @@ function Header() {
               width: "100%",
             }}
           >
-            <div
-              className="profile-image-container"
-              style={{
-                width: "10em",
-                height: "10em",
-              }}
-            >
+            <div className="profile-image-container">
               <img
                 className="profile img-fluid"
                 src={user.image}

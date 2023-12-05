@@ -2,18 +2,22 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-interface NavBarProps {
-  // onClick: () => void;
-}
+interface NavBarProps {}
+
 function NavBar({}: NavBarProps) {
+  // First set of links
   let items = ["Home", "Create", "Profile"];
   let icons = ["home", "add_circle", "account_circle"];
   let route = ["/", "/create", "/profile"];
 
+  // Second set of links
+  let items2 = ["Login", "Register"];
+  let icons2 = ["", ""];
+  let route2 = ["/connexion", "/account"];
+
   //hook
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  // const handleClick = (event: MouseEvent) => console.log(event);
   return (
     <>
       <nav
@@ -43,36 +47,69 @@ function NavBar({}: NavBarProps) {
         </div>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
-            className="navbar-nav me-auto mb-2 mb-lg-0 "
-            style={{ paddingRight: "10rem" }}
-          >
-            {items.map((item, index) => (
-              <li
-                key={item}
-                onClick={() => {
-                  setSelectedIndex(index);
-                }}
-                className={
-                  selectedIndex === index
-                    ? "nav-item active ps-5 pe-5"
-                    : "nav-item ps-5 pe-5"
-                }
-              >
-                <Link
-                  className="nav-link "
-                  aria-current="page"
-                  to={route[index]}
+          {/* <div className="row"> */}
+          <div className="col">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+              {/* First set of links */}
+              {items.map((item, index) => (
+                <li
+                  key={item}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                  }}
+                  className={
+                    selectedIndex === index
+                      ? "nav-item active ps-5 pe-5"
+                      : "nav-item ps-5 pe-5"
+                  }
                 >
-                  {item}{" "}
-                  <span className="material-symbols-outlined">
-                    {icons[index]}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  <Link
+                    className="nav-link"
+                    aria-current="page"
+                    to={route[index]}
+                  >
+                    {item}{" "}
+                    <span className="material-symbols-outlined">
+                      {icons[index]}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* <div className="row"> */}
+          <div className="col">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+              {/* Second set of links */}
+              {items2.map((item, index) => (
+                <li
+                  key={item}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                  }}
+                  className={
+                    selectedIndex === index
+                      ? "nav-item active ps-5 pe-5"
+                      : "nav-item ps-5 pe-5"
+                  }
+                >
+                  <Link
+                    className="nav-link"
+                    aria-current="page"
+                    to={route2[index]}
+                  >
+                    {item}{" "}
+                    <span className="material-symbols-outlined">
+                      {icons2[index]}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>{" "}
         </div>
+        {/* </div> */}
+        {/* </div> */}
       </nav>{" "}
     </>
   );

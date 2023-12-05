@@ -14,7 +14,7 @@ interface RecipeCardProps {
 }
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
-    <div className="col-lg-4 col-md-4 col-sm-4 mb-4" key={recipe.id}>
+    <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={recipe.id}>
       <section className="card" style={{ border: "1px solid #f36912" }}>
         <img
           className="card-img-top"
