@@ -23,24 +23,25 @@ header("Access-Control-Allow-Methods: *");
 
 function traiterFILES($array, $table, $name)
 {
+
 	Output::$default_folder = "/img/" . $table;
 	Output::$default_pattern = "%s{name}/%d{width}x%d{height}.%s";
 	$result = [];
 	foreach ($array as $value) {
 		$image = new Image($value['tmp_name']);
 		$image->name = $name;
-		$image->addOutput(512, 512, "image/webp");
+		// $image->addOutput(512, 512, "image/webp");
 		$image->addOutput(512, 512, "image/png");
 		$image->addOutput(512, 512, "image/jpg");
 		$image->addOutput(200, 200, "image/jpg");
-		$image->addOutput(512, 0, "image/webp");
-		$image->addOutput(0, 512, "image/webp");
-		$image->addOutput(256, 256, "image/webp");
-		$image->addOutput(256, 0, "image/webp");
-		$image->addOutput(0, 256, "image/webp");
-		$image->addOutput(128, 128, "image/webp");
-		$image->addOutput(64, 64, "image/webp");
-		$image->addOutput(32, 32, "image/webp");
+		// $image->addOutput(512, 0, "image/webp");
+		// $image->addOutput(0, 512, "image/webp");
+		// $image->addOutput(256, 256, "image/webp");
+		// $image->addOutput(256, 0, "image/webp");
+		// $image->addOutput(0, 256, "image/webp");
+		// $image->addOutput(128, 128, "image/webp");
+		// $image->addOutput(64, 64, "image/webp");
+		// $image->addOutput(32, 32, "image/webp");
 
 		$result[] = $image->out();
 	}
@@ -68,11 +69,11 @@ if (array_key_exists('_method', $_GET) === true) {
 
 ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 	$query = array(
-		sprintf('SELECT * FROM "%s"', $table),		
+		sprintf('SELECT * FROM "%s"', $table),
 		sprintf(
-			'WHERE %s %s ?', 
-			$id, 
-			(ctype_digit($data) === true) ? '=' : 'LIKE', 			
+			'WHERE %s %s ?',
+			$id,
+			(ctype_digit($data) === true) ? '=' : 'LIKE',
 		),
 	);
 
@@ -116,7 +117,7 @@ ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data) {
 ArrestDB::Serve('GET', '/(#any)/(#num)?', function ($table, $id = null) {
 	$query = array(
 		sprintf('SELECT * FROM "%s"', $table),
-		isset($_GET["email"]) ? "WHERE email LIKE '%".$_GET["email"]."%'" : ""
+		isset($_GET["email"]) ? "WHERE email LIKE '%" . $_GET["email"] . "%'" : ""
 	);
 
 	if (isset($id) === true) {

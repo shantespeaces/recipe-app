@@ -16,9 +16,9 @@ function Connexion() {
   const [password, setPassword] = useState("");
 
   /**
-   * Email validation 
-   * 
-   * @param email 
+   * Email validation
+   *
+   * @param email
    * @returns
    */
   const validateEmail = (email: string) => {
@@ -33,30 +33,31 @@ function Connexion() {
     e.preventDefault();
 
     try {
-
       // Check if email is provided and valid
-      if(email === "" || ! validateEmail(email)) {
-        alert("Please enter a valid email address")
-        return
+      if (email === "" || !validateEmail(email)) {
+        alert("Please enter a valid email address");
+        return;
       }
 
       // Check if password is provided
-      if(password === "") {
-        alert("Please enter your password")
-        return
+      if (password === "") {
+        alert("Please enter your password");
+        return;
       }
 
       // Submit user data
-      const response = await axios.get(`http://localhost:8000/api/users?email=${email}`);
+      const response = await axios.get(
+        `http://localhost:8000/api/users?email=${email}`
+      );
 
       // Check if user exists
-      if(response.data.error && response.data.error.code === 204){
+      if (response.data.error && response.data.error.code === 204) {
         alert("The credentials you provided do not match our records");
         return;
       }
 
-      // Check if password match (DO NOT DO THIS!)
-      if(response.data[0].password !== password){
+      // Check if password match (NoT secure. Solution for the project only! Beacuese I am using Arrest DB and it is very limiting!)
+      if (response.data[0].password !== password) {
         alert("The credentials you provided do not match our records");
         return;
       }
@@ -68,8 +69,7 @@ function Connexion() {
       setEmail("");
       setPassword("");
 
-      window.location.href = "/profile"
-
+      window.location.href = "/profile";
     } catch (error) {
       console.error("Error submitting form: ", error);
     }
@@ -130,11 +130,7 @@ function Connexion() {
                           </label>
                         </div>
                         <div className="mb-5">
-                          <ButtonSubmit
-                            name="Login"
-                            type="submit"
-
-                          />
+                          <ButtonSubmit name="Login" type="submit" />
                         </div>
                         <p
                           className="mb-5 pb-lg-2"

@@ -6,9 +6,11 @@ function Header() {
     image: string;
   }
   const [user, setUser] = useState<User>();
+  // Get userId from local storage
+  const userId = localStorage.getItem("userId");
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/users/1")
+      .get(`http://localhost:8000/api/users/${userId}`)
       .then((response) => {
         setUser(response.data);
       })

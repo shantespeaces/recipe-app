@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import axios from "axios";
 import PasswordChecklist from "react-password-checklist";
 import InputText from "../components/forms/InputText";
@@ -10,49 +10,60 @@ function Account() {
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
   //   const [image, setImage] = useState("");
+  const [avatar, setAvatar] = useState<File | null>(null);
 
-  // // Check if passwords match
-  // if (password !== passwordAgain) {
-  //   console.error("Passwords do not match");
-  //   return;
-  // }
-  // // Validate email format
-  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  // if (!emailRegex.test(email)) {
-  //   console.error("Please enter a valid email address");
-  //   return;
-  // // }
+  const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const fichier = e.target.files?.[0];
 
-  // let handleOnChange = ( email ) => {
-
-  //     // don't remember from where i copied this code, but this works.
-  //     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  //     if ( re.test(email) ) {
-  //         // this is a valid email address
-  //         // call setState({email: email}) to update the email
-  //         // or update the data in redux store.
-  //     }
-  //     else {
-
-  //         // invalid email, maybe show an error to the user.
-  //     }
-
-  // }
-
+    if (fichier) {
+      setAvatar(fichier);
+    }
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
+      //Check if email is already in use
+      let response = await axios.get(
+        "http://localhost:8000/api/users?email=" + email
+      );
+
+      console.log(response);
+
+      // Email exists: cannot use it (if did not received empty response means user already exist)
+      if (!response.data.error) {
+        alert(
+          "We seem to know you already. This email address already exists."
+        );
+        return;
+      }
+
+      //Get form data
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("avatar", avatar!); //not a colum in the table. backend will change it to fit the colum name
+
       // Submit User account
-      await axios.post("http://localhost:8000/api/users", {
-        name: name,
-        email: email,
-        password: password,
-        // image: image,
+      response = await axios.post("http://localhost:8000/api/users", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      console.log("Form submitted successfully!");
+      //Get inserted id
+      const lastId = response.data.success.insert_id[0][0].name;
+
+      //Construct static file name (NOT BEST but using because of current DB structure )
+      //Update avatar name for the user
+
+      response = await axios.post(`http://localhost:8000/api/users/${lastId}`, {
+        image: `/img/users/${lastId}/512x512.png`,
+      });
+
+      //Redirect to login
+      window.location.href = "/connexion";
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -147,6 +158,7 @@ function Account() {
                             className="form-control form-control-md rounded-5"
                             type="file"
                             placeholder="Choose File"
+                            onChange={(e) => handleSelectImage(e)}
                           />
                           <div className="small text-muted mt-2">
                             Upload your profile picture. Max file size 50 MB
