@@ -1,6 +1,9 @@
 <?php
+
 namespace Image;
-class Format {
+
+class Format
+{
 	public $format;
 	public $extension;
 	public $mime_type;
@@ -8,6 +11,12 @@ class Format {
 	public $gd_out_function;
 	static $formats = [
 		'image/jpeg' => [
+			'extension' => ['jpg', 'jpeg'],
+			'mime_type' => 'image/jpeg',
+			'gd_in_function' => 'imagecreatefromjpeg',
+			'gd_out_function' => 'imagejpeg',
+		],
+		'image/jpg' => [
 			'extension' => ['jpg', 'jpeg'],
 			'mime_type' => 'image/jpeg',
 			'gd_in_function' => 'imagecreatefromjpeg',
@@ -38,18 +47,20 @@ class Format {
 			'gd_out_function' => 'imagewebp',
 		],
 	];
-	function __construct($mime_type) {
+	function __construct($mime_type)
+	{
 		$this->format = self::$formats[$mime_type];
 		$this->extension = $this->format['extension'];
 		$this->mime_type = $this->format['mime_type'];
 		$this->gd_in_function = $this->format['gd_in_function'];
 		$this->gd_out_function = $this->format['gd_out_function'];
-
 	}
-	function getExt() {
+	function getExt()
+	{
 		return (is_string($this->extension)) ? $this->extension : $this->extension[0];
 	}
-	static function setFormat($extension, $mime_type, $gd_in_function, $gd_out_function) {
+	static function setFormat($extension, $mime_type, $gd_in_function, $gd_out_function)
+	{
 		self::$formats[$mime_type] = [
 			'extension' => $extension,
 			'mime_type' => $mime_type,
@@ -57,7 +68,8 @@ class Format {
 			'gd_out_function' => $gd_out_function,
 		];
 	}
-	static public function get_image_mime_type( $file) {
+	static public function get_image_mime_type($file)
+	{
 		if (is_object($file)) {
 			return $file->mime_type;
 		}
@@ -74,20 +86,23 @@ class Format {
 		}
 		return false;
 	}
-	static function fromFile($file) {
+	static function fromFile($file)
+	{
 		$mime_type = self::get_image_mime_type($file);
 		if (!$mime_type) {
 			throw new \Exception('Unknown image format');
 		}
 		return new self($mime_type);
 	}
-	function mkdir($path) {
+	function mkdir($path)
+	{
 		if (file_exists($path)) return;
 		$this->mkdir(dirname($path));
 		mkdir($path);
 		return $path;
 	}
-	function out($image, $path) {
+	function out($image, $path)
+	{
 		$folder = $this->mkdir(dirname($path));
 		while ($folder && !file_exists($folder)) {
 			while ($folder && !file_exists($folder)) {

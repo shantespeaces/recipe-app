@@ -112,8 +112,8 @@ section {
 }
 
 .profile-image-container {
-  width: 50px;
-  height: 50px;
+  width: 10em;
+  height: 10em;
 }
 .profile-image-container img.profile {
   width: 100%;
@@ -123,6 +123,13 @@ section {
      object-fit: cover;
 }
 
+@media screen and (max-width: 575.99px) {
+  .profile-image-container {
+    width: 7.5em;
+    height: 7.5em;
+    margin-top: 30px;
+  }
+}
 form.hidden {
   display: none;
 }

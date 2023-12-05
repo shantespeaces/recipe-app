@@ -10,7 +10,7 @@ function Account() {
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
   //   const [image, setImage] = useState("");
-  const [avatar, setAvatar] = useState<File | null>(null);
+  const [avatar, setAvatar] = useState<File | null>();
 
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
     const fichier = e.target.files?.[0];
@@ -51,7 +51,7 @@ function Account() {
           "Content-Type": "multipart/form-data",
         },
       });
-
+      console.log(response);
       //Get inserted id
       const lastId = response.data.success.insert_id[0][0].name;
 
@@ -59,7 +59,7 @@ function Account() {
       //Update avatar name for the user
 
       response = await axios.post(`http://localhost:8000/api/users/${lastId}`, {
-        image: `/img/users/${lastId}/512x512.png`,
+        image: `/img/users/${lastId}/512x512.jpg`,
       });
 
       //Redirect to login
