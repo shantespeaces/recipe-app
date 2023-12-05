@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 function Header() {
   interface User {
     name: string;
@@ -23,7 +24,7 @@ function Header() {
 
   return (
     <>
-      <div className="position-relative my-5">
+      <div className="position-relative">
         <img
           src="src/assets/images/header.png"
           alt="header"
@@ -50,7 +51,7 @@ function Header() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  border: "solid 2px #fb2e65",
+                  border: "solid 2px white",
                 }}
               />
             </div>

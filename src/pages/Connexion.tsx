@@ -78,70 +78,64 @@ function Connexion() {
   return (
     <>
       <main>
-        <form
-          onSubmit={handleSubmit}
-          action=""
-          className={`row g-3 .container-sm max-width-200 `}
-        >
+        <form onSubmit={handleSubmit} action="" className={""}>
           <section
-            className="m-5 position-relative"
+            className="my-5 mx-1 mx-lg-0"
             style={{ backgroundColor: "#eee" }}
           >
-            <div className=" d-flex align-items-center h-100 ">
-              <div className="container h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                  <div className=" col-lg-7 ">
-                    <div className="card m-5" style={{ borderRadius: "15px" }}>
-                      <div className="">
-                        <img
-                          src="src\assets\images\logo.png"
-                          alt="the menu logo"
-                          style={{ width: "8rem" }}
+            <div className="container">
+              <div className="d-flex justify-content-center align-items-center ">
+                <div className=" col-lg-7 ">
+                  <div
+                    className="card my-5 mx-0 mx-sm-1 mx-md-3 mx-lg-5"
+                    style={{ borderRadius: "15px" }}
+                  >
+                    <div className="">
+                      <img
+                        src="src\assets\images\logo.png"
+                        alt="the menu logo"
+                        style={{ width: "8rem" }}
+                      />
+                    </div>
+                    <div className="card-body p-5">
+                      <h2 className="text-uppercase text-center mb-5 fs-2">
+                        Sign into your account
+                      </h2>
+
+                      <div className="form-outline mb-4">
+                        <input
+                          type="email"
+                          id="id"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="form-control form-control-lg rounded-5"
                         />
+                        <label className="form-label" htmlFor="email">
+                          Email address
+                        </label>
                       </div>
-                      <div className="card-body p-5">
-                        <h2 className="text-uppercase text-center mb-5">
-                          Sign into your account
-                        </h2>
 
-                        <div className="form-outline mb-4">
-                          <input
-                            type="email"
-                            id="id"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control form-control-lg rounded-5"
-                          />
-                          <label className="form-label" htmlFor="email">
-                            Email address
-                          </label>
-                        </div>
-
-                        <div className="form-outline mb-4">
-                          <input
-                            type="password"
-                            id="id"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control form-control-lg rounded-5"
-                          />
-                          <label className="form-label" htmlFor="password">
-                            Password
-                          </label>
-                        </div>
-                        <div className="mb-5">
-                          <ButtonSubmit name="Login" type="submit" />
-                        </div>
-                        <p
-                          className="mb-5 pb-lg-2"
-                          style={{ color: "#393f81" }}
-                        >
-                          Don't have an account?{" "}
-                          <a href="/account" style={{ color: "#393f81" }}>
-                            Register here
-                          </a>
-                        </p>
+                      <div className="form-outline mb-4">
+                        <input
+                          type="password"
+                          id="id"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="form-control form-control-lg rounded-5"
+                        />
+                        <label className="form-label" htmlFor="password">
+                          Password
+                        </label>
                       </div>
+                      <div className="mb-5">
+                        <ButtonSubmit name="Login" type="submit" />
+                      </div>
+                      <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                        Don't have an account?{" "}
+                        <a href="/account" style={{ color: "#393f81" }}>
+                          Register here
+                        </a>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -151,7 +145,7 @@ function Connexion() {
         </form>
       </main>
       <div className="leftSide position-absolute start-0 top-0  my-5  py-5">
-        <div className="mx-5 px-5">
+        <div className="d-none d-lg-block ms-0 ms-lg-4 ps-5">
           <PostIt
             backgroundColor="#FB9B2E"
             fontFamily="'Caveat', cursive"
@@ -160,7 +154,7 @@ function Connexion() {
             note=" Definitely making this again, the whole family was impressed:) Definitely making this again, the whole family was impressed:) Definitely making this again, the whole family was impressed:) Definitely making this again, the whole family was impressed:) Definitely making this again, the whole family was impressed:)"
           />
         </div>
-        <div className="mx-5 px-5">
+        <div className="d-none d-lg-block ms-0 ms-lg-5 ps-5">
           <PostIt
             backgroundColor="#fb2e65"
             fontFamily="'Poppins', sans-serif"
@@ -171,7 +165,7 @@ function Connexion() {
         </div>
       </div>
       <div className="rightSide position-absolute end-0 top-0  my-5  py-5">
-        <div className="mx-5 px-5">
+        <div className="d-none d-lg-block me-0 me-lg-4 pe-5">
           <PostIt
             backgroundColor="#ffd700"
             fontFamily="'Indie Flower', cursive"
@@ -181,7 +175,7 @@ function Connexion() {
             Add pecans for extra crunch"
           />
         </div>
-        <div className="mx-5 px-5">
+        <div className="d-none d-lg-block me-0 me-lg-4 pe-5">
           <PostIt
             backgroundColor="#2ED1FB"
             fontFamily="'Satisfy', cursive"

@@ -100,11 +100,30 @@ section {
   background-color: red;
 }
 
+.card .card-body h2 {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .card .card-body h2 {
+    font-size: 1.6rem;
+  }
+}
+@media screen and (max-width: 992px) {
+  .card .card-body h2 {
+    font-size: 1.3rem;
+  }
+}
+.logo-container {
+  position: relative;
+  z-index: 1000000;
+}
+
 .image-container {
   height: 200px;
   width: 200px;
 }
-.image-container img.img-thumbnail {
+.image-container img.logo {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;

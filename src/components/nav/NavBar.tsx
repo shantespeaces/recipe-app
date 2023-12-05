@@ -20,19 +20,28 @@ function NavBar({}: NavBarProps) {
 
   return (
     <>
+      <div className="logo-container sticky-top">
+        <div className="image-container position-absolute top-0 start-0 ms-5 ">
+          <Link to="/">
+            <img
+              className="logo"
+              src="src\assets\images\logo.png"
+              alt="the menu logo"
+            />
+          </Link>
+        </div>{" "}
+      </div>
+
       <nav
-        className="navbar sticky-top navbar-expand-lg bg-body-tertiary px-5"
+        className="navbar navbar-expand-lg sticky-top "
         style={{
-          height: "100px",
+          height: "80px",
+          backgroundColor: "white",
+          // border: "1px solid rgba(243, 105, 18, 0.4) ",
         }}
       >
-        <div className="search-bar" style={{ paddingLeft: "10rem" }}>
+        <div className="container d-flex justify-content-end ">
           <SearchBar />
-        </div>
-        <div className="container-fluid d-flex justify-content-between align-items-center">
-          <Link className="navbar-brand mx-auto" to="/">
-            <img src="src\assets\images\logo.png" alt="the menu logo" />
-          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -47,70 +56,69 @@ function NavBar({}: NavBarProps) {
         </div>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {/* <div className="row"> */}
-          <div className="col">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-              {/* First set of links */}
-              {items.map((item, index) => (
-                <li
-                  key={item}
-                  onClick={() => {
-                    setSelectedIndex(index);
-                  }}
-                  className={
-                    selectedIndex === index
-                      ? "nav-item active ps-5 pe-5"
-                      : "nav-item ps-5 pe-5"
-                  }
-                >
-                  <Link
-                    className="nav-link"
-                    aria-current="page"
-                    to={route[index]}
+          <div className="row">
+            {/* First set of links */}
+            <div className="col d-flex flex-row me-5 mt-5 collapse navbar-collapse">
+              <ul className="navbar-nav ">
+                {items.map((item, index) => (
+                  <li
+                    key={item}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                    }}
+                    className={
+                      selectedIndex === index
+                        ? "nav-item active ps-5 pe-5"
+                        : "nav-item"
+                    }
                   >
-                    {item}{" "}
-                    <span className="material-symbols-outlined">
-                      {icons[index]}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <Link
+                      className="nav-link d-flex flex-row mx-3"
+                      aria-current="page"
+                      to={route[index]}
+                    >
+                      <p className="px-3">{item}</p>{" "}
+                      <span className="material-symbols-outlined">
+                        {icons[index]}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Second set of links */}
+            <div className="col d-flex flex-row justify-content-end">
+              <ul className="navbar-nav me-5">
+                {items2.map((item, index) => (
+                  <li
+                    key={item}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                    }}
+                    className={
+                      selectedIndex === index
+                        ? "nav-item active pe-5"
+                        : "nav-item "
+                    }
+                  >
+                    <Link
+                      className="nav-link "
+                      aria-current="page"
+                      to={route2[index]}
+                    >
+                      {item}{" "}
+                      <span className="material-symbols-outlined">
+                        {icons2[index]}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          {/* <div className="row"> */}
-          <div className="col">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-              {/* Second set of links */}
-              {items2.map((item, index) => (
-                <li
-                  key={item}
-                  onClick={() => {
-                    setSelectedIndex(index);
-                  }}
-                  className={
-                    selectedIndex === index
-                      ? "nav-item active ps-5 pe-5"
-                      : "nav-item ps-5 pe-5"
-                  }
-                >
-                  <Link
-                    className="nav-link"
-                    aria-current="page"
-                    to={route2[index]}
-                  >
-                    {item}{" "}
-                    <span className="material-symbols-outlined">
-                      {icons2[index]}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>{" "}
         </div>
-        {/* </div> */}
-        {/* </div> */}
-      </nav>{" "}
+      </nav>
     </>
   );
 }
