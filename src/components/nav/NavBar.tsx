@@ -1,7 +1,7 @@
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 interface NavBarProps {}
 
 function NavBar({}: NavBarProps) {
@@ -15,51 +15,52 @@ function NavBar({}: NavBarProps) {
   let icons2 = ["", ""];
   let route2 = ["/connexion", "/account"];
 
-  //hook
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
-      <div className="logo-container sticky-top">
-        <div className="image-container position-absolute top-0 start-0 ms-5 ">
-          <Link to="/">
-            <img
-              className="logo"
-              src="src\assets\images\logo.png"
-              alt="the menu logo"
-            />
-          </Link>
-        </div>{" "}
-      </div>
-
+      {/* <!-- Navbar --> */}
       <nav
         className="navbar navbar-expand-lg sticky-top "
         style={{
           height: "80px",
           backgroundColor: "white",
-          // border: "1px solid rgba(243, 105, 18, 0.4) ",
         }}
       >
-        <div className="container d-flex justify-content-end ">
-          <SearchBar />
+        {/* <!-- Container wrapper --> */}
+        <div className="container-fluid p-0">
+          {/* <!-- Navbar brand --> */}
+          <div className="logo-container ms-lg-5 py-lg-5">
+            <div className="image-container ">
+              <Link className="navbar-brand " to="/">
+                <img
+                  className="logo"
+                  src="src\assets\images\logo.png"
+                  alt="the menu logo"
+                />
+              </Link>
+            </div>
+          </div>
+          {/* <!-- Toggle button --> */}
           <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-target="#toggle"
+            aria-controls=""
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-        </div>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <div className="row">
+          {/* <!-- Collapsible wrapper-Menu items --> */}
+          <div
+            className="collapse navbar-collapse nav justify-content-end"
+            id="toggle"
+          >
             {/* First set of links */}
-            <div className="col d-flex flex-row me-5 mt-5 collapse navbar-collapse">
-              <ul className="navbar-nav ">
+            <div className="">
+              <ul className="navbar-nav mt-3  ">
                 {items.map((item, index) => (
                   <li
                     key={item}
@@ -67,29 +68,27 @@ function NavBar({}: NavBarProps) {
                       setSelectedIndex(index);
                     }}
                     className={
-                      selectedIndex === index
-                        ? "nav-item active ps-5 pe-5"
-                        : "nav-item"
+                      selectedIndex === index ? "nav-item active " : "nav-item"
                     }
                   >
                     <Link
-                      className="nav-link d-flex flex-row mx-3"
+                      className="nav-link d-flex flex-row mx-md-0 mx-lg-3"
                       aria-current="page"
                       to={route[index]}
                     >
-                      <p className="px-3">{item}</p>{" "}
+                      <p className="">{item}</p>{" "}
                       <span className="material-symbols-outlined">
                         {icons[index]}
                       </span>
                     </Link>
                   </li>
                 ))}
-              </ul>
+              </ul>{" "}
             </div>
-
+            <SearchBar />
             {/* Second set of links */}
-            <div className="col d-flex flex-row justify-content-end">
-              <ul className="navbar-nav me-5">
+            <div className="me-lg-5">
+              <ul className="navbar-nav ">
                 {items2.map((item, index) => (
                   <li
                     key={item}
@@ -97,9 +96,7 @@ function NavBar({}: NavBarProps) {
                       setSelectedIndex(index);
                     }}
                     className={
-                      selectedIndex === index
-                        ? "nav-item active pe-5"
-                        : "nav-item "
+                      selectedIndex === index ? "nav-item active " : "nav-item "
                     }
                   >
                     <Link
@@ -116,7 +113,7 @@ function NavBar({}: NavBarProps) {
                 ))}
               </ul>
             </div>
-          </div>
+          </div>{" "}
         </div>
       </nav>
     </>
