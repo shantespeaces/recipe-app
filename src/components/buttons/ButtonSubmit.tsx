@@ -7,7 +7,7 @@ interface ButtonSubmitProps {
 
 function ButtonSubmit({ name, type, onClick }: ButtonSubmitProps) {
   return (
-    <div className="d-grid gap-2 col-6 mx-auto p-md-3">
+    <div className="d-grid">
       <button
         className="btn btn-lg custom-button"
         type={type}

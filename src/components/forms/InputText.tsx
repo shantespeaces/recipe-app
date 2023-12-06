@@ -3,10 +3,17 @@ interface InputTextProps {
   name?: string;
   placeholder: string;
   value?: string; // Make the value prop optional
+  type?: string; // Make the value prop optional
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function InputText({ name, placeholder, value, onChange }: InputTextProps) {
+function InputText({
+  name,
+  placeholder,
+  value,
+  type,
+  onChange,
+}: InputTextProps) {
   return (
     <>
       {name && (
@@ -15,7 +22,7 @@ function InputText({ name, placeholder, value, onChange }: InputTextProps) {
         </label>
       )}
       <input
-        type="text"
+        type={type}
         className="form-control form-control-lg rounded-5"
         id="TextInput"
         placeholder={placeholder}

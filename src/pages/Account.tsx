@@ -71,115 +71,113 @@ function Account() {
   return (
     <>
       <div
-        className="vh-100 bg-image"
+        className="account"
         style={{
           backgroundImage: "url('src/assets/images/account.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       >
-        <div className="d-flex align-items-center h-100 ">
-          <div className="container h-100">
-            <div className="row d-flex justify-content-center align-items-center h-100">
-              <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-                <div className="card my-5 rounded-5">
-                  <div className="card-body p-5">
-                    <h2 className="text-uppercase text-center mb-5">
-                      Create an account
-                    </h2>
+        <div className="container">
+          <div className="d-flex justify-content-center">
+            <div className="col-md-9 col-lg-7">
+              <div className="card my-5 rounded-5">
+                <div className="card-body p-5">
+                  <h2 className="text-uppercase text-center mb-5">
+                    Create an account
+                  </h2>
 
-                    <form onSubmit={handleSubmit} action="" className="account">
-                      <div className="form-outline mb-4">
-                        <InputText
-                          placeholder=" Sarah"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                        <label className="form-label" htmlFor="form label">
-                          Your Name
-                        </label>
-                      </div>
-
-                      <div className="form-outline mb-4">
-                        <InputText
-                          //   type="email"
-                          placeholder=" sarah@gmail.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <label className="form-label" htmlFor="form label">
-                          Your Email
-                        </label>
-                      </div>
-
-                      <div className="form-outline mb-4">
-                        <InputText
-                          placeholder=" "
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <label className="form-label" htmlFor="form label">
-                          Password
-                        </label>
-                      </div>
-
-                      <div className="form-outline mb-4">
-                        <InputText
-                          placeholder=" "
-                          value={passwordAgain}
-                          onChange={(e) => setPasswordAgain(e.target.value)}
-                        />
-                        <label className="form-label" htmlFor="form label">
-                          Repeat your password
-                        </label>
-                      </div>
-                      <PasswordChecklist
-                        rules={[
-                          "minLength",
-                          "specialChar",
-                          "number",
-                          "capital",
-                          "match",
-                        ]}
-                        minLength={8}
-                        value={password}
-                        valueAgain={passwordAgain}
-                        messages={{
-                          minLength: "Password has more than 8 characters.",
-                          specialChar: "Password has special characters.",
-                          number: "Password has a number.",
-                          capital: "Password has an uppercase letter.",
-                          match: "Passwords match.",
-                        }}
+                  <form onSubmit={handleSubmit} action="" className="account">
+                    <div className="form-outline mb-4">
+                      <InputText
+                        placeholder=" Sarah"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                       />
-                      <div className="row py-3">
-                        <div className="col-md-9 pe-5">
-                          <input
-                            className="form-control form-control-md rounded-5"
-                            type="file"
-                            placeholder="Choose File"
-                            onChange={(e) => handleSelectImage(e)}
-                          />
-                          <div className="small text-muted mt-2">
-                            Upload your profile picture. Max file size 50 MB
-                          </div>
+                      <label className="form-label" htmlFor="form label">
+                        Your Name
+                      </label>
+                    </div>
+
+                    <div className="form-outline mb-4">
+                      <InputText
+                        //   type="email"
+                        placeholder=" sarah@gmail.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <label className="form-label" htmlFor="form label">
+                        Your Email
+                      </label>
+                    </div>
+
+                    <div className="form-outline mb-4">
+                      <InputText
+                        placeholder=" "
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <label className="form-label" htmlFor="form label">
+                        Password
+                      </label>
+                    </div>
+
+                    <div className="form-outline mb-4">
+                      <InputText
+                        placeholder=" "
+                        type="password"
+                        value={passwordAgain}
+                        onChange={(e) => setPasswordAgain(e.target.value)}
+                      />
+                      <label className="form-label" htmlFor="form label">
+                        Repeat your password
+                      </label>
+                    </div>
+                    <PasswordChecklist
+                      rules={[
+                        "minLength",
+                        "specialChar",
+                        "number",
+                        "capital",
+                        "match",
+                      ]}
+                      minLength={8}
+                      value={password}
+                      valueAgain={passwordAgain}
+                      messages={{
+                        minLength: "Password has more than 8 characters.",
+                        specialChar: "Password has special characters.",
+                        number: "Password has a number.",
+                        capital: "Password has an uppercase letter.",
+                        match: "Passwords match.",
+                      }}
+                    />
+                    <div className="row py-3">
+                      <div className="col-md-9 pe-5">
+                        <input
+                          className="form-control form-control-md rounded-5"
+                          type="file"
+                          placeholder="Choose File"
+                          onChange={(e) => handleSelectImage(e)}
+                        />
+                        <div className="small text-muted mt-2">
+                          Upload your profile picture. Max file size 50 MB
                         </div>
                       </div>
+                    </div>
 
-                      <div className="d-flex justify-content-center">
-                        <div className="">
-                          <ButtonSubmit name="Register" type="submit" />
-                        </div>
-                      </div>
+                    <div className="my-5">
+                      <ButtonSubmit name="Register" type="submit" />
+                    </div>
 
-                      <p className="text-center text-muted mt-5 mb-0">
-                        Have already an account?{" "}
-                        <a href="/connexion" className="fw-bold text-body">
-                          <u>Login here</u>
-                        </a>
-                      </p>
-                    </form>
-                  </div>
+                    <p className="text-center text-muted mt-5 mb-0">
+                      Have already an account?{" "}
+                      <a href="/connexion" className="fw-bold text-body">
+                        <u>Login here</u>
+                      </a>
+                    </p>
+                  </form>
                 </div>
               </div>
             </div>
