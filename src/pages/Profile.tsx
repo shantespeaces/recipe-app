@@ -28,6 +28,9 @@ function Profile() {
   const [recipes, setRecipes] = useState<Recipes>([]);
   // const [subcategories, setSubcategories] = useState<Subcategories>([]);
 
+  //conditionnally render # of cards to fill in empty slot for pair number of users recipes
+  // const columnClass = recipes.length < 4 ? "col-lg-12" : "col-lg-3 col-md-4 col-sm-6 mb-4";
+
   useEffect(() => {
     // Get userId from local storage
     const userId = localStorage.getItem("userId");
@@ -69,6 +72,9 @@ function Profile() {
           <h1 className="pb-3">{user ? user.name : ""} recipes</h1>
           <div className="recipe-card row g-5">
             {recipes.map((recipe) => (
+              //    <div className={columnClass} key={recipe.id}>
+              //    <RecipeCard recipe={recipe} />
+              //  </div>
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
           </div>

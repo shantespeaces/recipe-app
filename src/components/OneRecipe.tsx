@@ -13,7 +13,6 @@ interface Recipe {
   serves: string;
   image: string;
 }
-
 interface Ingredient {
   section_name: string;
   ingredient_name: string;
@@ -35,20 +34,41 @@ interface Subcategory {
 }
 type Subcategories = Subcategory[];
 function OneRecipe() {
+  //useState hooks defines and initialises state variables for information for stored in each const
+  //useState allows components to manage stateful data, ensuring that changes to these variables trigger re-renders.
+  //They are initialsed with empty array (valeur par defaut)
+  // @ts-ignore
   const [recipe, setRecipe] = useState<Recipe>([]);
-  // const [sectionsIngredients, setSectionsIngredients] = useState<Ingredient>(
-  //   []
-  // );
   const [instructions, setInstructions] = useState<Instructions>([]);
   const [subcategories, setSubcategories] = useState<Subcategories>([]);
+
+  //  groupedIngredients holds an object structure where the keys are of type number and the values are arrays of Ingredient.
+  // The object structure is defined as { [key: number]: Ingredient[] },
+  // indicating an object where the keys are numeric and correspond to section IDs, while the values are arrays of Ingredient objects.
+  //  useState is initialized with an empty object {}
+
   const [groupedIngredients, setGroupedIngredients] = useState<{
     [key: number]: Ingredient[];
   }>({});
 
+  //This function organizes the ingredients array into groupedIngredients, grouping ingredients by their section_id. After calling this function,
+  // groupedIngredients would contain objects where each key represents a section_id, and the corresponding value is an array of Ingredient objects belonging to that section.
+  // PARAMETERS:(ingredients: Ingredient[]): Accepts an array of Ingredient objects.
+  // VARIABLES: groupedIngredients: Initializes an empty object that will store ingredients grouped by section_id.
+  // It's declared as { [key: number]: Ingredient[] }, indicating an object where keys are numeric (number) and correspond to section_id,
+  // while values are arrays of Ingredient objects.
+  // FUNCTION LOGIC:The forEach loop iterates through each ingredient in the ingredients array.
+  // Using destructuring (const { section_id, ...rest } = ingredient;), it separates the section_id from the rest of the ingredient properties.
+  // It checks if section_id exists as a key in groupedIngredients.
+  // If the section_id is not present in groupedIngredients, a new entry is created with section_id as the key,
+  // and an array containing the rest of the ingredient properties is set as the value (groupedIngredients[section_id] = [rest];).
+  // If the section_id is already present in groupedIngredients, it appends the rest of the ingredient properties
+  // to the existing array for that section_id (groupedIngredients[section_id].push(rest);).
+
   const groupIngredientsBySectionId = (ingredients: Ingredient[]) => {
     const groupedIngredients: { [key: number]: Ingredient[] } = {};
     ingredients.forEach((ingredient) => {
-      const { section_id, ...rest } = ingredient;
+      const { section_id, ...rest } = ingredient as any;
       if (!groupedIngredients[section_id]) {
         groupedIngredients[section_id] = [rest];
       } else {
@@ -57,8 +77,10 @@ function OneRecipe() {
     });
     return groupedIngredients;
   };
-  // const groupedIngredients = groupIngredientsBySectionId(sectionsIngredients);
 
+  // Axios GET requests to fetch the data from different API endpoints. Each request is executed asynchronously using promises (then and catch).
+  // Upon successful responses, the fetched data is stored in their respective state variables using the corresponding set functions
+  // In case of errors, error messages are logged to the console using console.error
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/recipes/64")
@@ -72,7 +94,7 @@ function OneRecipe() {
     axios
       .get("http://localhost:8000/api/sections_ingredients/recipe_id/64")
       .then((response) => {
-        const ingredients = response.data; // Assuming this is the fetched data
+        const ingredients = response.data;
 
         const grouped = groupIngredientsBySectionId(ingredients);
         setGroupedIngredients(grouped);
@@ -107,7 +129,7 @@ function OneRecipe() {
   return (
     <>
       <main>
-        {/* <Settings />" */}
+        {/* <Settings /> */}
         <section
           className="carte-recette intro px-5 py-5 mb-3  "
           style={{ marginTop: "8em" }}
@@ -160,6 +182,10 @@ function OneRecipe() {
             </div>
           </div>
         </section>
+        {/* Object.entries(groupedIngredients).map: Iterates through the groupedIngredients object 
+        using Object.entries() to convert the object into an array of key-value pairs ([sectionId, ingredients]). 
+        This allows rendering each section separately. <div> Element Wraps each section of ingredients, 
+        utilizing the sectionId as the key to ensure unique rendering.*/}
         <section className="ingredients px-5 py-5 mb-3">
           <h3 className="py-3">Ingredients</h3>
           {Object.entries(groupedIngredients).map(
