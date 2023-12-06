@@ -25,10 +25,22 @@ main {
   }
 }
 
-// .nav-link:hover .material-symbols-outlined {
-//   color: #F36912;
-// }
+.nav.show {
+  background-color: white;
+  padding-right: 20px;
+  width: 100%;
+}
 
+@media screen and (max-width: 1200px) {
+  .nav-link p.menu {
+    padding: 0px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .card .card-body h2 {
+    font-size: 1.3rem;
+  }
+}
 //Buttons
 // Custom Button Styles
 button.custom-button {
@@ -132,11 +144,8 @@ section {
 }
 
 //IMAGES
+
 .logo-container {
-  position: relative;
-  z-index: 1000000;
-}
-.image-container {
   height: 200px;
   width: 200px;
 
@@ -146,7 +155,18 @@ section {
     object-fit: cover;
   }
 }
-
+@media screen and (max-width: 1200px) {
+  .image-container {
+    height: 150px;
+    width: 150px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .image-container {
+    height: 65px;
+    width: 76px;
+  }
+}
 .profile-image-container {
   width: 10em;
   height: 10em;

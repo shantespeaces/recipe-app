@@ -38,7 +38,7 @@ function IntroForm() {
   const [time, setTime] = useState<number>(0);
   const [sectionTitle, setSectionTitle] = useState("");
 
-  // State for Categories
+  // State for Categories (union type, can hold either a number or undefined)
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
     undefined
   );
@@ -54,8 +54,10 @@ function IntroForm() {
   };
 
   // Function to handle Sub category selection
+  // handleCategorySelect is a function that takes a categoryId (a number) as an argument.
+  // When invoked, it updates the selectedCategory state with the categoryId value passed to it,
+  // effectively changing the currently selected category to the one specified by the categoryId.
   const handleSubCategoriesSelect = (selectedOptions: number[]) => {
-    // console.log("Selected Subcategories:", selectedOptions);
     setSelectedSubCategories(selectedOptions);
   };
 
@@ -67,7 +69,9 @@ function IntroForm() {
   const [selectedQuantity, setSelectedQuantity] = useState<number>(0);
   const [sections, setSections] = useState<Sections>([]);
 
-  // State for Measurements
+  // State variable to store selected Measurements.
+  //State is added to functional component with useState hook wich can hold undefined  or number values (union state)
+  // selectedMeasurement is a state variable that can contain either a number or undefined and whos initiale state is undefined
   const [selectedMeasurement, setSelectedMeasurement] = useState<
     number | undefined
   >(undefined);
@@ -81,7 +85,13 @@ function IntroForm() {
   const [searchIngredients, setSearchIngredients] = useState<string>("");
 
   // Function to handle ingredient search
-
+  // state variable (searchIngredients) is udpated with the provided value
+  // axios maques the request to API endpoint and passes the value as a
+  // query parameter performing a search of matching ingredients
+  // if request is successful ingredientList is updated with the response received from the database (API endpoint)
+  //This function is triggered when performing a search action. It sets the search query state, logs the query value,
+  // sends a request to fetch ingredients based on the query, and updates the ingredient list state
+  // with the fetched data while handling any potential errors that might occur during the fetch operation.
   const handleSearch = async (value: string) => {
     setSearchIngredients(value);
     console.log("Search Ingredients:", value);
@@ -96,6 +106,7 @@ function IntroForm() {
   };
 
   // Function to reset search ingredient, quantity, and measurement fields
+  // (reset form after section is "saved" by the user (displayed))
   const resetFields = () => {
     setSearchIngredients("");
     setSelectedIngredient(null);
@@ -125,17 +136,21 @@ function IntroForm() {
   const [selectedIngredientsList, setSelectedIngredientsList] = useState<
     Ingredient[]
   >([]);
-  //function to handle adding a list of ingredients (Add Ingredients Button)
 
+  //function to handle adding a list of ingredients (Add Ingredients Button)
   const handleAddIngredientToList = () => {
+    //validation check if false Or if zero Or if false display alert message to the user
     if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
       alert("Please select an ingredient, a quantity and a measurement");
       return;
     }
 
+    //if all fields are present and valid; modify selectedIngredient with new values for quantity and measurement properties
     selectedIngredient.quantity = selectedQuantity;
     selectedIngredient.measurement = selectedMeasurement;
 
+    //Updates selectedIngredientsList state by creating a new array
+    // that includes the existing list and the modified selectedIngredient
     setSelectedIngredientsList([
       ...selectedIngredientsList,
       selectedIngredient,
@@ -157,11 +172,15 @@ function IntroForm() {
   ////////////////////////////////////////////////////////////////////////SECTIONS/////////////////////////////////////////////////////////////////
 
   //state for section title increment
-  const [sectionCount, setSectionCount] = useState(1); // Initialize the count to 1
+  const [sectionCount, setSectionCount] = useState(1); // Initial count of 1
 
   // function to handle the creation of a section (Save section Button)
   const handleCreateSections = () => {
-    // Check if section title exists (TODO: show error message in page)
+    // Check if section title exists
+    // .trim() removes whitespace (spaces, tabs etc)
+    // comparison operator that checks if the trimmed string is equal to an empty string ("").
+    // If the string is empty after removing whitespace, the condition evaluates to true;
+    // otherwise, it evaluates to false.
     if (sectionTitle.trim() === "") {
       // Temporary alert
       alert("Please write a title before saving the section");
@@ -169,13 +188,19 @@ function IntroForm() {
     }
 
     // Validation before creating a section (title, ingredients)
-    // Check if at least one ingredient was added (TODO: show error message in page)
+    // Check if at least one ingredient was added
+    // .length returns the number of properties of the array(if array is empty (equal to 0)
+    // condition is true (no selected items in the list).
     if (selectedIngredientsList.length === 0) {
       // Temporary alert
       alert("Please choose an ingredient before saving the section");
       return;
     }
 
+    // new section object created
+    //.map Iterates over each element (ingredient) in the selectedIngredientsList array and transforms it into a new object.
+    // Creates a new object for each ingredient with specific properties (id, name, quantity, measurement) extracted from
+    // the ingredient object in selectedIngredientsList.
     const newSection: Section = {
       title: sectionTitle,
       ingredients: selectedIngredientsList.map((ingredient) => ({
@@ -186,15 +211,22 @@ function IntroForm() {
       })),
     };
 
-    //update sections state (stores section array and object?)
+    //creates a new array updatedSections that includes all the elements from the existing sections array and appends
+    // the newSection object to the end of this array.
+    // This  doesn't mutate the original sections array but instead creates a new array with the updated content.
+    // (creates new array by combining the existing section array with the new section object)
+    //spread ... creates a copy of the original array (rather than modifying it) and spreads the elements of the sections array
+    // into the new array
     const updatedSections = [...sections, newSection];
     setSections(updatedSections); // Update the sections state
     console.log("Updated Sections:", sections);
 
-    resetFields(); // Clear fields for new entries
-    resetSection(); // Clear the previous ingredients list and section title
+    // Clear fields for new entries
+    resetFields();
+    // Clear the previous ingredients list and section title
+    resetSection();
 
-    //show section title input
+    //show section title input (toggles section visibility and display)
     setToggleSectionInput(true);
     setSectionCount(sectionCount + 1);
     setToggleSection(false);
@@ -218,20 +250,28 @@ function IntroForm() {
 
   // Function to add a new instruction
   const handleAddInstruction = () => {
+    // validation: checks if new instruction exists (.trim removes whitespace (spaces etc))
     if (newInstruction.trim() !== "") {
+      // if newInstruction is not empty a new array is created (updatedInstructions)by spreading (...) the existing instructions
+      // array and appending a new object representing the new instruction.
+      // creates new array by combining the existing instruction array with the new instruction object)
+      // The new object contains a description field with the value of newInstruction.
       const updatedInstructions: Instruction[] = [
         ...instructions,
         { description: newInstruction },
       ];
+      // Updates the state variable instructions with the newly created updatedInstructions array
       setInstructions(updatedInstructions);
-      setNewInstruction(""); // Reset text area for a new instruction
+
+      // Reset text area (to an empty string) preparing it for a new instruction
+      setNewInstruction("");
       console.log("Updated Instructions:", updatedInstructions);
     }
   };
 
   /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
-  // Function to handle form submission
 
+  // Function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
