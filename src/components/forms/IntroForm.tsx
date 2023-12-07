@@ -274,7 +274,7 @@ function IntroForm() {
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    const userId = localStorage.getItem("userId");
     try {
       // Submit Intro Section
       const introResponse = await axios.post(
@@ -287,13 +287,16 @@ function IntroForm() {
           setting_id: "1",
           serves: serves,
           time: time,
-          user_id: "5",
+          user_id: userId,
         }
       );
 
       // Get the recipe ID from the response
       const createdRecipeId = introResponse.data.success.insert_id;
       console.log("Recipe ID:", createdRecipeId);
+
+      //TO DO store recipe id created and display one recipe with that id
+      localStorage.setItem("createdRecipeId", createdRecipeId);
 
       // Submit Sub Categories
 
@@ -305,7 +308,7 @@ function IntroForm() {
       }
       console.log("Sections:", sections);
 
-      // Submit one section and ingredients
+      // Submit one section
       for (let section of sections) {
         // Section
         const sectionResponse = await axios.post(
@@ -321,7 +324,7 @@ function IntroForm() {
 
         console.log("Section ID:", createdSectionId);
 
-        // Section's ingredients
+        // submit Section's ingredients
         for (let ingredient of section.ingredients) {
           console.log("Ingredient:", ingredient.name);
           await axios.post(`http://localhost:8000/api/ingredient_section`, {
@@ -343,7 +346,7 @@ function IntroForm() {
           });
         }
       }
-
+      window.location.href = "/recipe";
       alert("The recipe was created!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -363,7 +366,8 @@ function IntroForm() {
             <InputText
               name="Recipe Title"
               placeholder=" ex: Annie's Apple Pie"
-              value={recipeTitle}
+              value={recipeTitle} //binds value to variable
+              //onChnage attribute defines what happens when input value changes(updates recipeTitle with new value entered in input field)
               onChange={(e) => setRecipeTitle(e.target.value)}
             />
           </div>
@@ -441,7 +445,7 @@ function IntroForm() {
             >
               <h2>{`Section ${index + 1}: ${section.title}`}</h2>
               <div className="selectedIngredients">
-                {/* Check if there is ingredients and then show them */}
+                {/* Check if there is ingredients and then display them */}
                 {section.ingredients &&
                   section.ingredients.map((ingredient, index) => (
                     <div key={index}>

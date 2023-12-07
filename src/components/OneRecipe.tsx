@@ -81,50 +81,60 @@ function OneRecipe() {
   // Axios GET requests to fetch the data from different API endpoints. Each request is executed asynchronously using promises (then and catch).
   // Upon successful responses, the fetched data is stored in their respective state variables using the corresponding set functions
   // In case of errors, error messages are logged to the console using console.error
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/recipes/64")
-      .then((response) => {
-        setRecipe(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching recipe:", error);
-      });
+    // Get recipe ID from local storage
+    const recipeId =
+      localStorage.getItem("createdRecipeId") ||
+      localStorage.getItem("selectedRecipeId");
 
-    axios
-      .get("http://localhost:8000/api/sections_ingredients/recipe_id/64")
-      .then((response) => {
-        const ingredients = response.data;
+    if (recipeId) {
+      axios
+        .get(`http://localhost:8000/api/recipes/${recipeId}`)
+        .then((response) => {
+          setRecipe(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching recipe:", error);
+        });
 
-        const grouped = groupIngredientsBySectionId(ingredients);
-        setGroupedIngredients(grouped);
-      })
-      .catch((error) => {
-        console.error("Error fetching sections ingredients:", error);
-      });
+      axios
+        .get(
+          `http://localhost:8000/api/sections_ingredients/recipe_id/${recipeId}`
+        )
+        .then((response) => {
+          const ingredients = response.data;
+          console.log("Ingredients:", ingredients);
+          const grouped = groupIngredientsBySectionId(ingredients);
+          setGroupedIngredients(grouped);
+        })
+        .catch((error) => {
+          console.error("Error fetching sections ingredients:", error);
+        });
 
-    axios
-      .get("http://localhost:8000/api/subcategories/recipe_id/64")
-      .then((response) => {
-        setSubcategories(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching subcategories:", error);
-      });
+      axios
+        .get(`http://localhost:8000/api/subcategories/recipe_id/${recipeId}`)
+        .then((response) => {
+          setSubcategories(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching subcategories:", error);
+        });
 
-    axios
-      .get("http://localhost:8000/api/instructions/recipe_id/64")
-      .then((response) => {
-        setInstructions(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching instructions:", error);
-      });
+      axios
+        .get(`http://localhost:8000/api/instructions/recipe_id/${recipeId}`)
+        .then((response) => {
+          setInstructions(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching instructions:", error);
+        });
+    }
   }, []);
 
-  // function changerCouleur(nom: string) {
-  //   console.log("Changer couleur depuis Recipe");
-  // }
+  // // function changerCouleur(nom: string) {
+  // //   console.log("Changer couleur depuis Recipe");
+  // // }
 
   return (
     <>
@@ -136,77 +146,85 @@ function OneRecipe() {
         >
           <div className="row ">
             <div className="col-md-6">
-              <img
-                className="card-img-left w-100 h-100"
-                src={recipe.image}
-                alt=""
-                style={{ objectFit: "cover" }}
-              />
+              {recipe && (
+                <img
+                  className="card-img-left w-100 h-100"
+                  src={recipe.image}
+                  alt=""
+                  style={{ objectFit: "cover" }}
+                />
+              )}
             </div>
-            <div className="col-md-6 ">
-              <h3>{recipe.name}</h3>
-              <div>
-                <Rating rating={recipe.rating} />
-                <div className="d-flex justify-content-between align-items-center flex-grow-1 pb-3">
-                  <div className="d-flex align-items-center py-3">
-                    <span className="material-symbols-outlined me-2">
-                      timer
-                    </span>
-                    <p className="mb-0">{recipe.time}</p>
-                  </div>
-                  <div className="d-flex align-items-center px-5">
-                    <span className="material-symbols-outlined me-2 ">
-                      person
-                    </span>
-                    <p className="mb-0">{recipe.serves}</p>
+            {recipe && (
+              <div className="col-md-6 ">
+                <h3>{recipe.name}</h3>
+                <div>
+                  <Rating rating={recipe.rating} />
+                  <div className="d-flex justify-content-between align-items-center flex-grow-1 pb-3">
+                    <div className="d-flex align-items-center py-3">
+                      <span className="material-symbols-outlined me-2">
+                        timer
+                      </span>
+                      <p className="mb-0">{recipe.time}</p>
+                    </div>
+                    <div className="d-flex align-items-center px-5">
+                      <span className="material-symbols-outlined me-2 ">
+                        person
+                      </span>
+                      <p className="mb-0">{recipe.serves}</p>
+                    </div>
                   </div>
                 </div>
+                <p>{recipe.description}</p>{" "}
+                <div className="subcategories">
+                  <h3>Categories</h3>
+                  <ul className="list-unstyled d-flex flex-wrap">
+                    {subcategories.map((subcategory) => (
+                      <li
+                        key={subcategory.id}
+                        className="me-3 mb-3 rounded-5 p-2 d-flex justify-content-center align-items-center"
+                        style={{
+                          backgroundColor: " rgba(243, 105, 18, 0.5)",
+                        }}
+                      >
+                        <p className="m-0 px-5">
+                          {subcategory.subcategory_name}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>{" "}
               </div>
-              <p>{recipe.description}</p>{" "}
-              <div className="subcategories">
-                <h3>Categories</h3>
-                <ul className="list-unstyled d-flex flex-wrap">
-                  {subcategories.map((subcategory) => (
-                    <li
-                      key={subcategory.id}
-                      className="me-3 mb-3 rounded-5 p-2 d-flex justify-content-center align-items-center"
-                      style={{
-                        backgroundColor: " rgba(243, 105, 18, 0.5)",
-                      }}
-                    >
-                      <p className="m-0 px-5">{subcategory.subcategory_name}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>{" "}
-            </div>
+            )}
           </div>
         </section>
         {/* Object.entries(groupedIngredients).map: Iterates through the groupedIngredients object 
         using Object.entries() to convert the object into an array of key-value pairs ([sectionId, ingredients]). 
         This allows rendering each section separately. <div> Element Wraps each section of ingredients, 
         utilizing the sectionId as the key to ensure unique rendering.*/}
-        <section className="ingredients px-5 py-5 mb-3">
-          <h3 className="py-3">Ingredients</h3>
-          {Object.entries(groupedIngredients).map(
-            ([sectionId, ingredients]) => (
-              <div key={sectionId} className=" mb-4">
-                <section className="ingredients px-5 py-5 mb-3">
-                  <h4>{ingredients[0].section_name}</h4>
-                  <ul className="row px-0">
-                    {ingredients.map((ingredient, index) => (
-                      <li key={index} className=" d-flex ">
-                        <p className=" px-1">{ingredient.quantity}</p>
-                        <p className=" px-1">{ingredient.measurement_name}</p>
-                        <p>{ingredient.ingredient_name}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </div>
-            )
-          )}
-        </section>
+        {groupedIngredients && (
+          <section className="ingredients px-5 py-5 mb-3">
+            <h3 className="py-3">Ingredients</h3>
+            {Object.entries(groupedIngredients).map(
+              ([sectionId, ingredients]) => (
+                <div key={sectionId} className=" mb-4">
+                  <section className="ingredients px-5 py-5 mb-3">
+                    <h4>{ingredients[0].section_name}</h4>
+                    <ul className="row px-0">
+                      {ingredients.map((ingredient, index) => (
+                        <li key={index} className=" d-flex ">
+                          <p className=" px-1">{ingredient.quantity}</p>
+                          <p className=" px-1">{ingredient.measurement_name}</p>
+                          <p>{ingredient.ingredient_name}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                </div>
+              )
+            )}
+          </section>
+        )}
         {/* <section className="ingredients px-5 py-5 mb-3">
                   <h4 className="py-3">{ingredients[0].section_name}</h4>
                   <div className="row">
@@ -233,16 +251,18 @@ function OneRecipe() {
                     ))}
                   </div>
                 </section> */}
-        <section className="instructions px-5 py-5 mb-3">
-          <h3>Instructions</h3>
-          <ul className=" ">
-            {instructions.map((instruction) => (
-              <li key={instruction.id}>
-                <p> {instruction.description}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {instructions && (
+          <section className="instructions px-5 py-5 mb-3">
+            <h3>Instructions</h3>
+            <ul className=" ">
+              {instructions.map((instruction) => (
+                <li key={instruction.id}>
+                  <p> {instruction.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         {/* <Button name="Settings" onClick={() => setIsOpen(true)} /> or add active class to settings? */}
       </main>
     </>
