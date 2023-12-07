@@ -16,6 +16,11 @@ function NavBar({}: NavBarProps) {
   let route2 = ["/connexion", "/account"];
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+
+    window.location.href = "/connexion";
+  };
 
   return (
     <>
@@ -112,6 +117,8 @@ function NavBar({}: NavBarProps) {
                   </li>
                 ))}
               </ul>
+
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>{" "}
         </div>
