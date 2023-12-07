@@ -3,12 +3,6 @@ import ButtonSubmit from "../components/buttons/ButtonSubmit";
 import axios from "axios";
 import { useState, FormEvent } from "react";
 
-// interface User {
-//   name: string;
-//   email: string;
-//   password: string;
-// }
-
 function Connexion() {
   //State for user information
 

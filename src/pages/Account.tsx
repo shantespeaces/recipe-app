@@ -9,7 +9,7 @@ function Account() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
-  //   const [image, setImage] = useState("");
+
   const [avatar, setAvatar] = useState<File | null>();
 
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
