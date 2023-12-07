@@ -18,6 +18,8 @@ function NavBar({}: NavBarProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const handleLogout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("createdRecipeId");
+    localStorage.removeItem("selectedRecipeId");
 
     window.location.href = "/connexion";
   };

@@ -18,7 +18,7 @@ class Format
 		],
 		'image/jpg' => [
 			'extension' => ['jpg', 'jpeg'],
-			'mime_type' => 'image/jpeg',
+			'mime_type' => 'image/jpg',
 			'gd_in_function' => 'imagecreatefromjpeg',
 			'gd_out_function' => 'imagejpeg',
 		],

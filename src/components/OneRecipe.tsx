@@ -131,6 +131,14 @@ function OneRecipe() {
         });
     }
   }, []);
+  // Cleanup function when leaving the page
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("createdRecipeId");
+      localStorage.removeItem("selectedRecipeId");
+    };
+  }, []);
 
   // // function changerCouleur(nom: string) {
   // //   console.log("Changer couleur depuis Recipe");
@@ -176,24 +184,26 @@ function OneRecipe() {
                   </div>
                 </div>
                 <p>{recipe.description}</p>{" "}
-                <div className="subcategories">
-                  <h3>Categories</h3>
-                  <ul className="list-unstyled d-flex flex-wrap">
-                    {subcategories.map((subcategory) => (
-                      <li
-                        key={subcategory.id}
-                        className="me-3 mb-3 rounded-5 p-2 d-flex justify-content-center align-items-center"
-                        style={{
-                          backgroundColor: " rgba(243, 105, 18, 0.5)",
-                        }}
-                      >
-                        <p className="m-0 px-5">
-                          {subcategory.subcategory_name}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>{" "}
+                {subcategories && subcategories.length > 0 && (
+                  <div className="subcategories">
+                    <h3>Categories</h3>
+                    <ul className="list-unstyled d-flex flex-wrap">
+                      {subcategories.map((subcategory) => (
+                        <li
+                          key={subcategory.id}
+                          className="me-3 mb-3 rounded-5 p-2 d-flex justify-content-center align-items-center"
+                          style={{
+                            backgroundColor: " rgba(243, 105, 18, 0.5)",
+                          }}
+                        >
+                          <p className="m-0 px-5">
+                            {subcategory.subcategory_name}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -251,7 +261,7 @@ function OneRecipe() {
                     ))}
                   </div>
                 </section> */}
-        {instructions && (
+        {Array.isArray(instructions) && instructions.length > 0 && (
           <section className="instructions px-5 py-5 mb-3">
             <h3>Instructions</h3>
             <ul className=" ">

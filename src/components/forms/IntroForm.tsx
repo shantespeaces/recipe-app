@@ -346,7 +346,10 @@ function IntroForm() {
           });
         }
       }
+
+      //redirection
       window.location.href = "/recipe";
+
       alert("The recipe was created!");
     } catch (error) {
       console.error("Error submitting form:", error);

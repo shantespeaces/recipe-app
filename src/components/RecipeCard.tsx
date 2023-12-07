@@ -13,9 +13,18 @@ interface RecipeCardProps {
   recipe: Recipe;
 }
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+  const handleClick = (recipeId: number) => {
+    localStorage.setItem("selectedRecipeId", String(recipeId));
+    window.location.href = `/recipe/${recipeId}`;
+  };
+
   return (
     <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={recipe.id}>
-      <section className="card" style={{ border: "1px solid #f36912" }}>
+      <section
+        className="card"
+        style={{ border: "1px solid #f36912" }}
+        onClick={() => handleClick(recipe.id)}
+      >
         <img
           className="card-img-top"
           src={recipe.image}
