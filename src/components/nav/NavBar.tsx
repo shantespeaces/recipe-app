@@ -11,7 +11,7 @@ function NavBar({}: NavBarProps) {
   let route = ["/", "/create", "/profile"];
 
   // Second set of links
-  let items2 = ["Login", "Register"];
+  let items2 = ["Login"];
   let icons2 = ["", ""];
   let route2 = ["/connexion", "/account"];
 

@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 
 import axios from "axios";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
@@ -295,7 +295,7 @@ function IntroForm() {
       const createdRecipeId = introResponse.data.success.insert_id;
       console.log("Recipe ID:", createdRecipeId);
 
-      //store recipe id created and display one recipe with that id
+      //store recipe id created
       localStorage.setItem("createdRecipeId", createdRecipeId);
 
       // Submit Sub Categories
@@ -347,7 +347,7 @@ function IntroForm() {
         }
       }
 
-      //redirection
+      //redirection with id of the recipe created (to be used with OneRecipe(show))
       window.location.href = `/recipe/${createdRecipeId}`;
 
       alert("The recipe was created!");
