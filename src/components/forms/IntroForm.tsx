@@ -295,7 +295,7 @@ function IntroForm() {
       const createdRecipeId = introResponse.data.success.insert_id;
       console.log("Recipe ID:", createdRecipeId);
 
-      //TO DO store recipe id created and display one recipe with that id
+      //store recipe id created and display one recipe with that id
       localStorage.setItem("createdRecipeId", createdRecipeId);
 
       // Submit Sub Categories
@@ -348,7 +348,7 @@ function IntroForm() {
       }
 
       //redirection
-      window.location.href = "/recipe";
+      window.location.href = `/recipe/${createdRecipeId}`;
 
       alert("The recipe was created!");
     } catch (error) {

@@ -48,7 +48,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/recipe" element={<Recipe />} />
+        <Route path="/recipe/:id" element={<Recipe />} />
         <Route path="/account" element={<Account />} />
         <Route path="/connexion" element={<Connexion />} />
       </Routes>
