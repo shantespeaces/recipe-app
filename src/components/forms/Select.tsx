@@ -6,7 +6,7 @@ interface SelectProps {
   // Allow passing a selected option
   selectedOption?: number;
   // Callback when an option is selected
-  onSelectOption: (optionId: number) => void;
+  onSelectOption: (optionId: number, optionName: string) => void;
   // API endpoint for fetching options
   endpoint: string;
 }
@@ -35,9 +35,11 @@ function Select({
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     //converts selected value into an interger so that the id can be passed to the callback
-    const selectedOptionId = parseInt(event.target.value, 10);
+    const selectedOptionName = event.target.value.split(" ")[1];
+    const selectedOptionId = parseInt(event.target.value.split(" ")[0], 10);
+
     console.log("Selected Category ID:", selectedOptionId);
-    onSelectOption(selectedOptionId);
+    onSelectOption(selectedOptionId, selectedOptionName);
   };
 
   return (
@@ -60,7 +62,7 @@ function Select({
           Select {heading.toLowerCase()}
         </option>
         {options.map((option) => (
-          <option key={option.id} value={option.id}>
+          <option key={option.id} value={option.id + " " + option.name}>
             {option.name}
           </option>
         ))}

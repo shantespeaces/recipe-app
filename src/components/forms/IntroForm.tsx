@@ -19,6 +19,7 @@ interface Ingredient {
   name: string;
   quantity?: number;
   measurement?: number | undefined;
+  measurementName?: string | undefined;
 }
 
 type Sections = Section[];
@@ -95,10 +96,17 @@ function IntroForm() {
   const [selectedMeasurement, setSelectedMeasurement] = useState<
     number | undefined
   >(undefined);
+  const [selectedMeasurementName, setSelectedMeasurementName] = useState<
+    string | undefined
+  >(undefined);
 
   // Function to handle measurement selection
-  const handleMeasurementSelect = (measurementId: number) => {
+  const handleMeasurementSelect = (
+    measurementId: number,
+    measurementName: string
+  ) => {
     setSelectedMeasurement(measurementId);
+    setSelectedMeasurementName(measurementName);
   };
 
   // state for search bar
@@ -168,6 +176,7 @@ function IntroForm() {
     //if all fields are present and valid; modify selectedIngredient with new values for quantity and measurement properties
     selectedIngredient.quantity = selectedQuantity;
     selectedIngredient.measurement = selectedMeasurement;
+    selectedIngredient.measurementName = selectedMeasurementName;
 
     //Updates selectedIngredientsList state by creating a new array
     // that includes the existing list and the modified selectedIngredient
@@ -528,7 +537,8 @@ function IntroForm() {
                   <p>Ingredient: {item.name ? item.name : "None"}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p>
-                    Measurement: {item.measurement ? item.measurement : "None"}
+                    Measurement:{" "}
+                    {item.measurementName ? item.measurementName : "None"}
                   </p>
                 </div>
               ))}
