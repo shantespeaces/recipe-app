@@ -107,6 +107,9 @@ function Account() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         error={nameError}
+                        labelClassName="name"
+                        id="name"
+                        htmlFor="name"
                       />
                       <label className="form-label" htmlFor="form label">
                         Your Name
@@ -123,6 +126,9 @@ function Account() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         error={emailError}
+                        labelClassName="email"
+                        id="email"
+                        htmlFor="email"
                       />
                       <label className="form-label" htmlFor="form label">
                         Your Email
@@ -139,6 +145,9 @@ function Account() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         error={passwordError}
+                        labelClassName="password"
+                        id="password"
+                        htmlFor="password"
                       />
                       <label className="form-label" htmlFor="form label">
                         Password
@@ -154,6 +163,9 @@ function Account() {
                         type="password"
                         value={passwordAgain}
                         onChange={(e) => setPasswordAgain(e.target.value)}
+                        labelClassName="password"
+                        id="password"
+                        htmlFor="password"
                       />
                       <label className="form-label" htmlFor="form label">
                         Repeat your password

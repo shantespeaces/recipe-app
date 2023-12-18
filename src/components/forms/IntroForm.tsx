@@ -300,11 +300,20 @@ function IntroForm() {
 
   /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
 
+  // VALIDATION
+  const [nameError, setNameError] = useState("");
+
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const userId = localStorage.getItem("userId");
     try {
+      //VALIDATION
+      // Validation for name field
+      if (recipeTitle.trim() === "") {
+        setNameError("Please enter a title for your recipe");
+        return;
+      }
       // Submit Intro Section
 
       const formData = new FormData();
@@ -423,7 +432,13 @@ function IntroForm() {
               value={recipeTitle} //binds value to variable
               //onChnage attribute defines what happens when input value changes(updates recipeTitle with new value entered in input field)
               onChange={(e) => setRecipeTitle(e.target.value)}
+              error={nameError}
+              labelClassName="title"
+              id="title"
+              htmlFor="title"
             />
+
+            {nameError && <div className="invalid-feedback">{nameError}</div>}
           </div>
           <div className="py-3">
             <InputTextarea
@@ -431,6 +446,9 @@ function IntroForm() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe your dish!"
+              id="description"
+              labelClassName="description"
+              htmlFor="description"
             />
           </div>
           <div className="row justify-content-between">
@@ -440,6 +458,10 @@ function IntroForm() {
                 value={serves}
                 onChange={(value) => setServes(value)}
                 icon="person"
+                error={serves === 0 ? "Please enter a value " : ""}
+                labelClassName="serves"
+                htmlFor="serves"
+                labelId="serves"
               />
             </div>
             <div className="col-md-5 py-3">
@@ -448,6 +470,10 @@ function IntroForm() {
                 value={time}
                 onChange={(value) => setTime(value)}
                 icon="timer"
+                error={serves === 0 ? "Please enter a value " : ""}
+                labelClassName="time"
+                htmlFor="time"
+                labelId="time"
               />
             </div>
           </div>
@@ -492,6 +518,9 @@ function IntroForm() {
               onSelectOption={handleCategorySelect}
               selectedOption={selectedCategory}
               endpoint="http://localhost:8000/api/categories"
+              selectId="categories"
+              labelClassName="categories"
+              htmlFor="categories"
             />
           </div>
           <div className="py-3">
@@ -551,6 +580,9 @@ function IntroForm() {
                   placeholder=" ex: Pie Crust"
                   onChange={(e) => setSectionTitle(e.target.value)}
                   value={sectionTitle}
+                  labelClassName="section"
+                  id="section"
+                  htmlFor="section"
                 />
               </div>
             )}
@@ -574,6 +606,9 @@ function IntroForm() {
                   value={selectedQuantity}
                   onChange={(value) => setSelectedQuantity(value)}
                   icon=""
+                  labelClassName="quantity"
+                  htmlFor="quantity"
+                  labelId="quantity"
                 />
               </div>
               <div className="py-3">
@@ -582,6 +617,9 @@ function IntroForm() {
                   onSelectOption={handleMeasurementSelect}
                   selectedOption={selectedMeasurement}
                   endpoint="http://localhost:8000/api/measurements"
+                  selectId="measurement"
+                  labelClassName="measurement"
+                  htmlFor="measurement"
                 />
               </div>
             </div>
@@ -636,6 +674,9 @@ function IntroForm() {
               value={newInstruction}
               onChange={(e) => setNewInstruction(e.target.value)}
               placeholder=" ex: Pour the prepared filling into the pie crust."
+              id="instruction"
+              labelClassName="instruction"
+              htmlFor="instruction"
             />
           </div>
 

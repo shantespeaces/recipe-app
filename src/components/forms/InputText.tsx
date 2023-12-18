@@ -5,6 +5,10 @@ interface InputTextProps {
   value?: string; // Make the value prop optional
   type?: string; // Make the value prop optional
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  labelClassName: string;
+  id: string;
+  htmlFor: string;
 }
 
 function InputText({
@@ -13,18 +17,24 @@ function InputText({
   value,
   type,
   onChange,
+  error,
+  labelClassName,
+  id,
+  htmlFor,
 }: InputTextProps) {
   return (
     <>
       {name && (
-        <label htmlFor="TextInput" className="form-label">
+        <label htmlFor={htmlFor} className={labelClassName}>
           <h3>{name}</h3>
         </label>
       )}
       <input
         type={type}
-        className="form-control form-control-lg rounded-5"
-        id="TextInput"
+        className={`form-control form-control-lg rounded-5 ${
+          error ? "is-invalid" : ""
+        }`}
+        id={id}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

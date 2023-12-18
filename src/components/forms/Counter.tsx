@@ -3,6 +3,10 @@ interface CounterProps {
   value: number;
   onChange: (value: number) => void;
   icon: string;
+  error?: string;
+  labelClassName: string;
+  htmlFor: string;
+  labelId: string;
 }
 
 const Counter: React.FC<CounterProps> = ({
@@ -10,11 +14,17 @@ const Counter: React.FC<CounterProps> = ({
   value,
   onChange,
   icon,
+  error,
+  labelClassName,
+  htmlFor,
+  labelId,
 }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = parseInt(event.target.value);
     if (!isNaN(inputValue)) {
       onChange(inputValue);
+    } else {
+      onChange(0);
     }
   };
 
@@ -32,7 +42,7 @@ const Counter: React.FC<CounterProps> = ({
     <div className="position-relative">
       <div className="row align-items-center">
         <div className="col-auto">
-          <label htmlFor="formGroupExampleInput" className="form-label">
+          <label htmlFor={htmlFor} className={labelClassName} id={labelId}>
             <h3 className="mb-0 me-2">{heading}</h3>
           </label>
         </div>
@@ -66,7 +76,9 @@ const Counter: React.FC<CounterProps> = ({
         </div>
         <input
           type="text"
-          className="form-control rounded-5 text-left px-4"
+          className={`form-control rounded-5 text-left px-4${
+            error ? "is-invalid" : ""
+          }`}
           value={value}
           style={{
             paddingLeft: "50px",
@@ -76,6 +88,7 @@ const Counter: React.FC<CounterProps> = ({
           }}
           onChange={handleInputChange}
         />
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
   );

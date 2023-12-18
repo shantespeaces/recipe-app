@@ -9,6 +9,9 @@ interface SelectProps {
   onSelectOption: (optionId: number, optionName: string) => void;
   // API endpoint for fetching options
   endpoint: string;
+  selectId: string;
+  labelClassName: string;
+  htmlFor: string;
 }
 
 interface Option {
@@ -23,6 +26,9 @@ function Select({
   selectedOption,
   onSelectOption,
   endpoint,
+  selectId,
+  labelClassName,
+  htmlFor,
 }: SelectProps) {
   const [options, setOptions] = useState<Options>([]);
 
@@ -44,11 +50,11 @@ function Select({
 
   return (
     <>
-      <label htmlFor="optionSelect" className="form-label">
+      <label htmlFor={htmlFor} className={labelClassName}>
         <h3>{heading}</h3>
       </label>
       <select
-        id="optionSelect"
+        id={selectId}
         className="form-select rounded-5 "
         aria-label={`Select ${heading.toLowerCase()}`}
         value={selectedOption || ""}
