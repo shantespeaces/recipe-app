@@ -8,6 +8,8 @@ function Connexion() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   /**
    * Email validation
@@ -29,13 +31,14 @@ function Connexion() {
     try {
       // Check if email is provided and valid
       if (email === "" || !validateEmail(email)) {
-        alert("Please enter a valid email address");
+        setEmailError("Please enter a valid email address");
         return;
       }
 
       // Check if password is provided
       if (password === "") {
-        alert("Please enter your password");
+        setPasswordError("Please enter your password");
+        console.log("Password error:", passwordError);
         return;
       }
 
@@ -46,13 +49,13 @@ function Connexion() {
 
       // Check if user exists
       if (response.data.error && response.data.error.code === 204) {
-        alert("The credentials you provided do not match our records");
+        setEmailError("The credentials you provided do not match our records");
         return;
       }
 
       // Check if password match (NoT secure. Solution for the project only! Beacuese I am using Arrest DB and it is very limiting!)
       if (response.data[0].password !== password) {
-        alert("The credentials you provided do not match our records");
+        setEmailError("The credentials you provided do not match our records");
         return;
       }
 
@@ -99,27 +102,39 @@ function Connexion() {
                       <div className="form-outline mb-4">
                         <input
                           type="email"
-                          id="id"
+                          id="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="form-control form-control-lg rounded-5"
+                          className={`form-control form-control-lg rounded-5 ${
+                            emailError && "is-invalid"
+                          }`}
                         />
                         <label className="form-label" htmlFor="email">
                           Email address
                         </label>
+                        {emailError && (
+                          <div className="invalid-feedback">{emailError}</div>
+                        )}
                       </div>
 
                       <div className="form-outline mb-4">
                         <input
                           type="password"
-                          id="id"
+                          id="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="form-control form-control-lg rounded-5"
+                          className={`form-control form-control-lg rounded-5 ${
+                            passwordError && "is-invalid"
+                          }`}
                         />
                         <label className="form-label" htmlFor="password">
                           Password
                         </label>
+                        {passwordError && (
+                          <div className="invalid-feedback">
+                            {passwordError}
+                          </div>
+                        )}
                       </div>
                       <div className="mb-5">
                         <ButtonSubmit name="Login" type="submit" />
