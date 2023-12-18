@@ -9,6 +9,9 @@ function Account() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   const [avatar, setAvatar] = useState<File | null>();
 
@@ -23,6 +26,16 @@ function Account() {
     e.preventDefault();
 
     try {
+      // Validation for name field
+      if (name.trim() === "") {
+        setNameError("Please enter your name");
+        return;
+      }
+      // Validation for empty password
+      if (password.trim() === "") {
+        setPasswordError("Please enter a secure password");
+        return;
+      }
       //Check if email is already in use
       let response = await axios.get(
         "http://localhost:8000/api/users?email=" + email
@@ -32,7 +45,7 @@ function Account() {
 
       // Email exists: cannot use it (if did not received empty response means user already exist)
       if (!response.data.error) {
-        alert(
+        setEmailError(
           "We seem to know you already. This email address already exists."
         );
         return;
@@ -93,22 +106,30 @@ function Account() {
                         placeholder=" Sarah"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        error={nameError}
                       />
                       <label className="form-label" htmlFor="form label">
                         Your Name
                       </label>
+                      {nameError && (
+                        <div className="invalid-feedback">{nameError}</div>
+                      )}
                     </div>
 
                     <div className="form-outline mb-4">
                       <InputText
-                        //   type="email"
+                        type="email"
                         placeholder=" sarah@gmail.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        error={emailError}
                       />
                       <label className="form-label" htmlFor="form label">
                         Your Email
                       </label>
+                      {emailError && (
+                        <div className="invalid-feedback">{emailError}</div>
+                      )}
                     </div>
 
                     <div className="form-outline mb-4">
@@ -117,10 +138,14 @@ function Account() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        error={passwordError}
                       />
                       <label className="form-label" htmlFor="form label">
                         Password
                       </label>
+                      {passwordError && (
+                        <div className="invalid-feedback">{passwordError}</div>
+                      )}
                     </div>
 
                     <div className="form-outline mb-4">
