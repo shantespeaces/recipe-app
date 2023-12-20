@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 import NavBar from "./components/nav/NavBar";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   // // const bgs = ref([])
@@ -52,6 +53,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/connexion" element={<Connexion />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

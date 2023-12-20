@@ -52,7 +52,6 @@ function Header() {
           src={randomHeaderImage}
           alt="header"
           style={{
-            backgroundImage: `url("${randomHeaderImage}")`,
             width: "100%",
             height: "300px",
             objectFit: "cover",
