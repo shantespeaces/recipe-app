@@ -54,14 +54,6 @@ function Profile() {
         .catch((error) => {
           console.error("Error fetching recipes:", error);
         });
-      // axios
-      //   .get("http://localhost:8000/api/subcategories/recipe_id/1")
-      //   .then((response) => {
-      //     setUserRecipes(response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error fetching recipes:", error);
-      //   });
     }
   }, []);
 
@@ -72,23 +64,10 @@ function Profile() {
           <h1 className="pb-3">{user ? user.name : ""} recipes</h1>
           <div className="recipe-card row g-5">
             {recipes.map((recipe) => (
-              //    <div className={columnClass} key={recipe.id}>
-              //    <RecipeCard recipe={recipe} />
-              //  </div>
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
           </div>
         </div>
-        {/* <section className="subcategories">
-          <h3>Subcategories</h3>
-          <ul>
-            {subcategories.map((subcategory) => (
-              <li key={subcategory.id}>
-                <p>{subcategory.subcategory_name}</p>
-              </li>
-            ))}
-          </ul>{" "}
-        </section> */}
       </main>
     </>
   );
