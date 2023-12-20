@@ -18,7 +18,7 @@ function Footer() {
   useEffect(() => {
     // Set a random footer image when the component mounts
     setRandomFooterImage(getRandomFooterImage());
-  }, []); // Empty dependency array ensures this effect runs once, equivalent to componentDidMount
+  }, []); // Empty dependency array ensures this effect runs once
 
   return (
     <footer
@@ -52,7 +52,9 @@ function Footer() {
           }}
         >
           {/* Text on the right */}
-          <p className="text-center">Thank-you for viewing The Menu with me!</p>
+          <p className="text-center">
+            Thank-you for creating 'The Menu' with me!
+          </p>
         </div>
         <Link to="/home">
           <img
