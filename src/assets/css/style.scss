@@ -104,7 +104,20 @@ button.settings {
     transition: background-color 0.3s;
   }
 }
+button.login-out {
+  border-radius: 5px;
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid transparent;
 
+  &:hover {
+    border: 2px solid #fb2e65;
+    background-color: transparent;
+
+    color: #fb2e65;
+    transition: background-color 0.3s;
+  }
+}
 button.btn.btn-outline-secondary.custom-star:focus {
   background-color: #f36912;
   color: #fff;

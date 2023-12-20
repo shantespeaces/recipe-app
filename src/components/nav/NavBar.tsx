@@ -11,9 +11,9 @@ function NavBar({}: NavBarProps) {
   let route = ["/", "/create", "/profile"];
 
   // Second set of links
-  let items2 = ["Login"];
-  let icons2 = ["", ""];
-  let route2 = ["/connexion", "/account"];
+  // let items2 = ["Login"];
+  // let icons2 = ["", ""];
+  // let route2 = ["/connexion"];
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const handleLogout = () => {
@@ -93,37 +93,16 @@ function NavBar({}: NavBarProps) {
               </ul>{" "}
             </div>
             <SearchBar />
-            {/* Second set of links */}
-            <div className="me-lg-5">
-              <ul className="navbar-nav ">
-                {items2.map((item, index) => (
-                  <li
-                    key={item}
-                    onClick={() => {
-                      setSelectedIndex(index);
-                    }}
-                    className={
-                      selectedIndex === index ? "nav-item active " : "nav-item "
-                    }
-                  >
-                    <Link
-                      className="nav-link "
-                      aria-current="page"
-                      to={route2[index]}
-                    >
-                      {item}{" "}
-                      <span className="material-symbols-outlined">
-                        {icons2[index]}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <Link to="/connexion">
+              {" "}
+              <button className="login-out">Login</button>
+            </Link>
 
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          </div>{" "}
-        </div>
+            <button className="login-out" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        </div>{" "}
       </nav>
     </>
   );
