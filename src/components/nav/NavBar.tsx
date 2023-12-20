@@ -10,11 +10,6 @@ function NavBar({}: NavBarProps) {
   let icons = ["home", "add_circle", "account_circle"];
   let route = ["/", "/create", "/profile"];
 
-  // Second set of links
-  // let items2 = ["Login"];
-  // let icons2 = ["", ""];
-  // let route2 = ["/connexion"];
-
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -30,14 +25,19 @@ function NavBar({}: NavBarProps) {
       <nav
         className="navbar navbar-expand-lg sticky-top "
         style={{
-          height: "80px",
           backgroundColor: "white",
         }}
       >
         {/* <!-- Container wrapper --> */}
-        <div className="container-fluid p-0">
+        <div
+          className="container-fluid p-0"
+          style={{
+            height: "80px",
+            backgroundColor: "white",
+          }}
+        >
           {/* <!-- Navbar brand --> */}
-          <div className="logo-container ms-lg-5 py-lg-5">
+          <div className="logo-container ms-lg-5 py-lg-5 py-sm-1">
             <div className="image-container ">
               <Link className="navbar-brand " to="/">
                 <img
@@ -65,7 +65,6 @@ function NavBar({}: NavBarProps) {
             className="collapse navbar-collapse nav justify-content-end"
             id="toggle"
           >
-            {/* First set of links */}
             <div className="">
               <ul className="navbar-nav mt-3  ">
                 {items.map((item, index) => (
@@ -93,14 +92,16 @@ function NavBar({}: NavBarProps) {
               </ul>{" "}
             </div>
             <SearchBar />
-            <Link to="/connexion">
-              {" "}
-              <button className="login-out">Login</button>
-            </Link>
+            <div className="loging-container">
+              <Link to="/connexion">
+                {" "}
+                <button className="login-out">Login</button>
+              </Link>
 
-            <button className="login-out" onClick={handleLogout}>
-              Logout
-            </button>
+              <button className="login-out" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
           </div>
         </div>{" "}
       </nav>
