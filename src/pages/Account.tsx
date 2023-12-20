@@ -86,7 +86,7 @@ function Account() {
       <div
         className="account"
         style={{
-          backgroundImage: "url('src/assets/images/account.png')",
+          backgroundImage: "url('src/assets/images/random/account.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

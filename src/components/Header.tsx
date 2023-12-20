@@ -7,6 +7,28 @@ function Header() {
     image: string;
   }
   const [user, setUser] = useState<User>();
+  const [randomHeaderImage, setRandomHeaderImage] = useState<string>("");
+
+  // Array of random header images
+  const headerImages = [
+    "src/assets/images/random/account.png",
+    "src/assets/images/random/blueberries.png",
+    "src/assets/images/random/clementines.png",
+    "src/assets/images/random/donuts1.png",
+    "src/assets/images/random/donuts2.png",
+    "src/assets/images/random/header.png",
+    "src/assets/images/random/mushrooms.png",
+    "src/assets/images/random/oranges.png",
+    "src/assets/images/random/pineapples.png",
+    "src/assets/images/random/pumpkins.png",
+  ];
+
+  // Function to select a random header image
+  const getRandomHeaderImage = () => {
+    const randomIndex = Math.floor(Math.random() * headerImages.length);
+    return headerImages[randomIndex];
+  };
+
   // Get userId from local storage
   const userId = localStorage.getItem("userId");
   useEffect(() => {
@@ -19,17 +41,18 @@ function Header() {
         console.error("Error fetching user:", error);
       });
 
-    //   });
+    // Set a random header image when the component mounts
+    setRandomHeaderImage(getRandomHeaderImage());
   }, []);
 
   return (
     <>
       <div className="position-relative">
         <img
-          src="src/assets/images/header.png"
+          src={randomHeaderImage}
           alt="header"
           style={{
-            backgroundImage: `url("src/assets/images/header.png")`,
+            backgroundImage: `url("${randomHeaderImage}")`,
             width: "100%",
             height: "300px",
             objectFit: "cover",
@@ -44,16 +67,18 @@ function Header() {
             }}
           >
             <div className="profile-image-container">
-              <img
-                className="profile img-fluid"
-                src={user.image}
-                alt=""
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  border: "solid 2px white",
-                }}
-              />
+              <Link to="/profile">
+                <img
+                  className="profile img-fluid"
+                  src={user.image}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    border: "solid 2px white",
+                  }}
+                />
+              </Link>
             </div>
             <h3 className="pt-5 px-3 mt-5">@{user.name}</h3>
           </div>
