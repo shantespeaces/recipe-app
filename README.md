@@ -58,7 +58,7 @@ This phase aims to establish a strong foundation by enabling users to create acc
 
 <img src="src/assets/images/readme/formulaire-create.jpeg" width="30%"/>
 
-#### Account page
+#### Personal page
 
 <img src="src/assets/images/readme/profile.jpeg" width="30%"/>
 
