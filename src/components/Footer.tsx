@@ -52,9 +52,14 @@ function Footer() {
           }}
         >
           {/* Text on the right */}
-          <p className="text-center">
-            Thank-you for creating 'The Menu' with me!
-          </p>
+          <div
+            className="text-center mt-4"
+            style={{ maxWidth: "50%", margin: "0 auto" }}
+          >
+            <h3 style={{ wordWrap: "break-word" }}>
+              Thank-you for creating 'The Menu' with me!
+            </h3>
+          </div>
         </div>
         <Link to="/home">
           <img

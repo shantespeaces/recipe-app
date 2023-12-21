@@ -1,12 +1,12 @@
-import CreateIntroMessage from "../components/forms/CreateIntroMessage";
-import Form from "../components/Form";
+import IntroMessage from "../components/forms/IntroMessage";
+import RecipeForm from "../components/forms/RecipeForm";
 
 function Create() {
   return (
     <>
       <main>
-        <CreateIntroMessage />
-        <Form />
+        <IntroMessage message="create your recipe!" />
+        <RecipeForm />
       </main>
     </>
   );

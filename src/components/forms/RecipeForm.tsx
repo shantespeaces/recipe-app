@@ -5,11 +5,11 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import InputText from "./InputText";
 import InputTextarea from "./InputTextarea";
 import Counter from "./Counter";
-// import ImageUpload from "./ImageUpload";
+
 import ButtonSubmit from "../buttons/ButtonSubmit";
 import ButtonMore from "../buttons/ButtonMore";
 import Select from "./Select";
-// import Instructions from "./Instructions";
+
 import CheckBox from "./CheckBox";
 import RatingButton from "../buttons/RatingButton";
 
@@ -32,7 +32,7 @@ interface Instruction {
   description: string;
 }
 
-function IntroForm() {
+function RecipeForm() {
   // State for Intro
   const [recipeTitle, setRecipeTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -700,4 +700,4 @@ function IntroForm() {
   );
 }
 
-export default IntroForm;
+export default RecipeForm;

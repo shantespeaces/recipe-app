@@ -53,7 +53,11 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/connexion" element={<Connexion />} />
       </Routes>
-      <Footer />
+      {hideComponent && (
+        <>
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

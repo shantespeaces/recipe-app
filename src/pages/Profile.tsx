@@ -61,7 +61,10 @@ function Profile() {
     <>
       <main>
         <div className="container " style={{ marginTop: "6em" }}>
-          <h1 className="pb-3">{user ? user.name : ""} recipes</h1>
+          <h1 className="pb-3">
+            {user ? user.name.charAt(0).toUpperCase() + user.name.slice(1) : ""}{" "}
+            's recipes
+          </h1>
           <div className="recipe-card row g-5">
             {recipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
