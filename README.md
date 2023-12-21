@@ -1,4 +1,4 @@
-# The Menu - A Recipe App
+# The Menu - A Responsive Recipe App
 
 <div align = "center">
 <img src= "src\assets\images\logo.png" />
@@ -58,7 +58,7 @@ This phase aims to establish a strong foundation by enabling users to create acc
 
 <img src="src/assets/images/readme/formulaire-create.jpeg" width="30%"/>
 
-#### Personal page
+#### Personal Page
 
 <img src="src/assets/images/readme/profile.jpeg" width="30%"/>
 
