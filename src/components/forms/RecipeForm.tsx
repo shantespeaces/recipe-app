@@ -390,9 +390,11 @@ function RecipeForm() {
       );
 
       // Get the recipe ID from the response
+
       const createdRecipeId = Array.isArray(introResponse.data.success.insert_id) ? 
         introResponse.data.success.insert_id[0][0].name : 
         introResponse.data.success.insert_id
+
 
       //store recipe id created and display one recipe with that id
       localStorage.setItem("createdRecipeId", createdRecipeId);

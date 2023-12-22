@@ -4,19 +4,19 @@
 <img src= "src\assets\images\logo.png" />
 </div>
 
-<h1>Internship project: REACT, Typescriipt & Bootstrap</h1>
+<h1>Internship project: REACT, Typescript & Bootstrap</h1>
 
 <p>Welcome to my recipe application 'The Menu,' a platform dedicated to cooking enthusiasts and lovers of unique flavors. My project aims to create an immersive experience, enabling the creation, customization, and sharing of recipes for an unforgettable culinary adventure.
 
 <p>My goal is to create a user-friendly platform where culinary creativity meets community conviviality. Join us in this culinary adventure and discover the art of sharing, creating, and savoring unique recipes crafted to your tastes and preferences.
 
-<p>In Phase 1, the application offers the possibility to design your own recipes while creating a secure personal account. This initial step allows you to shape your culinary ideas, save your creations, and begin exploring a variety of flavors in your own way.
+<p>In <em><strong>Phase 1</strong></em>, the application offers the possibility to design your own recipes while creating a secure personal account. This initial step allows you to shape your culinary ideas, save your creations, and begin exploring a variety of flavors in your own way.
 
-<p>Phase 2 goes further by providing means to customize both the content and the aesthetics of your recipes. Imagine a range of options allowing you to choose colors, borders, and fonts, adding a unique touch to your culinary creations.
+<p><em><strong>Phase 2</strong></em> goes further by providing means to customize both the content and the aesthetics of your recipes. Imagine a range of options allowing you to choose colors, borders, and fonts, adding a unique touch to your culinary creations.
 
-<p>Finally, Phase 3 opens the doors to collaboration and sharing within our community. You'll be able to save recipes from other members, organize them in your personal space, and share them with your friends or other cooking enthusiasts.
+<p>Finally, <em><strong>Phase 3</strong></em> opens the doors to collaboration and sharing within our community. You'll be able to save recipes from other members, organize them in your personal space, and share them with your friends or other cooking enthusiasts.
 
-<p> This repo consists of phase one.
+> This repo consists of phase one.
 
 ## Phase 1: Recipe Creation with User Accounts
 
@@ -32,19 +32,19 @@
 
 - User Account Management: Allowing users to create personal accounts.
 
-This phase aims to establish a strong foundation by enabling users to create accounts, facilitating the recording, management, and access to their personal recipes within the application.
+> This phase aims to establish a strong foundation by enabling users to create accounts, facilitating the recording, management, and access to their personal recipes within the application.
 
 ## To test out the project:
 
 1. Clone project into your favorite code editor!
-2. Retrieve the datbase by importing recette.sql into phpMyAdmin ( it is in the projects docs folder)
+2. Retrieve the database by importing recette.sql into phpMyAdmin ( it is in the projects docs folder)
 3. In the terminal:
 
    - run frontend server : <font color="#007bff"> npm run dev </font>
    - run backend server : <font color="#007bff"> php -S localhost:8000 -t public </font>
-   - make sure databse is successfully connected to the project: http://localhost:8000/api/recipes
+   - make sure database is successfully connected to the project: http://localhost:8000/api/recipes
 
-### Design
+## Design
 
 #### Login
 
