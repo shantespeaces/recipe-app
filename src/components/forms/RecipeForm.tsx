@@ -158,6 +158,7 @@ function RecipeForm() {
     setServeError("");
     setTimeError("");
     setCategoryError("");
+    setSelectedIngredientError("");
   };
 
   /**
@@ -182,11 +183,15 @@ function RecipeForm() {
     Ingredient[]
   >([]);
 
+  const [selectedIngredientError, setSelectedIngredientError] = useState("");
   //function to handle adding a list of ingredients (Add Ingredients Button)
   const handleAddIngredientToList = () => {
     //validation check if false Or if zero Or if false display alert message to the user
+    resetErrors();
     if (!selectedIngredient || selectedQuantity === 0 || !selectedMeasurement) {
-      alert("Please select an ingredient, a quantity and a measurement");
+      setSelectedIngredientError(
+        "Please select an ingredient, a quantity and a measurement"
+      );
       return;
     }
 
@@ -237,6 +242,7 @@ function RecipeForm() {
     // Check if at least one ingredient was added
     // .length returns the number of properties of the array(if array is empty (equal to 0)
     // condition is true (no selected items in the list).
+
     if (selectedIngredientsList.length === 0) {
       // Temporary alert
       alert("Please choose an ingredient before saving the section");
@@ -675,6 +681,7 @@ function RecipeForm() {
                   <ButtonMore
                     name="Add ingredient"
                     onClick={handleAddIngredientToList}
+                    error={selectedIngredientError}
                   />
                 </div>
               </div>
