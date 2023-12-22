@@ -11,16 +11,16 @@ function Header() {
 
   // Array of random header images
   const headerImages = [
-    "src/assets/images/random/account.png",
-    "src/assets/images/random/blueberries.png",
-    "src/assets/images/random/clementines.png",
-    "src/assets/images/random/donuts1.png",
-    "src/assets/images/random/donuts2.png",
-    "src/assets/images/random/header.png",
-    "src/assets/images/random/mushrooms.png",
-    "src/assets/images/random/oranges.png",
-    "src/assets/images/random/pineapples.png",
-    "src/assets/images/random/pumpkins.png",
+    "/images/random/account.png",
+    "/images/random/blueberries.png",
+    "/images/random/clementines.png",
+    "/images/random/donuts1.png",
+    "/images/random/donuts2.png",
+    "/images/random/header.png",
+    "/images/random/mushrooms.png",
+    "/images/random/oranges.png",
+    "/images/random/pineapples.png",
+    "/images/random/pumpkins.png",
   ];
 
   // Function to select a random header image

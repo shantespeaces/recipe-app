@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import RecipeCard from "../components/RecipeCard";
 import IntroMessage from "../components/forms/IntroMessage";
+import NavBar from "../components/nav/NavBar";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function Home() {
   interface Recipe {
@@ -26,14 +29,19 @@ function Home() {
 
   return (
     <>
-      <IntroMessage message="view all Recipes!" />
-      <div className="container" style={{ marginTop: "1em" }}>
-        <div className="recipe-card row g-5">
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
+      <NavBar />
+      <Header />
+      <main>
+        <IntroMessage message="view all Recipes!" />
+        <div className="container" style={{ marginTop: "1em" }}>
+          <div className="recipe-card row g-5">
+            {recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
         </div>
-      </div>
+      </main>
+      <Footer />
     </>
   );
 }

@@ -2,20 +2,19 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  const footerImages = [
+    "/images/random/account.png",
+    "/images/random/blueberries.png",
+  ];
   const [randomFooterImage, setRandomFooterImage] = useState<string>("");
 
-  const headerImages = [
-    "src/assets/images/random/account.png",
-    "src/assets/images/random/blueberries.png",
-  ];
-
-  const getRandomFooterImage = () => {
-    const randomIndex = Math.floor(Math.random() * headerImages.length);
-    return headerImages[randomIndex];
-  };
-
   useEffect(() => {
-    // Set a random footer image when the component mounts
+    // Select a random image from the headerImages array
+    const getRandomFooterImage = () => {
+      const randomIndex = Math.floor(Math.random() * footerImages.length);
+      return footerImages[randomIndex];
+    };
+
     setRandomFooterImage(getRandomFooterImage());
   }, []); // Empty dependency array ensures this effect runs once
 
@@ -62,7 +61,7 @@ function Footer() {
         </div>
         <Link to="/home">
           <img
-            src="src\assets\images\logo.png"
+            src="\images\logo.png"
             alt="Logo"
             className="img-fluid"
             style={{

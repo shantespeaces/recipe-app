@@ -42,7 +42,7 @@ function NavBar({}: NavBarProps) {
               <Link className="navbar-brand " to="/">
                 <img
                   className="logo"
-                  src="src\assets\images\logo.png"
+                  src="\images\logo.png"
                   alt="the menu logo"
                 />
               </Link>

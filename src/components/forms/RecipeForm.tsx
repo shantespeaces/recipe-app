@@ -154,18 +154,18 @@ function RecipeForm() {
    * Resets all the displayed errors in the page
    */
   const resetErrors = () => {
-    setNameError("")
-    setServeError("")
-    setTimeError("")
-    setCategoryError("")
-  }
+    setNameError("");
+    setServeError("");
+    setTimeError("");
+    setCategoryError("");
+  };
 
   /**
    * Scroll to the element specified
    */
   const scrollTo = (id: string) => {
-      document.getElementById(id)?.scrollIntoView(false)
-  }
+    document.getElementById(id)?.scrollIntoView(false);
+  };
 
   //state for selected ingredient
   const [selectedIngredient, setSelectedIngredient] =
@@ -335,33 +335,30 @@ function RecipeForm() {
       // Validation for name field
       if (recipeTitle.trim() === "") {
         setNameError("Please enter a title for your recipe");
-        scrollTo("title")
-        return
+        scrollTo("title");
+        return;
       }
 
-      if(serves === 0){
-        resetErrors()
-        setServeError("Please enter a number of serves")
-        scrollTo("serves")
-        return
+      if (serves === 0) {
+        resetErrors();
+        setServeError("Please enter a number of serves");
+        scrollTo("serves");
+        return;
       }
 
-      if(time === 0){
-        resetErrors()
-        setTimeError("Please enter the recipe duration")
-        scrollTo("time")
-        return
+      if (time === 0) {
+        resetErrors();
+        setTimeError("Please enter the recipe duration");
+        scrollTo("time");
+        return;
       }
 
-      if(!selectedCategory){
-        resetErrors()        
-        setCategoryError("Please select a category for the recipe")
-        scrollTo("category")
-        return
+      if (!selectedCategory) {
+        resetErrors();
+        setCategoryError("Please select a category for the recipe");
+        scrollTo("category");
+        return;
       }
-
-
-
 
       // Submit Intro Section
       const formData = new FormData();
@@ -391,10 +388,11 @@ function RecipeForm() {
 
       // Get the recipe ID from the response
 
-      const createdRecipeId = Array.isArray(introResponse.data.success.insert_id) ? 
-        introResponse.data.success.insert_id[0][0].name : 
+      const createdRecipeId = Array.isArray(
         introResponse.data.success.insert_id
-
+      )
+        ? introResponse.data.success.insert_id[0][0].name
+        : introResponse.data.success.insert_id;
 
       //store recipe id created and display one recipe with that id
       localStorage.setItem("createdRecipeId", createdRecipeId);
@@ -407,13 +405,12 @@ function RecipeForm() {
         image: `/img/recipes/${createdRecipeId}/512x512.jpg`,
       });
 
-      // Submit Sub Categories      
+      // Submit Sub Categories
       for (let subcategory of selectedSubCategories) {
         await axios.post(`http://localhost:8000/api/recipe_subcategory`, {
           subcategory_id: subcategory,
           recipe_id: createdRecipeId,
         });
-
       }
       console.log("Sections:", sections);
 
@@ -485,7 +482,7 @@ function RecipeForm() {
               labelClassName="title"
               id="title"
               htmlFor="title"
-            />                        
+            />
           </div>
           <div className="py-3">
             <InputTextarea

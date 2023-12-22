@@ -8,10 +8,6 @@ import Home from "./pages/Home";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import NavBar from "./components/nav/NavBar";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-
 function App() {
   // // const bgs = ref([])
   // const [bgs, setBgs] = useState({ id: null, color: null });
@@ -35,14 +31,7 @@ function App() {
 
   return (
     <div>
-      {hideComponent && (
-        <>
-          {/* Rendered outside the Routes */}
-          {/* <p>{bgs.color}</p> */}
-          <NavBar />
-          <Header />
-        </>
-      )}
+      {/* <p>{bgs.color}</p> */}
 
       {/* Routes for different pages */}
       <Routes>
@@ -53,11 +42,6 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/connexion" element={<Connexion />} />
       </Routes>
-      {hideComponent && (
-        <>
-          <Footer />
-        </>
-      )}
     </div>
   );
 }

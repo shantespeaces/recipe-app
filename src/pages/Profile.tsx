@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
+import NavBar from "../components/nav/NavBar";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 interface User {
   name: string;
@@ -59,6 +62,8 @@ function Profile() {
 
   return (
     <>
+      <NavBar />
+      <Header />
       <main>
         <div className="container " style={{ marginTop: "6em" }}>
           <h1 className="pb-3">
@@ -72,6 +77,7 @@ function Profile() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
