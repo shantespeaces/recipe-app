@@ -159,6 +159,7 @@ function RecipeForm() {
     setTimeError("");
     setCategoryError("");
     setSelectedIngredientError("");
+    setInstructionError("");
   };
 
   /**
@@ -299,11 +300,14 @@ function RecipeForm() {
   // State for instructions
   const [instructions, setInstructions] = useState<Instruction[]>([]);
   const [newInstruction, setNewInstruction] = useState<string>("");
-
+  const [InstructionError, setInstructionError] = useState("");
   // Function to add a new instruction
   const handleAddInstruction = () => {
     // validation: checks if new instruction exists (.trim removes whitespace (spaces etc))
-    if (newInstruction.trim() !== "") {
+    resetErrors();
+    if (newInstruction.trim() == "") {
+      setInstructionError("Please enter an instruction for your recipe");
+    } else {
       // if newInstruction is not empty a new array is created (updatedInstructions)by spreading (...) the existing instructions
       // array and appending a new object representing the new instruction.
       // creates new array by combining the existing instruction array with the new instruction object)
@@ -738,6 +742,7 @@ function RecipeForm() {
               <ButtonMore
                 name="Add Instruction"
                 onClick={handleAddInstruction}
+                error={InstructionError}
               />
             </div>
           </div>
