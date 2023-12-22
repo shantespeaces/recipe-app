@@ -73,6 +73,8 @@ function RecipeForm() {
   };
   // State for selected image
   const [selectedImage, setSelectedImage] = useState<File | null>();
+  const [defaultImage, setDefaultImage] = useState<File | null>();
+  const defaultImagePath = "public/images/logo.png";
 
   // Function to handle image upload
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,8 +82,12 @@ function RecipeForm() {
 
     if (fichier) {
       setSelectedImage(fichier);
+    } else {
+      // If no file is selected, set the default image
+      setDefaultImage(fichier);
     }
   };
+
   //////////////////////////////////////////////////////INGREDIENTS /////////////////////////////////////////////////////////////////////////
 
   //State for Ingredients
@@ -327,9 +333,8 @@ function RecipeForm() {
     }
   };
 
-  const [recipeCreated, setRecipeCreated] = useState(false);
   /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
-
+  const [recipeCreated, setRecipeCreated] = useState(false);
   // VALIDATION
   const [nameError, setNameError] = useState("");
   const [serveError, setServeError] = useState("");
@@ -393,9 +398,17 @@ function RecipeForm() {
       formData.append("rating", String(selectedRating));
 
       // Check if an image has been selected
-      if (selectedImage) {
+      if (!selectedImage) {
+        // If no image is selected, use a default image path
+        formData.append("defaultImage", defaultImagePath); // Replace with your default image path in your server
+      } else if (selectedImage) {
         formData.append("selectedImage", selectedImage!);
       }
+
+      // // Check if an image has been selected
+      // if (selectedImage) {
+      //   formData.append("selectedImage", selectedImage!);
+      // }
 
       const introResponse = await axios.post(
         "http://localhost:8000/api/recipes",
@@ -477,11 +490,11 @@ function RecipeForm() {
       //redirection with id of the recipe created (to be used with OneRecipe(show))
 
       setRecipeCreated(true);
-      // Delay the redirection by 2 seconds (adjust the time as needed)
+      // Delay the redirection
       setTimeout(() => {
         // Redirect after delay
         window.location.href = `/recipe/${createdRecipeId}`;
-      }, 1000); // 2000 milliseconds = 2 seconds
+      }, 1000);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
