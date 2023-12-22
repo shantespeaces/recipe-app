@@ -1,5 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-
+import { Alert } from "react-bootstrap";
 import axios from "axios";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import InputText from "./InputText";
@@ -327,6 +327,7 @@ function RecipeForm() {
     }
   };
 
+  const [recipeCreated, setRecipeCreated] = useState(false);
   /////////////////////////////////////////////////SUBMIT///////////////////////////////////////////////
 
   // VALIDATION
@@ -474,9 +475,13 @@ function RecipeForm() {
       }
 
       //redirection with id of the recipe created (to be used with OneRecipe(show))
-      window.location.href = `/recipe/${createdRecipeId}`;
 
-      alert("The recipe was created!");
+      setRecipeCreated(true);
+      // Delay the redirection by 2 seconds (adjust the time as needed)
+      setTimeout(() => {
+        // Redirect after delay
+        window.location.href = `/recipe/${createdRecipeId}`;
+      }, 1000); // 2000 milliseconds = 2 seconds
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -764,6 +769,15 @@ function RecipeForm() {
         <div className="mb-5">
           <ButtonSubmit name="All Done? Save your Recipe!" type="submit" />
         </div>
+        {recipeCreated && (
+          <Alert
+            variant="success"
+            onClose={() => setRecipeCreated(false)}
+            dismissible
+          >
+            The recipe was created!
+          </Alert>
+        )}
       </form>
     </>
   );
