@@ -75,7 +75,6 @@ function RecipeForm() {
   const [selectedImage, setSelectedImage] = useState<File | null>();
   const [defaultImage, setDefaultImage] = useState<File | null>();
   const defaultImagePath = "public/images/logo.png";
-
   // Function to handle image upload
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
     const fichier = e.target.files?.[0];
