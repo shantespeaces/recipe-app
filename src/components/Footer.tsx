@@ -7,7 +7,6 @@ function Footer() {
   const headerImages = [
     "src/assets/images/random/account.png",
     "src/assets/images/random/blueberries.png",
-    // Add more image URLs as needed
   ];
 
   const getRandomFooterImage = () => {

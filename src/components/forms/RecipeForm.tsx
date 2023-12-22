@@ -341,7 +341,7 @@ function RecipeForm() {
         }
       );
       // Get the recipe ID from the response
-      const createdRecipeId = introResponse.data.success.insert_id;
+      const createdRecipeId = introResponse.data.success.insert_id[0][0].name;
       console.log("Recipe ID:", createdRecipeId);
 
       //store recipe id created and display one recipe with that id
