@@ -150,6 +150,23 @@ function RecipeForm() {
     setSelectedIngredientsList([]);
   };
 
+  /**
+   * Resets all the displayed errors in the page
+   */
+  const resetErrors = () => {
+    setNameError("")
+    setServeError("")
+    setTimeError("")
+    setCategoryError("")
+  }
+
+  /**
+   * Scroll to the element specified
+   */
+  const scrollTo = (id: string) => {
+      document.getElementById(id)?.scrollIntoView(false)
+  }
+
   //state for selected ingredient
   const [selectedIngredient, setSelectedIngredient] =
     useState<Ingredient | null>(null);
@@ -302,20 +319,51 @@ function RecipeForm() {
 
   // VALIDATION
   const [nameError, setNameError] = useState("");
+  const [serveError, setServeError] = useState("");
+  const [timeError, setTimeError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
 
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Get the connected user id stored in localStorage
     const userId = localStorage.getItem("userId");
+
     try {
       //VALIDATION
       // Validation for name field
       if (recipeTitle.trim() === "") {
         setNameError("Please enter a title for your recipe");
-        return;
+        scrollTo("title")
+        return
       }
-      // Submit Intro Section
 
+      if(serves === 0){
+        resetErrors()
+        setServeError("Please enter a number of serves")
+        scrollTo("serves")
+        return
+      }
+
+      if(time === 0){
+        resetErrors()
+        setTimeError("Please enter the recipe duration")
+        scrollTo("time")
+        return
+      }
+
+      if(!selectedCategory){
+        resetErrors()        
+        setCategoryError("Please select a category for the recipe")
+        scrollTo("category")
+        return
+      }
+
+
+
+
+      // Submit Intro Section
       const formData = new FormData();
       formData.append("name", recipeTitle);
       formData.append("description", description);
@@ -340,31 +388,32 @@ function RecipeForm() {
           },
         }
       );
+
       // Get the recipe ID from the response
-      const createdRecipeId = introResponse.data.success.insert_id[0][0].name;
-      console.log("Recipe ID:", createdRecipeId);
+
+      const createdRecipeId = Array.isArray(introResponse.data.success.insert_id) ? 
+        introResponse.data.success.insert_id[0][0].name : 
+        introResponse.data.success.insert_id
+
 
       //store recipe id created and display one recipe with that id
       localStorage.setItem("createdRecipeId", createdRecipeId);
 
       console.log("image:", selectedImage);
-      //Get inserted id
-      console.log("introResponse Data:", introResponse.data);
-      const lastId = introResponse.data.success.insert_id[0][0].name;
 
       // Construct static file name and update image name for recipe
 
-      await axios.post(`http://localhost:8000/api/recipes/${lastId}`, {
-        image: `/img/recipes/${lastId}/512x512.jpg`,
+      await axios.post(`http://localhost:8000/api/recipes/${createdRecipeId}`, {
+        image: `/img/recipes/${createdRecipeId}/512x512.jpg`,
       });
 
-      // Submit Sub Categories
-
+      // Submit Sub Categories      
       for (let subcategory of selectedSubCategories) {
         await axios.post(`http://localhost:8000/api/recipe_subcategory`, {
           subcategory_id: subcategory,
           recipe_id: createdRecipeId,
         });
+
       }
       console.log("Sections:", sections);
 
@@ -425,7 +474,7 @@ function RecipeForm() {
         className={`row g-3 .container-sm max-width-200 `}
       >
         <section className="intro px-5 py-5 mb-3">
-          <div className="py-3">
+          <div className="py-3" id="title">
             <InputText
               name="Recipe Title"
               placeholder=" ex: Annie's Apple Pie"
@@ -436,9 +485,7 @@ function RecipeForm() {
               labelClassName="title"
               id="title"
               htmlFor="title"
-            />
-
-            {nameError && <div className="invalid-feedback">{nameError}</div>}
+            />                        
           </div>
           <div className="py-3">
             <InputTextarea
@@ -452,29 +499,30 @@ function RecipeForm() {
             />
           </div>
           <div className="row justify-content-between">
-            <div className="col-md-5 py-3">
+            <div className="col-md-5 py-3" id="serves">
               <Counter
                 heading="Serves"
                 value={serves}
                 onChange={(value) => setServes(value)}
                 icon="person"
-                error={serves === 0 ? "Please enter a value " : ""}
+                error={serveError}
                 labelClassName="serves"
                 htmlFor="serves"
                 labelId="serves"
               />
             </div>
-            <div className="col-md-5 py-3">
+            <div className="col-md-5 py-3" id="time">
               <Counter
                 heading="Time"
                 value={time}
                 onChange={(value) => setTime(value)}
                 icon="timer"
-                error={serves === 0 ? "Please enter a value " : ""}
+                error={timeError}
                 labelClassName="time"
                 htmlFor="time"
                 labelId="time"
               />
+              {timeError && <div className="invalid-feedback">{timeError}</div>}
             </div>
           </div>
 
@@ -512,12 +560,13 @@ function RecipeForm() {
           </div>
         </section>
         <section className="categories px-5 py-3 mb-3">
-          <div className="py-3">
+          <div className="py-3" id="category">
             <Select
               heading="Categories"
               onSelectOption={handleCategorySelect}
               selectedOption={selectedCategory}
               endpoint="http://localhost:8000/api/categories"
+              error={categoryError}
               selectId="categories"
               labelClassName="categories"
               htmlFor="categories"

@@ -76,7 +76,7 @@ const Counter: React.FC<CounterProps> = ({
         </div>
         <input
           type="text"
-          className={`form-control rounded-5 text-left px-4${
+          className={`form-control rounded-5 text-left px-4 ${
             error ? "is-invalid" : ""
           }`}
           value={value}
