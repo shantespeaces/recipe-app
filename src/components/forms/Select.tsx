@@ -9,6 +9,7 @@ interface SelectProps {
   onSelectOption: (optionId: number, optionName: string) => void;
   // API endpoint for fetching options
   endpoint: string;
+  error?: string;
   selectId: string;
   labelClassName: string;
   htmlFor: string;
@@ -26,6 +27,7 @@ function Select({
   selectedOption,
   onSelectOption,
   endpoint,
+  error,
   selectId,
   labelClassName,
   htmlFor,
@@ -55,7 +57,9 @@ function Select({
       </label>
       <select
         id={selectId}
-        className="form-select rounded-5 "
+        className={`form-select rounded-5 ${
+          error ? "is-invalid" : ""
+        }`}
         aria-label={`Select ${heading.toLowerCase()}`}
         value={selectedOption || ""}
         onChange={handleSelectChange}
@@ -73,6 +77,7 @@ function Select({
           </option>
         ))}
       </select>
+      {error && <div className="invalid-feedback">{error}</div>}
     </>
   );
 }

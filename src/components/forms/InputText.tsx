@@ -43,6 +43,7 @@ function InputText({
           fontSize: "18px",
         }}
       />
+      {error && <div className="invalid-feedback">{error}</div>}
     </>
   );
 }
