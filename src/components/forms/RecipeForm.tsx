@@ -225,7 +225,7 @@ function RecipeForm() {
 
   //state for section title increment
   const [sectionCount, setSectionCount] = useState(1); // Initial count of 1
-
+  const [isSectionSaved, setIsSectionSaved] = useState(false);
   // function to handle the creation of a section (Save section Button)
   const handleCreateSections = () => {
     // Check if section title exists
@@ -286,6 +286,8 @@ function RecipeForm() {
     setToggleCreateSectionBtn(true);
     setToggleSaveSectionBtn(false);
     setToggleAddIngredientBtn(false);
+
+    setIsSectionSaved(true);
   };
 
   //state to toggle visibility of form elements
@@ -332,6 +334,7 @@ function RecipeForm() {
   const [serveError, setServeError] = useState("");
   const [timeError, setTimeError] = useState("");
   const [categoryError, setCategoryError] = useState("");
+  const [isSectionSavedError, setIsSectionSavedError] = useState("");
 
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
@@ -367,6 +370,13 @@ function RecipeForm() {
         resetErrors();
         setCategoryError("Please select a category for the recipe");
         scrollTo("category");
+        return;
+      }
+
+      if (!isSectionSaved) {
+        resetErrors();
+        setIsSectionSavedError("Please save your section before preceeding");
+        scrollTo("");
         return;
       }
 
@@ -696,6 +706,7 @@ function RecipeForm() {
                   <ButtonMore
                     name="Save Section"
                     onClick={handleCreateSections}
+                    error={isSectionSavedError}
                   />
                 </div>
               </div>
