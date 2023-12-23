@@ -397,7 +397,7 @@ function RecipeForm() {
       formData.append("rating", String(selectedRating));
 
       // Check if an image has been selected
-      if (!selectedImage) {      
+      if (selectedImage) {      
           formData.append("image", selectedImage!);
       }
 
