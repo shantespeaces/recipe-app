@@ -74,7 +74,7 @@ function RecipeForm() {
   // State for selected image
   const [selectedImage, setSelectedImage] = useState<File | null>();
   const [defaultImage, setDefaultImage] = useState<File | null>();
-  const defaultImagePath = "public/images/logo.png";
+  const defaultImagePath = "/images/logo.png";
   // Function to handle image upload
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
     const fichier = e.target.files?.[0];
@@ -397,11 +397,8 @@ function RecipeForm() {
       formData.append("rating", String(selectedRating));
 
       // Check if an image has been selected
-      if (!selectedImage) {
-        // If no image is selected, use a default image path
-        formData.append("defaultImage", defaultImagePath); // Replace with your default image path in your server
-      } else if (selectedImage) {
-        formData.append("selectedImage", selectedImage!);
+      if (!selectedImage) {      
+          formData.append("image", selectedImage!);
       }
 
       // // Check if an image has been selected
@@ -420,7 +417,6 @@ function RecipeForm() {
       );
 
       // Get the recipe ID from the response
-
       const createdRecipeId = Array.isArray(
         introResponse.data.success.insert_id
       )
@@ -434,9 +430,11 @@ function RecipeForm() {
 
       // Construct static file name and update image name for recipe
 
-      await axios.post(`http://localhost:8000/api/recipes/${createdRecipeId}`, {
-        image: `/img/recipes/${createdRecipeId}/512x512.jpg`,
-      });
+        const imagePath = selectedImage ? 
+          { image: `/img/recipes/${createdRecipeId}/512x512.jpg` } :
+          { image: '/images/logo.png'}
+
+      await axios.post(`http://localhost:8000/api/recipes/${createdRecipeId}`, imagePath);
 
       // Submit Sub Categories
       for (let subcategory of selectedSubCategories) {
